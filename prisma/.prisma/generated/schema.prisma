@@ -38,10 +38,10 @@ model User {
   favoriteSuppliers    FavoriteSupplier[]
   notifications        Notification[]
   statusUpdates        StatusHistory[]
-  cancellationRequests Cancellation[]     @relation("CancellationRequester") // CORREÇÃO: Alterado de Order[] para Cancellation[] e nome da relação
+  cancellationRequests Cancellation[]     @relation("CancellationRequester")
   reviewResponses      Review[]           @relation("ReviewResponder")
-  helpfulReviews       HelpfulReview[] // CORREÇÃO: Adicionado campo de volta para HelpfulReview
-  abuseReports         AbuseReport[] // CORREÇÃO: Adicionado campo de volta para AbuseReport
+  helpfulReviews       HelpfulReview[]
+  abuseReports         AbuseReport[]
 
   @@map("users")
 }
