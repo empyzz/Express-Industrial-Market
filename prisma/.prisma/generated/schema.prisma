@@ -1,0 +1,616 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./.prisma/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String    @id @default(cuid())
+  name                 String
+  email                String    @unique
+  password             String
+  userType             UserType
+  phone                String?
+  avatar               String?   @default("/images/default-avatar.png")
+  isActive             Boolean   @default(true)
+  emailVerified        Boolean   @default(false)
+  resetPasswordToken   String?
+  resetPasswordExpires DateTime?
+  lastLogin            DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  company              Company?
+  orders               Order[]            @relation("BuyerOrders")
+  quotations           Quotation[]        @relation("BuyerQuotations")
+  reviews              Review[]
+  favoriteProducts     FavoriteProduct[]
+  favoriteSuppliers    FavoriteSupplier[]
+  notifications        Notification[]
+  statusUpdates        StatusHistory[]
+  cancellationRequests Cancellation[]     @relation("CancellationRequester") // CORREÇÃO: Alterado de Order[] para Cancellation[] e nome da relação
+  reviewResponses      Review[]           @relation("ReviewResponder")
+  helpfulReviews       HelpfulReview[] // CORREÇÃO: Adicionado campo de volta para HelpfulReview
+  abuseReports         AbuseReport[] // CORREÇÃO: Adicionado campo de volta para AbuseReport
+
+  @@map("users")
+}
+
+enum UserType {
+  BUYER
+  SUPPLIER
+}
+
+// ---------------------------------
+//        Model de Empresas
+// ---------------------------------
+model Company {
+  id                String      @id @default(cuid())
+  razaoSocial       String
+  nomeFantasia      String?
+  cnpj              String      @unique
+  inscricaoEstadual String?
+  companyType       CompanyType
+  phone             String
+  whatsapp          String?
+  email             String
+  website           String?
+  description       String?     @db.Text
+  logo              String?     @default("/images/default-company-logo.png")
+  banner            String?
+  ratingAverage     Float       @default(0)
+  ratingCount       Int         @default(0)
+  totalOrders       Int         @default(0)
+  totalProducts     Int         @default(0)
+  totalQuotations   Int         @default(0)
+  isActive          Boolean     @default(true)
+  isVerified        Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relacionamentos
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  address              Address?
+  businessHours        Json?
+  documents            CompanyDocument[]
+  categories           CompanyCategory[]
+  products             Product[]
+  ordersAsBuyer        Order[]             @relation("BuyerCompanyOrders")
+  ordersAsSupplier     Order[]             @relation("SupplierOrders")
+  quotationsAsBuyer    Quotation[]         @relation("BuyerCompanyQuotations")
+  quotationsAsSupplier QuotationSupplier[]
+  reviews              Review[]
+  favoritedBy          FavoriteSupplier[]
+  selectedQuotations   Quotation[] // CORREÇÃO: Adicionado campo de volta para selectedSupplier
+
+  @@map("companies")
+}
+
+enum CompanyType {
+  BUYER
+  SUPPLIER
+}
+
+// ---------------------------------
+//        Model de Produtos
+// ---------------------------------
+model Product {
+  id               String    @id @default(cuid())
+  name             String
+  slug             String    @unique
+  description      String    @db.Text
+  shortDescription String?
+  price            Decimal   @db.Decimal(10, 2)
+  compareAtPrice   Decimal?  @db.Decimal(10, 2)
+  stockQuantity    Int       @default(0)
+  minQuantity      Int       @default(1)
+  unit             String    @default("un")
+  ncm              String?
+  weight           Float?
+  length           Float?
+  width            Float?
+  height           Float?
+  isActive         Boolean   @default(true)
+  isFeatured       Boolean   @default(false)
+  views            Int       @default(0)
+  favorites        Int       @default(0)
+  sales            Int       @default(0)
+  seoTitle         String?
+  seoDescription   String?
+  tags             String[]
+  deletedAt        DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  supplier   Company  @relation(fields: [supplierId], references: [id])
+  supplierId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  specifications Json?
+  images         ProductImage[]
+  documents      ProductDocument[]
+  orderItems     OrderItem[]
+  quotationItems QuotationItem[]
+  favoritedBy    FavoriteProduct[]
+
+  @@map("products")
+}
+
+// ---------------------------------
+//        Model de Pedidos
+// ---------------------------------
+model Order {
+  id                   String        @id @default(cuid())
+  orderNumber          String        @unique
+  subtotal             Decimal       @db.Decimal(10, 2)
+  shippingCost         Decimal       @default(0) @db.Decimal(10, 2)
+  discount             Decimal       @default(0) @db.Decimal(10, 2)
+  tax                  Decimal       @default(0) @db.Decimal(10, 2)
+  totalAmount          Decimal       @db.Decimal(10, 2)
+  paymentMethod        PaymentMethod
+  paymentStatus        PaymentStatus @default(PENDING)
+  paymentInstallments  Int           @default(1)
+  paymentTransactionId String?
+  paymentProof         String?
+  paidAt               DateTime?
+  status               OrderStatus   @default(PENDING)
+  buyerNotes           String?       @db.Text
+  supplierNotes        String?       @db.Text
+  internalNotes        String?       @db.Text
+  hasReview            Boolean       @default(false)
+  confirmedAt          DateTime?
+  cancelledAt          DateTime?
+  estimatedDelivery    DateTime?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+
+  buyer          User       @relation("BuyerOrders", fields: [buyerId], references: [id])
+  buyerId        String
+  buyerCompany   Company    @relation("BuyerCompanyOrders", fields: [buyerCompanyId], references: [id])
+  buyerCompanyId String
+  supplier       Company    @relation("SupplierOrders", fields: [supplierId], references: [id])
+  supplierId     String
+  quotation      Quotation? @relation(fields: [quotationId], references: [id])
+  quotationId    String?    @unique
+
+  deliveryAddress Address?
+  shipping        ShippingInfo?
+  items           OrderItem[]
+  statusHistory   StatusHistory[]
+  documents       OrderDocument[]
+  invoice         Invoice?
+  cancellation    Cancellation?
+  review          Review?
+
+  @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  READY_TO_SHIP
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  BOLETO
+  CARTAO
+  PIX
+  TRANSFERENCIA
+  A_PRAZO
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REFUNDED
+}
+
+// ---------------------------------
+//        Model de Cotações
+// ---------------------------------
+model Quotation {
+  id                  String            @id @default(cuid())
+  quotationNumber     String            @unique
+  title               String
+  description         String            @db.Text
+  deliveryDeadline    DateTime?
+  paymentPreference   PaymentPreference @default(A_NEGOCIAR)
+  status              QuotationStatus   @default(DRAFT)
+  validUntil          DateTime
+  sentAt              DateTime?
+  completedAt         DateTime?
+  cancelledAt         DateTime?
+  internalNotes       String?           @db.Text
+  totalResponses      Int               @default(0)
+  averageResponseTime Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  buyer              User     @relation("BuyerQuotations", fields: [buyerId], references: [id])
+  buyerId            String
+  buyerCompany       Company  @relation("BuyerCompanyQuotations", fields: [buyerCompanyId], references: [id])
+  buyerCompanyId     String
+  selectedSupplier   Company? @relation(fields: [selectedSupplierId], references: [id])
+  selectedSupplierId String?
+
+  deliveryAddress  Address?
+  items            QuotationItem[]
+  suppliers        QuotationSupplier[]
+  attachments      QuotationAttachment[]
+  convertedToOrder Order?
+
+  @@map("quotations")
+}
+
+enum QuotationStatus {
+  DRAFT
+  SENT
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  EXPIRED
+}
+
+enum PaymentPreference {
+  BOLETO
+  CARTAO
+  PIX
+  TRANSFERENCIA
+  A_NEGOCIAR
+}
+
+// ---------------------------------
+//        Model de Avaliações
+// ---------------------------------
+model Review {
+  id                      String    @id @default(cuid())
+  rating                  Int       @db.SmallInt
+  comment                 String    @db.Text
+  pros                    String[]
+  cons                    String[]
+  wouldRecommend          Boolean
+  ratingProductQuality    Int?      @db.SmallInt
+  ratingDeliveryTime      Int?      @db.SmallInt
+  ratingCustomerService   Int?      @db.SmallInt
+  ratingValueForMoney     Int?      @db.SmallInt
+  supplierResponseComment String?   @db.Text
+  supplierRespondedAt     DateTime?
+  helpfulCount            Int       @default(0)
+  isApproved              Boolean   @default(true)
+  isVisible               Boolean   @default(true)
+  isVerifiedPurchase      Boolean   @default(true)
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  order                 Order   @relation(fields: [orderId], references: [id])
+  orderId               String  @unique
+  buyer                 User    @relation(fields: [buyerId], references: [id])
+  buyerId               String
+  company               Company @relation(fields: [companyId], references: [id])
+  companyId             String
+  supplierRespondedBy   User?   @relation("ReviewResponder", fields: [supplierRespondedById], references: [id])
+  supplierRespondedById String?
+
+  images       ReviewImage[]
+  helpfulUsers HelpfulReview[]
+  reports      AbuseReport[]
+
+  @@map("reviews")
+}
+
+// ---------------------------------
+//       Model de Categorias
+// ---------------------------------
+model Category {
+  id            String   @id @default(cuid())
+  name          String   @unique
+  slug          String   @unique
+  description   String?
+  icon          String?
+  image         String?
+  isActive      Boolean  @default(true)
+  order         Int      @default(0)
+  productsCount Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  parent        Category?  @relation("SubCategories", fields: [parentId], references: [id])
+  parentId      String?
+  subcategories Category[] @relation("SubCategories")
+
+  products  Product[]
+  companies CompanyCategory[]
+
+  @@map("categories")
+}
+
+// =================================================================
+//                 MODELOS DE SUPORTE E RELACIONAMENTO
+// =================================================================
+
+model Address {
+  id           String  @id @default(cuid())
+  street       String
+  number       String
+  complement   String?
+  neighborhood String
+  city         String
+  state        String
+  cep          String
+  recipient    String?
+  phone        String?
+
+  company     Company?   @relation(fields: [companyId], references: [id])
+  companyId   String?    @unique
+  order       Order?     @relation(fields: [orderId], references: [id])
+  orderId     String?    @unique
+  quotation   Quotation? @relation(fields: [quotationId], references: [id])
+  quotationId String?    @unique
+
+  @@map("addresses")
+}
+
+model OrderItem {
+  id             String  @id @default(cuid())
+  productName    String
+  quantity       Int
+  unitPrice      Decimal @db.Decimal(10, 2)
+  totalPrice     Decimal @db.Decimal(10, 2)
+  specifications String? @db.Text
+
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  @@map("order_items")
+}
+
+model QuotationItem {
+  id             String  @id @default(cuid())
+  quantity       Int
+  specifications String? @db.Text
+
+  quotation   Quotation @relation(fields: [quotationId], references: [id])
+  quotationId String
+  product     Product   @relation(fields: [productId], references: [id])
+  productId   String
+
+  @@map("quotation_items")
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  alt       String?
+  isPrimary Boolean @default(false)
+  order     Int     @default(0)
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  @@map("product_images")
+}
+
+model ProductDocument {
+  id         String   @id @default(cuid())
+  name       String
+  url        String
+  type       String
+  uploadedAt DateTime @default(now())
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  @@map("product_documents")
+}
+
+model OrderDocument {
+  id         String   @id @default(cuid())
+  type       String
+  filename   String
+  url        String
+  uploadedAt DateTime @default(now())
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+
+  @@map("order_documents")
+}
+
+model CompanyDocument {
+  id         String   @id @default(cuid())
+  type       String
+  filename   String
+  url        String
+  uploadedAt DateTime @default(now())
+
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+
+  @@map("company_documents")
+}
+
+model ReviewImage {
+  id  String  @id @default(cuid())
+  url String
+  alt String?
+
+  review   Review @relation(fields: [reviewId], references: [id])
+  reviewId String
+
+  @@map("review_images")
+}
+
+model QuotationAttachment {
+  id         String   @id @default(cuid())
+  filename   String
+  url        String
+  uploadedAt DateTime @default(now())
+
+  quotation   Quotation @relation(fields: [quotationId], references: [id])
+  quotationId String
+
+  @@map("quotation_attachments")
+}
+
+model CompanyCategory {
+  company    Company  @relation(fields: [companyId], references: [id])
+  companyId  String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  @@id([companyId, categoryId])
+  @@map("company_categories")
+}
+
+model QuotationSupplier {
+  id         String    @id @default(cuid())
+  status     String    @default("pending")
+  viewedAt   DateTime?
+  answeredAt DateTime?
+  response   Json?
+
+  quotation   Quotation @relation(fields: [quotationId], references: [id])
+  quotationId String
+  supplier    Company   @relation(fields: [supplierId], references: [id])
+  supplierId  String
+
+  @@map("quotation_suppliers")
+}
+
+model FavoriteProduct {
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  addedAt   DateTime @default(now())
+
+  @@id([userId, productId])
+  @@map("favorite_products")
+}
+
+model FavoriteSupplier {
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  supplier   Company  @relation(fields: [supplierId], references: [id])
+  supplierId String
+  addedAt    DateTime @default(now())
+
+  @@id([userId, supplierId])
+  @@map("favorite_suppliers")
+}
+
+model HelpfulReview {
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  review   Review @relation(fields: [reviewId], references: [id])
+  reviewId String
+
+  @@id([userId, reviewId])
+  @@map("helpful_reviews")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String
+  title     String
+  message   String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("notifications")
+}
+
+model StatusHistory {
+  id      String   @id @default(cuid())
+  status  String
+  date    DateTime @default(now())
+  comment String?
+
+  order       Order   @relation(fields: [orderId], references: [id])
+  orderId     String
+  updatedBy   User?   @relation(fields: [updatedById], references: [id])
+  updatedById String?
+
+  @@map("status_history")
+}
+
+model ShippingInfo {
+  id                String    @id @default(cuid())
+  method            String?
+  trackingCode      String?
+  estimatedDelivery DateTime?
+  shippedAt         DateTime?
+  deliveredAt       DateTime?
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String @unique
+
+  @@map("shipping_info")
+}
+
+model Invoice {
+  id        String    @id @default(cuid())
+  number    String?
+  key       String?
+  issueDate DateTime?
+  url       String?
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String @unique
+
+  @@map("invoices")
+}
+
+model Cancellation {
+  id          String    @id @default(cuid())
+  requestedAt DateTime?
+  reason      String?
+  approvedAt  DateTime?
+  refundedAt  DateTime?
+
+  order         Order  @relation(fields: [orderId], references: [id])
+  orderId       String @unique
+  requestedBy   User   @relation("CancellationRequester", fields: [requestedById], references: [id])
+  requestedById String
+
+  @@map("cancellations")
+}
+
+model AbuseReport {
+  id         String   @id @default(cuid())
+  reason     String
+  reportedAt DateTime @default(now())
+
+  review   Review @relation(fields: [reviewId], references: [id])
+  reviewId String
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+
+  @@map("abuse_reports")
+}

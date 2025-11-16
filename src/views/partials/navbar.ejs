@@ -1,0 +1,82 @@
+<header class="header">
+
+    <div class="header__top-bar">
+        <div class="container">
+            <span>O maior portal industrial da América Latina</span>
+            <% if (currentUser) { %>
+                <span>Olá, <%= currentUser.name %>!</span>
+            <% } else { %>
+                <a href="/contact">Fale Conosco</a>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Header Principal -->
+    <div class="header__main">
+        <div class="container">
+            
+            <!-- Logo -->
+            <a href="/" class="header__logo">
+                Marketplace Industrial
+            </a>
+
+            <!-- Barra de Pesquisa -->
+            <form action="/search" method="GET" class="header__search">
+                <input type="text" name="q" class="header__search-input" placeholder="Buscar por produtos, categorias ou fornecedores..." required>
+                <button type="submit" class="header__search-button">Buscar</button>
+            </form>
+
+            <!-- Navegação e Ações do Usuário -->
+            <nav class="header__nav">
+                <ul>
+                    <% if (!currentUser) { %>
+                        <!-- Menu para Visitantes -->
+                        <li><a href="/catalog">Catálogo</a></li>
+                        <li><a href="/suppliers">Fornecedores</a></li>
+                        <li><a href="/auth/login" class="btn btn--outline">Entrar</a></li>
+                        <li><a href="/auth/register" class="btn btn--primary">Cadastre-se</a></li>
+                    <% } else { %>
+                        <!-- Menu para Usuários Logados -->
+                        <% if (currentUser.userType === 'BUYER') { %>
+                            <li><a href="/buyer/dashboard">Dashboard</a></li>
+                            <li><a href="/buyer/orders">Meus Pedidos</a></li>
+                        <% } else if (currentUser.userType === 'SUPPLIER') { %>
+                            <li><a href="/supplier/dashboard">Dashboard</a></li>
+                            <li><a href="/products">Meus Produtos</a></li>
+                        <% } %>
+                        
+                        <!-- Ícone de Notificações -->
+                        <li>
+                            <a href="/notifications" aria-label="Notificações">
+                                <!-- Você pode adicionar um ícone de sino aqui -->
+                                Notificações
+                                <% if (currentUser.notifications && currentUser.notifications.filter(n => !n.read).length > 0) { %>
+                                    <span class="notification-badge"><%= currentUser.notifications.filter(n => !n.read).length %></span>
+                                <% } %>
+                            </a>
+                        </li>
+
+                        <!-- Dropdown do Usuário -->
+                        <li class="user-dropdown">
+                            <a href="#" class="user-dropdown__toggle">
+                                Minha Conta
+                                <!-- Adicione um ícone de seta para baixo aqui -->
+                            </a>
+                            <div class="user-dropdown__menu">
+                                <a href="/auth/profile">Meu Perfil</a>
+                                <a href="/auth/favorites">Favoritos</a>
+                                <% if (currentUser.userType === 'BUYER') { %>
+                                    <a href="/buyer/profile">Minha Empresa</a>
+                                <% } else { %>
+                                    <a href="/supplier/profile">Perfil da Loja</a>
+                                <% } %>
+                                <hr>
+                                <a href="/auth/logout">Sair</a>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
