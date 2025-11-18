@@ -10,12 +10,40 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/auth.css">
 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <!-- Header/Navbar -->
+
+        <%- include('../partials/navbar') %>
+
+    <% if (success_msg && success_msg.length > 0) { %>
+        <div class="alert alert--success">
+            <i class="fas fa-check-circle"></i>
+            <% success_msg.forEach(msg => { %>
+                <p><%= msg %></p>
+            <% }) %>
+            <button class="close-alert">&times;</button>
+        </div>
+    <% } %>
+
+    
+    <% if (error_msg && error_msg.length > 0) { %>
+        <div class="alert alert--error">
+            <i class="fas fa-exclamation-circle"></i>
+            <% error_msg.forEach(msg => { %>
+                <p><%= msg %></p>
+            <% }) %>
+            <button class="close-alert">&times;</button>
+        </div>
+    <% } %>
 
     <!-- Main Content -->
     <main class="main-content">

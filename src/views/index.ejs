@@ -1,141 +1,104 @@
-<div class="alert alert-success">✅ Bem-vindo ao marketplace!</div>
-    <div class="alert alert-error">❌ Algo deu errado (erro de teste)</div>
-
     <!-- STATS -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🏢</div>
-                    <h3>120+</h3>
-                    <p>Fornecedores</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">📦</div>
-                    <h3>8500+</h3>
-                    <p>Produtos</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">📋</div>
-                    <h3>430+</h3>
-                    <p>Cotações</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⭐</div>
-                    <h3>98%</h3>
-                    <p>Satisfação</p>
-                </div>
+    <main>
+        <!-- Seção Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero__title">O Ponto de Encontro da Indústria</h1>
+                <p class="hero__subtitle">Encontre tudo o que sua empresa precisa, de peças a equipamentos, com os melhores fornecedores do mercado.</p>
+                <a href="/catalog" class="btn btn--secondary btn--large">Explorar Catálogo de Produtos</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CATEGORIES -->
-    <section class="categories-section">
-        <div class="container">
-            <h2 class="section-title">Categorias</h2>
-            
-            <div class="categories-grid">
-                <a href="#" class="category-card">
-                    <div class="category-icon">⚙️</div>
-                    <h3>Peças Industriais</h3>
-                </a>
-                <a href="#" class="category-card">
-                    <div class="category-icon">🔌</div>
-                    <h3>Elétrica</h3>
-                </a>
-                <a href="#" class="category-card">
-                    <div class="category-icon">🛠️</div>
-                    <h3>Ferramentas</h3>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURED PRODUCTS -->
-    <section class="products-section">
-        <div class="container">
-            <h2 class="section-title">Produtos em Destaque</h2>
-            
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-badge">NOVO</div>
-                        <img src="https://via.placeholder.com/250" alt="Produto">
+        <!-- Seção de Estatísticas -->
+        <section class="section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card__value">120+</div>
+                        <p class="stat-card__label">Fornecedores Qualificados</p>
                     </div>
-                    <div class="product-content">
-                        <h3>Motor Industrial XP-5000</h3>
-                        <p class="product-description">Motor resistente para aplicações pesadas...</p>
-                        <div class="product-price">R$ 2.500,00</div>
-                        <div class="product-meta">
-                            <span class="badge-status disponível">Disponível</span>
-                            <span style="color: var(--gray);">📦 32 un</span>
-                        </div>
-                        <a href="/produtos/1" class="btn-view-product">VER DETALHES</a>
+                    <div class="stat-card">
+                        <div class="stat-card__value">8.500+</div>
+                        <p class="stat-card__label">Produtos Cadastrados</p>
                     </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://via.placeholder.com/250" alt="Produto">
+                    <div class="stat-card">
+                        <div class="stat-card__value">430+</div>
+                        <p class="stat-card__label">Cotações Realizadas</p>
                     </div>
-                    <div class="product-content">
-                        <h3>Correia de Borracha Premium</h3>
-                        <p class="product-description">Ideal para linhas de transporte industriais...</p>
-                        <div class="product-price">R$ 180,00</div>
-                        <div class="product-meta">
-                            <span class="badge-status indisponível">Indisponível</span>
-                            <span style="color: var(--gray);">📦 0 un</span>
-                        </div>
-                        <a href="/produtos/2" class="btn-view-product">VER DETALHES</a>
+                    <div class="stat-card">
+                        <div class="stat-card__value">98%</div>
+                        <p class="stat-card__label">Índice de Satisfação</p>
                     </div>
                 </div>
             </div>
-            
-            <div class="text-center">
-                <a href="/produtos" class="btn btn-primary btn-large">VER TODOS OS PRODUTOS</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FEATURED SUPPLIERS -->
-    <section class="suppliers-section">
-        <div class="container">
-            <h2 class="section-title">Fornecedores em Destaque</h2>
-            
-            <div class="suppliers-grid">
-                <div class="supplier-card">
-                    <div class="supplier-header">
-                        <div class="supplier-logo">🏢</div>
-                        <div class="supplier-info">
-                            <h3>Metalúrgica Brasil Ltda</h3>
-                            <div class="rating">⭐⭐⭐⭐⭐ (5.0)</div>
-                        </div>
-                    </div>
-                    <p class="supplier-location">📍 Curitiba, PR</p>
-                    <p class="supplier-location">📞 (41) 99888-7777</p>
-                    <a href="/fornecedores/1" class="btn btn-outline" style="width: 100%; margin-top: 10px;">
-                        VER PERFIL
+        <!-- Seção de Categorias -->
+        <section class="section" style="background-color: var(--color-surface);">
+            <div class="container">
+                <h2 class="section__title">Navegue por Categorias</h2>
+                <div class="categories-grid">
+                    <a href="/categories/pecas" class="category-card">
+                        <div class="category-card__icon">⚙️</div>
+                        <h3 class="category-card__name">Peças Industriais</h3>
                     </a>
-                </div>
-
-                <div class="supplier-card">
-                    <div class="supplier-header">
-                        <div class="supplier-logo">🏢</div>
-                        <div class="supplier-info">
-                            <h3>Indústria Forte S/A</h3>
-                            <div class="rating">⭐⭐⭐⭐☆ (4.2)</div>
-                        </div>
-                    </div>
-                    <p class="supplier-location">📍 São Paulo, SP</p>
-                    <p class="supplier-location">📞 (11) 95555-6666</p>
-                    <a href="/fornecedores/2" class="btn btn-outline" style="width: 100%; margin-top: 10px;">
-                        VER PERFIL
+                    <a href="/categories/eletrica" class="category-card">
+                        <div class="category-card__icon">🔌</div>
+                        <h3 class="category-card__name">Componentes Elétricos</h3>
+                    </a>
+                    <a href="/categories/ferramentas" class="category-card">
+                        <div class="category-card__icon">🛠️</div>
+                        <h3 class="category-card__name">Ferramentas e Usinagem</h3>
+                    </a>
+                    <a href="/categories/seguranca" class="category-card">
+                        <div class="category-card__icon">🛡️</div>
+                        <h3 class="category-card__name">Segurança (EPI)</h3>
                     </a>
                 </div>
             </div>
-            
-            <div class="text-center">
-                <a href="/fornecedores" class="btn btn-primary btn-large">VER TODOS OS FORNECEDORES</a>
+        </section>
+
+        <!-- Seção de Produtos em Destaque -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section__title">Produtos em Destaque</h2>
+                <div class="products-grid">
+                    <!-- Card de Produto 1 -->
+                    <div class="product-card">
+                        <a href="/produtos/1" class="product-card__image">
+                            <img src="https://via.placeholder.com/300x220/EBF4FF/808080?text=Produto+1" alt="Motor Industrial XP-5000">
+                        </a>
+                        <div class="product-card__content">
+                            <h3 class="product-card__name">Motor Industrial XP-5000</h3>
+                            <p class="product-card__supplier">por Metalúrgica Brasil</p>
+                            <div class="product-card__footer">
+                                <span class="product-card__price">R$ 2.500</span>
+                                <a href="/produtos/1" class="btn btn--secondary">Ver Mais</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Produto 2 -->
+                    <div class="product-card">
+                        <a href="/produtos/2" class="product-card__image">
+                            <img src="https://via.placeholder.com/300x220/EBF4FF/808080?text=Produto+2" alt="Correia de Borracha Premium">
+                        </a>
+                        <div class="product-card__content">
+                            <h3 class="product-card__name">Correia de Borracha Premium</h3>
+                            <p class="product-card__supplier">por Indústria Forte S/A</p>
+                            <div class="product-card__footer">
+                                <span class="product-card__price">R$ 180</span>
+                                <a href="/produtos/2" class="btn btn--secondary">Ver Mais</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Adicione mais produtos aqui -->
+
+                </div>
+                <div class="text-center" style="margin-top: 2.5rem;">
+                    <a href="/catalog" class="btn btn--primary btn--large">Ver Todos os Produtos</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>

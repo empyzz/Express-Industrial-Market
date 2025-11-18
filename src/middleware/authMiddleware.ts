@@ -1,14 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
+import { prisma } from "../lib/prisma";
 
-
-declare global {
-  namespace Express {
-    interface Request {
-      flash(type: string, message: string | string[]): void;
-    }
-  }
-}
 
 export const handleValidationErrors = (
   req: Request,
@@ -20,10 +13,10 @@ export const handleValidationErrors = (
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map((err) => err.msg);
 
-    req.flash("error_msg", errorMessages);
+    req.flash("error_msg", errorMessages + JSON.stringify(req.body));
     req.flash("formData", JSON.stringify(req.body));
 
-    res.redirect("back");
+    res.redirect("/auth/register");
     return;
   }
 
@@ -66,7 +59,7 @@ export const validateRegister = [
   body("userType")
     .notEmpty()
     .withMessage("Tipo de usuário é obrigatório")
-    .isIn(["buyer", "supplier"])
+    .isIn(["BUYER", "SUPPLIER"])
     .withMessage("Tipo de usuário inválido"),
 
   body("terms")
@@ -93,6 +86,181 @@ export const validateLogin = [
   handleValidationErrors,
 ];
 
+
+// Verificar se usuário está autenticado
+export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+  if (req.session?.user) {
+    return next();
+  }
+
+  req.flash("error_msg", "Por favor, faça login para acessar esta página.");
+  res.redirect("/auth/login");
+};
+
+
+export const isGuest = (req: Request, res: Response, next: NextFunction) => {
+  if (req.session?.user) {
+    const redirectPath = req.session.user.userType === "SUPPLIER" ? "/supplier/dashboard" : "/buyer/dashboard";
+    return res.redirect(redirectPath);
+  }
+  next();
+};
+
+
+// Verificar se é comprador
+export const isBuyer = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.session?.user.id) {
+    req.flash("error_msg", "Por favor, faça login para acessar esta página");
+    return res.redirect("/auth/login");
+  }
+
+  if (req.session.user.userType !== "BUYER") {
+    req.flash("error_msg", "Acesso negado. Esta área é exclusiva para compradores");
+    return res.redirect("/");
+  }
+
+  next();
+};
+
+// Verificar se é fornecedor
+export const isSupplier = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.session?.user.id) {
+    req.flash("error_msg", "Por favor, faça login para acessar esta página");
+    return res.redirect("/auth/login");
+  }
+
+  if (req.session.user.userType !== "SUPPLIER") {
+    req.flash("error_msg", "Acesso negado. Esta área é exclusiva para fornecedores");
+    return res.redirect("/");
+  }
+
+  next();
+};
+
+// Carregar dados do usuário logado
+export const loadUser = async (req: Request, res: Response, next: NextFunction) => {
+  res.locals.user = null;
+
+    if (req.path.startsWith('/css') || req.path.startsWith('/js') || req.path.includes('favicon.ico')) {
+    return next(); // Pula todo o middleware para arquivos estáticos | evitar double request
+  }
+  if (!req.session || !req.session.user ) {
+    console.log("No session or no user");
+    return next();
+  };
+  
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.session.user.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        userType: true,
+        lastLogin: true,
+        company: {
+          select: {
+            id: true,
+            razaoSocial: true,
+          },
+        },
+
+        },
+      })
+
+    if (!user) {
+      console.log("User got destroyed")
+      req.session.destroy(() => {});
+      return next();
+    }
+
+    // Atualizar último login se necessário
+    if (!user.lastLogin || Date.now() - user.lastLogin.getTime() > 3600000) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { lastLogin: new Date() },
+      });
+    }
+
+    if (user){
+      console.log("user exist", user.name)
+      res.locals.user = user;
+      res.locals.unreadNotifications = 0;
+    }
+
+  } catch (error) {
+    console.error("Erro ao carregar usuário no middleware:", error);
+  }
+
+  next();
+};
+
+// Verificar se usuário possui empresa cadastrada
+export const hasCompany = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.session?.user.id) {
+    req.flash("error_msg", "Por favor, faça login para acessar esta página");
+    return res.redirect("/auth/login");
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.session.user.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        company: {
+          select: {
+            id: true,
+            razaoSocial: true,
+          },
+        },
+      },
+    });
+    if (!user?.company) {
+      req.flash("error_msg", "Por favor, complete o cadastro da sua empresa primeiro");
+      return res.redirect("/auth/complete-profile");
+    }
+
+    req.session.user = user.company.id;
+    next();
+  } catch (error) {
+    console.error("Erro ao verificar empresa:", error);
+    req.flash("error_msg", "Erro ao verificar dados da empresa");
+    res.redirect("/");
+  }
+};
+
+
+// verificar autenticação, carregar usuário e conta ativa
+export const ensureAuthenticated = [isAuthenticated, loadUser];
+
+// Rate limiting simples
+export const rateLimiter = (maxRequests = 100, windowMs = 15 * 60 * 1000) => {
+  const requests = new Map<string, number[]>();
+
+  return (req: Request, res: Response, next: NextFunction) => {
+    const identifier = req.session?.user.id || req.ip;
+    const now = Date.now();
+
+    if (!requests.has(identifier)) requests.set(identifier, []);
+    const userRequests = requests.get(identifier) || [];
+    const recentRequests = userRequests.filter(time => now - time < windowMs);
+
+    if (recentRequests.length >= maxRequests) {
+      req.flash("error_msg", "Muitas requisições. Por favor, aguarde alguns minutos");
+      return res.status(429).redirect("back");
+    }
+
+    recentRequests.push(now);
+    requests.set(identifier, recentRequests);
+
+    // Limpar entradas antigas a cada 1000 usuários
+    if (requests.size > 1000) requests.clear();
+
+    next();
+  };
+};
 
 export const sanitizeInput = (
   req: Request,

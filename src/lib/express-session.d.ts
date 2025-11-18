@@ -1,11 +1,27 @@
 import "express-session";
+import "express";
+import { User, Company } from '@prisma/client';
+
 
 declare module "express-session" {
-  interface SessionData {
-    user?: {
-      id: string;
-      email: string;
-      name: string;
-    };
+  export interface SessionData {
+      user: User 
+    }
+  }
+
+declare global {
+  namespace Express {
+    interface Locals {
+      user: {
+        id: string;
+        name: string;
+        email: string;
+        userType?: string;
+        company?: any;
+        lastLogin: Date | null;
+      } | null;
+      unreadNotifications: number;
+    }
   }
 }
+

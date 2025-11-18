@@ -1,7 +1,7 @@
 @import url('./main.css');
 
 .hero {
-    background: linear-gradient(135deg, var(--color-primary), hsl(var(--primary-hue), 60%, 35%));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
     color: var(--color-text-inverse);
     padding: calc(var(--spacing-unit) * 12) 0;
     text-align: center;
