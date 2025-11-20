@@ -333,61 +333,9 @@ exports.Prisma.ProductImageScalarFieldEnum = {
   productId: 'productId'
 };
 
-exports.Prisma.ProductDocumentScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  url: 'url',
-  type: 'type',
-  uploadedAt: 'uploadedAt',
-  productId: 'productId'
-};
-
-exports.Prisma.OrderDocumentScalarFieldEnum = {
-  id: 'id',
-  type: 'type',
-  filename: 'filename',
-  url: 'url',
-  uploadedAt: 'uploadedAt',
-  orderId: 'orderId'
-};
-
-exports.Prisma.CompanyDocumentScalarFieldEnum = {
-  id: 'id',
-  type: 'type',
-  filename: 'filename',
-  url: 'url',
-  uploadedAt: 'uploadedAt',
-  companyId: 'companyId'
-};
-
-exports.Prisma.ReviewImageScalarFieldEnum = {
-  id: 'id',
-  url: 'url',
-  alt: 'alt',
-  reviewId: 'reviewId'
-};
-
-exports.Prisma.QuotationAttachmentScalarFieldEnum = {
-  id: 'id',
-  filename: 'filename',
-  url: 'url',
-  uploadedAt: 'uploadedAt',
-  quotationId: 'quotationId'
-};
-
 exports.Prisma.CompanyCategoryScalarFieldEnum = {
   companyId: 'companyId',
   categoryId: 'categoryId'
-};
-
-exports.Prisma.QuotationSupplierScalarFieldEnum = {
-  id: 'id',
-  status: 'status',
-  viewedAt: 'viewedAt',
-  answeredAt: 'answeredAt',
-  response: 'response',
-  quotationId: 'quotationId',
-  supplierId: 'supplierId'
 };
 
 exports.Prisma.FavoriteProductScalarFieldEnum = {
@@ -444,24 +392,6 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   issueDate: 'issueDate',
   url: 'url',
   orderId: 'orderId'
-};
-
-exports.Prisma.CancellationScalarFieldEnum = {
-  id: 'id',
-  requestedAt: 'requestedAt',
-  reason: 'reason',
-  approvedAt: 'approvedAt',
-  refundedAt: 'refundedAt',
-  orderId: 'orderId',
-  requestedById: 'requestedById'
-};
-
-exports.Prisma.AbuseReportScalarFieldEnum = {
-  id: 'id',
-  reason: 'reason',
-  reportedAt: 'reportedAt',
-  reviewId: 'reviewId',
-  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -554,22 +484,14 @@ exports.Prisma.ModelName = {
   OrderItem: 'OrderItem',
   QuotationItem: 'QuotationItem',
   ProductImage: 'ProductImage',
-  ProductDocument: 'ProductDocument',
-  OrderDocument: 'OrderDocument',
-  CompanyDocument: 'CompanyDocument',
-  ReviewImage: 'ReviewImage',
-  QuotationAttachment: 'QuotationAttachment',
   CompanyCategory: 'CompanyCategory',
-  QuotationSupplier: 'QuotationSupplier',
   FavoriteProduct: 'FavoriteProduct',
   FavoriteSupplier: 'FavoriteSupplier',
   HelpfulReview: 'HelpfulReview',
   Notification: 'Notification',
   StatusHistory: 'StatusHistory',
   ShippingInfo: 'ShippingInfo',
-  Invoice: 'Invoice',
-  Cancellation: 'Cancellation',
-  AbuseReport: 'AbuseReport'
+  Invoice: 'Invoice'
 };
 
 /**

@@ -1,0 +1,97 @@
+<!-- Cabeçalho da Página -->
+<header class="dashboard-header">
+    <h1>Bem-vindo, <%= user.name.split(' ')[0] %>!</h1>
+    <p>Aqui está um resumo da atividade da sua loja.</p>
+    <p>Razão social: <%= company.razaoSocial  %></p>
+    <p>CNPJ: <%= company.cnpj %></p>
+</header>
+
+<!-- Cards de Estatísticas -->
+<section class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fa-solid fa-dollar-sign"></i></div>
+        <div class="stat-info">
+            <h3>R$ <%= stats.totalRevenue.toFixed(2).replace('.', ',') %></h3>
+            <p>Receita Total (Aprovada)</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i class="fa-solid fa-receipt"></i></div>
+        <div class="stat-info">
+            <h3><%= stats.totalOrders %></h3>
+            <p>Total de Pedidos Recebidos</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon indigo"><i class="fa-solid fa-box-archive"></i></div>
+        <div class="stat-info">
+            <h3><%= stats.totalProducts %></h3>
+            <p>Produtos Cadastrados</p>
+        </div>
+    </div>
+</section>
+
+<!-- Ações Rápidas -->
+<section class="quick-actions">
+    <h2>Ações Rápidas</h2>
+    <div class="actions-grid">
+        <a href="/supplier/products/new" class="action-card">
+            <i class="fa-solid fa-plus"></i>
+            <span>Adicionar Produto</span>
+        </a>
+        <a href="/supplier/products" class="action-card">
+            <i class="fa-solid fa-box-open"></i>
+            <span>Ver Produtos</span>
+        </a>
+        <a href="/supplier/profile" class="action-card">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>Editar Perfil da Loja</span>
+        </a>
+    </div>
+</section>
+
+<!-- Pedidos Recentes -->
+<section class="dashboard-section">
+    <div class="section-header">
+        <h2>Pedidos Recentes</h2>
+        <a href="/supplier/orders" class="btn-link">Ver Todos</a>
+    </div>
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Data</th>
+                    <th>Comprador</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (recentOrders.length > 0) { %>
+                    <% recentOrders.forEach(order => { %>
+                        <tr>
+                            <td><strong>#<%= order.orderNumber %></strong></td>
+                            <td><%= new Date(order.createdAt).toLocaleDateString('pt-BR') %></td>
+                            <td><%= order.buyer.name %></td>
+                            <td>R$ <%= order.totalAmount.toFixed(2).replace('.', ',') %></td>
+                            <td><span class="badge badge-<%= order.status.toLowerCase() %>"><%= order.status %></span></td>
+                            <td>
+                                <a href="/supplier/orders/<%= order.id %>" class="btn-icon" title="Ver Detalhes">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <p>Nenhum pedido recebido ainda.</p>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import expressLayouts from "express-ejs-layouts";
+import methodOverride from 'method-override';
 import path from "path";
 import dotenv from "dotenv";
 import session from "express-session";
@@ -7,10 +8,11 @@ const flash = require("connect-flash");
 import { PrismaClient } from "../prisma/.prisma/generated";
 
 
-
+// Routes
 import { loadUser } from "./middleware/authMiddleware";
 import authRoutes from "./routes/authRoutes";
-
+import supplierRoutes from "./routes/supplierRoutes";
+import catalogRoutes from "./routes/catalogRoute";
 
 dotenv.config();
 
@@ -23,6 +25,8 @@ const app: Application = express();
 // Express config
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+
 
 // Set EJS as template engine
 app.set("view engine", "ejs");
@@ -63,6 +67,8 @@ app.use((req, res, next) => {
 
 // Login route
 app.use("/auth", authRoutes);
+app.use("/supplier", supplierRoutes);
+app.use("/catalog", catalogRoutes)
 
 // Home route
 app.get("/", async (req: Request, res: Response) => {

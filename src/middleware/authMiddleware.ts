@@ -3,26 +3,24 @@ import { body, validationResult } from "express-validator";
 import { prisma } from "../lib/prisma";
 
 
-export const handleValidationErrors = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
-  const errors = validationResult(req);
+export const handleValidationErrors = (redirectPath: string) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    const errorMessages = errors.array().map((err) => err.msg);
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map((err) => err.msg);
 
-    req.flash("error_msg", errorMessages + JSON.stringify(req.body));
-    req.flash("formData", JSON.stringify(req.body));
+      req.flash('error_msg', errorMessages);
+      req.flash('formData', JSON.stringify(req.body)); 
 
-    res.redirect("/auth/register");
-    return;
-  }
+      res.redirect(redirectPath);
+      return;
+    }
 
-  next();
+    // Se não houver erros, continua para o próximo middleware.
+    next();
+  };
 };
-
 
 export const validateRegister = [
   body("name")
@@ -68,7 +66,7 @@ export const validateRegister = [
     .isIn(["on", "true", "1"])
     .withMessage("Você deve aceitar os termos de uso"),
 
-  handleValidationErrors,
+  handleValidationErrors('/auth/register'),
 ];
 
 
@@ -83,7 +81,7 @@ export const validateLogin = [
 
   body("password").notEmpty().withMessage("Senha é obrigatória"),
 
-  handleValidationErrors,
+  handleValidationErrors('/auth/login'),
 ];
 
 
@@ -100,7 +98,7 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
 
 export const isGuest = (req: Request, res: Response, next: NextFunction) => {
   if (req.session?.user) {
-    const redirectPath = req.session.user.userType === "SUPPLIER" ? "/supplier/dashboard" : "/buyer/dashboard";
+    const redirectPath = req.session.user.userType === "SUPPLIER" ? "/supplier/dashboard" : "/";
     return res.redirect(redirectPath);
   }
   next();
@@ -124,13 +122,13 @@ export const isBuyer = (req: Request, res: Response, next: NextFunction) => {
 
 // Verificar se é fornecedor
 export const isSupplier = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.session?.user.id) {
-    req.flash("error_msg", "Por favor, faça login para acessar esta página");
+  if (!req.session?.user) {
+    req.flash("error_msg", "Por favor, faça login para acessar esta página.");
     return res.redirect("/auth/login");
   }
 
   if (req.session.user.userType !== "SUPPLIER") {
-    req.flash("error_msg", "Acesso negado. Esta área é exclusiva para fornecedores");
+    req.flash("error_msg", "Acesso negado. Esta área é exclusiva para fornecedores.");
     return res.redirect("/");
   }
 
@@ -142,10 +140,9 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
   res.locals.user = null;
 
     if (req.path.startsWith('/css') || req.path.startsWith('/js') || req.path.includes('favicon.ico')) {
-    return next(); // Pula todo o middleware para arquivos estáticos | evitar double request
+    return next();
   }
   if (!req.session || !req.session.user ) {
-    console.log("No session or no user");
     return next();
   };
   
@@ -162,6 +159,7 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
           select: {
             id: true,
             razaoSocial: true,
+            cnpj: true
           },
         },
 
@@ -187,7 +185,7 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
       res.locals.user = user;
       res.locals.unreadNotifications = 0;
     }
-
+    res.locals.currentPath = req.path; 
   } catch (error) {
     console.error("Erro ao carregar usuário no middleware:", error);
   }
@@ -197,40 +195,20 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
 
 // Verificar se usuário possui empresa cadastrada
 export const hasCompany = async (req: Request, res: Response, next: NextFunction) => {
-  if (!req.session?.user.id) {
-    req.flash("error_msg", "Por favor, faça login para acessar esta página");
+  const user = res.locals.user;
+
+  if (!user) {
+    req.flash("error_msg", "Por favor, faça login para acessar esta página.");
     return res.redirect("/auth/login");
   }
 
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: req.session.user.id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        company: {
-          select: {
-            id: true,
-            razaoSocial: true,
-          },
-        },
-      },
-    });
-    if (!user?.company) {
-      req.flash("error_msg", "Por favor, complete o cadastro da sua empresa primeiro");
-      return res.redirect("/auth/complete-profile");
-    }
-
-    req.session.user = user.company.id;
-    next();
-  } catch (error) {
-    console.error("Erro ao verificar empresa:", error);
-    req.flash("error_msg", "Erro ao verificar dados da empresa");
-    res.redirect("/");
+  if (user.company) {
+    return next();
   }
-};
 
+  req.flash("error_msg", "Por favor, complete o cadastro da sua empresa primeiro.");
+  return res.redirect("/auth/complete-profile");
+};
 
 // verificar autenticação, carregar usuário e conta ativa
 export const ensureAuthenticated = [isAuthenticated, loadUser];

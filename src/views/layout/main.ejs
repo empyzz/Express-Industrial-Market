@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/auth.css">
-
+    <link rel="stylesheet" href="/css/catalog.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,28 +22,33 @@
 
     <!-- Header/Navbar -->
 
-        <%- include('../partials/navbar') %>
+    <%- include('../partials/navbar') %>
 
-    <% if (success_msg && success_msg.length > 0) { %>
-        <div class="alert alert--success">
-            <i class="fas fa-check-circle"></i>
+    <div class="toast-container">
+        <% if (typeof success_msg !== 'undefined' && success_msg.length > 0) { %>
             <% success_msg.forEach(msg => { %>
-                <p><%= msg %></p>
+                <div class="alert alert--success">
+                    <i class="fas fa-check-circle alert__icon"></i>
+                    <div class="alert__content">
+                        <p><%= msg %></p>
+                    </div>
+                    <button class="alert__close" aria-label="Fechar">&times;</button>
+                </div>
             <% }) %>
-            <button class="close-alert">&times;</button>
-        </div>
-    <% } %>
-
-    
-    <% if (error_msg && error_msg.length > 0) { %>
-        <div class="alert alert--error">
-            <i class="fas fa-exclamation-circle"></i>
+        <% } %>
+        
+        <% if (typeof error_msg !== 'undefined' && error_msg.length > 0) { %>
             <% error_msg.forEach(msg => { %>
-                <p><%= msg %></p>
+                <div class="alert alert--error">
+                    <i class="fas fa-exclamation-circle alert__icon"></i>
+                    <div class="alert__content">
+                        <p><%= msg %></p>
+                    </div>
+                    <button class="alert__close" aria-label="Fechar" onclick="closeCustomAlert()">&times;</button>
+                </div>
             <% }) %>
-            <button class="close-alert">&times;</button>
-        </div>
-    <% } %>
+        <% } %>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -58,5 +63,16 @@
     <script src="/js/main.js"></script>
     <script src="/js/validation.js"></script> 
     -->
+
+    <script>
+
+        function closeCustomAlert() {
+        const modal = document.querySelector('.alert');
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    </script>
 </body>
 </html>

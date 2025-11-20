@@ -1,0 +1,181 @@
+/* public/css/catalog.css */
+
+.catalog-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- Barra Lateral --- */
+.catalog-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.catalog-sidebar h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price-inputs span {
+    color: var(--color-text-muted);
+}
+
+/* --- Conteúdo Principal --- */
+.catalog-main {
+    flex: 1;
+}
+
+.catalog-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.catalog-header h2 {
+    font-size: 1.5rem;
+}
+
+/* --- Grid de Produtos (reutilizando e adaptando de main.css) --- */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.product-card .product-image {
+    height: 200px;
+    background-color: #f8f9fa;
+}
+
+.product-card .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card .product-info {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card .product-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .supplier-name {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+.product-card .product-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: baseline;
+}
+
+.product-card .price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.product-card .unit {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-left: 0.25rem;
+}
+
+/* --- Estado de Vazio --- */
+.empty-catalog {
+    text-align: center;
+    padding: 4rem 2rem;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--border-radius-lg);
+    color: var(--color-text-muted);
+}
+
+.empty-catalog i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* --- Paginação --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all 0.2s;
+}
+
+.pagination a:hover {
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary);
+}
+
+.pagination a.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    font-weight: 600;
+}

@@ -1,0 +1,87 @@
+<div class="catalog-container">
+    <!-- Barra Lateral de Filtros -->
+    <aside class="catalog-sidebar">
+        <h4>Filtros</h4>
+        <form action="/catalog" method="GET" id="filter-form">
+            <!-- Filtro de Pesquisa -->
+            <div class="filter-group">
+                <label for="q">Buscar por nome</label>
+                <input type="text" name="q" id="q" placeholder="Ex: Motor elétrico" value="<%= filters.q || '' %>">
+            </div>
+
+            <!-- Filtro de Categoria -->
+            <div class="filter-group">
+                <label for="category">Categoria</label>
+                <select name="category" id="category">
+                    <option value="">Todas</option>
+                    <% categories.forEach(cat => { %>
+                        <option value="<%= cat.slug %>" <%= filters.category === cat.slug ? 'selected' : '' %>>
+                            <%= cat.name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <!-- Filtro de Preço -->
+            <div class="filter-group">
+                <label>Faixa de Preço</label>
+                <div class="price-inputs">
+                    <input type="number" name="minPrice" placeholder="Mín." value="<%= filters.minPrice || '' %>">
+                    <span>-</span>
+                    <input type="number" name="maxPrice" placeholder="Máx." value="<%= filters.maxPrice || '' %>">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full-width">Aplicar Filtros</button>
+            <a href="/catalog" class="btn btn--secondary btn--full-width" style="margin-top: 0.5rem;">Limpar Filtros</a>
+        </form>
+    </aside>
+
+    <!-- Conteúdo Principal do Catálogo -->
+    <main class="catalog-main">
+        <header class="catalog-header">
+            <h2><%= totalProducts %> Produtos Encontrados</h2>
+            <!-- Você pode adicionar um seletor de ordenação aqui no futuro -->
+        </header>
+
+        <!-- Grid de Produtos -->
+        <% if (products.length > 0) { %>
+            <div class="products-grid">
+                <% products.forEach(product => { %>
+                    <div class="product-card">
+                        <a href="/products/<%= product.id %>">
+                            <div class="product-image">
+                                <img src="<%= product.images[0]?.url || '/images/placeholder-product.png' %>" alt="<%= product.name %>">
+                            </div>
+                            <div class="product-info">
+                                <h3><%= product.name %></h3>
+                                <p class="supplier-name">Vendido por: <%= product.supplier.nomeFantasia || 'Fornecedor Desconhecido' %></p>
+                                <div class="product-footer">
+                                    <span class="price">R$ <%= product.price.toFixed(2).replace('.', ',') %></span>
+                                    <span class="unit">/<%= product.unit %></span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="empty-catalog">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <p>Nenhum produto encontrado com os filtros selecionados.</p>
+                <a href="/catalog" class="btn btn--primary">Ver todos os produtos</a>
+            </div>
+        <% } %>
+
+        <!-- Paginação -->
+        <% if (totalPages > 1) { %>
+            <nav class="pagination">
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <a href="?page=<%= i %>&<%= new URLSearchParams(filters).toString() %>" class="<%= i === currentPage ? 'active' : '' %>">
+                        <%= i %>
+                    </a>
+                <% } %>
+            </nav>
+        <% } %>
+    </main>
+</div>

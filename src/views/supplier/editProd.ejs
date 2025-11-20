@@ -1,0 +1,83 @@
+<header class="dashboard-header">
+    <h1>Editar Produto</h1>
+    <p>Modifique os detalhes do produto: <strong><%= product.name %></strong></p>
+</header>
+
+<section class="dashboard-section">
+    <div class="section-header">
+        <h2>Detalhes do Produto</h2>
+    </div>
+
+    <div style="padding: 1.5rem;">
+        <!-- O formulário aponta para a rota PUT usando method-override -->
+        <form action="/supplier/products/<%= product.id %>?_method=PUT" method="POST">
+            
+            <div class="form-group">
+                <label for="name">Nome do Produto</label>
+                <input type="text" id="name" name="name" class="form-control" value="<%= product.name %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descrição Completa</label>
+                <textarea id="description" name="description" class="form-control" rows="6" required><%= product.description %></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="categoryId">Categoria</label>
+                    <select id="categoryId" name="categoryId" class="form-control" required>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category.id %>" <%= product.categoryId === category.id ? 'selected' : '' %>>
+                                <%= category.name %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ncm">NCM (Opcional)</label>
+                    <input type="text" id="ncm" name="ncm" class="form-control" value="<%= product.ncm || '' %>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="price">Preço (R$)</label>
+                    <input type="number" id="price" name="price" class="form-control" value="<%= product.price %>" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="stockQuantity">Quantidade em Estoque</label>
+                    <input type="number" id="stockQuantity" name="stockQuantity" class="form-control" value="<%= product.stockQuantity %>" step="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="unit">Unidade de Medida</label>
+                    <select id="unit" name="unit" class="form-control" required>
+                        <% const units = ['un', 'cx', 'kg', 'm', 'm2', 'm3', 'l', 'par']; %>
+                        <% units.forEach(u => { %>
+                            <option value="<%= u %>" <%= product.unit === u ? 'selected' : '' %>><%= u %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="imageUrls">URLs das Imagens</label>
+                <textarea id="imageUrls" name="imageUrls" class="form-control" rows="3" required><%= product.images.map(img => img.url).join(', ') %></textarea>
+                <small class="form-text">Separe múltiplas URLs com uma vírgula (,).</small>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="isActive" <%= product.isActive ? 'checked' : '' %>>
+                    Produto Ativo (visível para compradores)
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <a href="/supplier/products" class="btn btn--secondary">Cancelar</a>
+                <button type="submit" class="btn btn--primary">
+                    <i class="fa-solid fa-save"></i> Salvar Alterações
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Marketplace Industrial</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Menu Lateral (Sidebar ) -->
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <a href="/" class="sidebar__logo">
+                    <i class="fa-solid fa-industry"></i>
+                    <span>Marketplace</span>
+                </a>
+            </div>
+        <nav class="sidebar__menu">
+            <a href="/supplier/dashboard" class="<%= currentPath === '/supplier/dashboard' ? 'active' : '' %>">
+                <i class="fa-solid fa-table-columns"></i> Dashboard</a>
+
+            <a href="/supplier/products" class="<%= currentPath.startsWith('/supplier/products') ? 'active' : '' %>">
+                <i class="fa-solid fa-box-archive"></i> Produtos</a>
+            
+            <a href="/supplier/orders" class="<%= currentPath.startsWith('/supplier/orders') ? 'active' : '' %>">
+                <i class="fa-solid fa-receipt"></i> Pedidos</a>
+
+
+            <a href="/supplier/reviews" class="<%= currentPath.startsWith('/supplier/reviews') ? 'active' : '' %>">
+                <i class="fa-solid fa-star"></i> Avaliações</a>
+
+            <a href="/supplier/profile" class="<%= currentPath.startsWith('/supplier/profile') ? 'active' : '' %>">
+                <i class="fa-solid fa-store"></i> Perfil da Loja</a>
+        </nav>
+            <div class="sidebar__footer">
+                <a href="/auth/logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal da Página -->
+        <main class="dashboard-main">
+            <%- body %>
+        </main>
+    </div>
+</body>
+</html>
