@@ -17,7 +17,6 @@ export const handleValidationErrors = (redirectPath: string) => {
       return;
     }
 
-    // Se não houver erros, continua para o próximo middleware.
     next();
   };
 };
@@ -181,10 +180,10 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
     }
 
     if (user){
-      console.log("user exist", user.name)
       res.locals.user = user;
       res.locals.unreadNotifications = 0;
     }
+    
     res.locals.currentPath = req.path; 
   } catch (error) {
     console.error("Erro ao carregar usuário no middleware:", error);
@@ -193,21 +192,17 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
   next();
 };
 
-// Verificar se usuário possui empresa cadastrada
-export const hasCompany = async (req: Request, res: Response, next: NextFunction) => {
+
+export const hasCompany = (req: Request, res: Response, next: NextFunction) => {
   const user = res.locals.user;
 
-  if (!user) {
-    req.flash("error_msg", "Por favor, faça login para acessar esta página.");
-    return res.redirect("/auth/login");
+  if (!user?.company) {
+    req.flash("error_msg", "Por favor, complete o cadastro da sua empresa para acessar o painel.");
+    // Redireciona para a página de completar o perfil
+    return res.redirect("/auth/complete-profile");
   }
 
-  if (user.company) {
-    return next();
-  }
-
-  req.flash("error_msg", "Por favor, complete o cadastro da sua empresa primeiro.");
-  return res.redirect("/auth/complete-profile");
+  next();
 };
 
 // verificar autenticação, carregar usuário e conta ativa

@@ -146,3 +146,24 @@
     font-weight: 700;
     color: var(--color-primary);
 }
+
+.section {
+    padding: calc(var(--spacing-unit) * 10) 0;
+}
+
+.section:nth-child(odd) {
+    background-color: var(--color-bg);
+}
+
+.section__title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: calc(var(--spacing-unit) * 6);
+    color: var(--color-text-heading);
+}
+
+.section__footer {
+    text-align: center;
+    margin-top: calc(var(--spacing-unit) * 6);
+}

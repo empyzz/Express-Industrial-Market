@@ -32,10 +32,10 @@ export const getCatalog = async (req: Request, res: Response, next: NextFunction
             where.OR = [
                 { name: { contains: searchQuery, mode: 'insensitive' } },
                 { description: { contains: searchQuery, mode: 'insensitive' } },
+                { supplier: { nomeFantasia: { contains: searchQuery, mode: 'insensitive' } } } 
             ];
         }
 
-        // --- Consultas ao Banco de Dados em Paralelo ---
         const [products, totalProducts, categories] = await Promise.all([
             prisma.product.findMany({
                 where,
@@ -75,6 +75,66 @@ export const getCatalog = async (req: Request, res: Response, next: NextFunction
 
     } catch (error) {
         console.error("Erro ao carregar o catálogo:", error);
+        next(error);
+    }
+};
+
+
+export const getProductById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            req.flash('error_msg', 'Produto não encontrado.');
+            return res.redirect('/catalog');
+        }
+
+        const product = await prisma.product.findUnique({
+            where: { 
+                id: id,
+                isActive: true
+            },
+            include: {
+                images: { orderBy: { order: 'asc' } },
+                category: true,
+                supplier: { 
+                    select: {
+                        id: true,
+                        nomeFantasia: true,
+                        logo: true,
+                        ratingAverage: true,
+                        ratingCount: true
+                    }
+                }
+            }
+        });
+
+        if (!product) {
+            req.flash('error_msg', 'Produto não encontrado ou indisponível.');
+            return res.redirect('/catalog');
+        }
+
+        const otherProductsFromSupplier = await prisma.product.findMany({
+            where: {
+                supplierId: product.supplierId,
+                isActive: true,
+                id: { not: product.id }
+            },
+            take: 4,
+            include: {
+                images: { take: 1, orderBy: { order: 'asc' } }
+            }
+        });
+
+        res.render('catalog/product-id', {
+            title: product.name,
+            layout: 'layout/main',
+            product,
+            otherProducts: otherProductsFromSupplier
+        });
+
+    } catch (error) {
+        console.error("Erro ao carregar página do produto:", error);
         next(error);
     }
 };

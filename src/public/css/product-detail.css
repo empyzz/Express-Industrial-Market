@@ -1,0 +1,170 @@
+/* public/css/product-detail.css */
+
+.product-page-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr 320px; /* Conteúdo principal e sidebar */
+    gap: 2.5rem;
+}
+
+.product-main-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* --- Galeria de Imagens --- */
+.product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gallery__main-image {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
+
+.gallery__main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery__thumbnails {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+}
+
+.gallery__thumbnails .thumbnail {
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: border-color 0.2s;
+}
+
+.gallery__thumbnails .thumbnail:hover {
+    border-color: var(--color-primary);
+}
+
+/* --- Detalhes do Produto --- */
+.product-details .product-category {
+    color: var(--color-text-muted);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-details .product-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.product-price-stock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.product-price-stock .price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.stock-status {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.stock-status.in-stock { color: #16a34a; }
+.stock-status.out-of-stock { color: #dc2626; }
+
+.product-description {
+    margin-bottom: 2rem;
+}
+.product-description h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+.product-description p {
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+
+.product-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.quantity-selector input {
+    width: 80px;
+    text-align: center;
+    padding: 0.75rem;
+}
+
+/* --- Sidebar do Fornecedor --- */
+.product-sidebar .supplier-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+}
+
+.supplier-card h4 {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+.supplier-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.supplier-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 1px solid var(--color-border);
+    padding: 5px;
+}
+
+.supplier-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--color-text);
+}
+.supplier-name:hover {
+    color: var(--color-primary);
+}
+
+.supplier-rating {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+.supplier-rating .fa-star {
+    color: #facc15; /* Amarelo */
+}
+
+/* --- Produtos Relacionados --- */
+.related-products {
+    background-color: var(--color-bg);
+}

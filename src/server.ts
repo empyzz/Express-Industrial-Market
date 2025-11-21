@@ -12,7 +12,9 @@ import { PrismaClient } from "../prisma/.prisma/generated";
 import { loadUser } from "./middleware/authMiddleware";
 import authRoutes from "./routes/authRoutes";
 import supplierRoutes from "./routes/supplierRoutes";
-import catalogRoutes from "./routes/catalogRoute";
+import buyerRoutes from './routes/buyerRoutes';
+import catalogRoutes from "./routes/catalogRoutes";
+import publicRoutes from "./routes/publicRoutes";
 
 dotenv.config();
 
@@ -66,23 +68,12 @@ app.use((req, res, next) => {
 });
 
 // Login route
+app.use("/", publicRoutes)
 app.use("/auth", authRoutes);
+app.use("/buyer", buyerRoutes);
 app.use("/supplier", supplierRoutes);
 app.use("/catalog", catalogRoutes)
 
-// Home route
-app.get("/", async (req: Request, res: Response) => {
-  try {
-    const users = await prisma.user.findMany().catch(() => []);
-    res.render("index", {
-      title: "Home Page",
-      users,
-    });
-  } catch (error) {
-    console.error("Home route error:", error);
-    res.status(500).send("Internal server error");
-  }
-});
 
 // Test route
 app.get("/ping", (req: Request, res: Response) => {

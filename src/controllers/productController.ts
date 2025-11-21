@@ -6,7 +6,7 @@ import { randomBytes } from 'crypto';
 export const GetProduts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const companyId = res.locals.user?.company?.id;
-
+        
         if (!companyId) {
             req.flash('error_msg', 'Não foi possível identificar sua empresa.');
             return res.redirect('/supplier/dashboard');
@@ -111,7 +111,6 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
             }
         });
         
-        console.log(newProduct);
         req.flash('success_msg', `Produto "${newProduct.name}" criado com sucesso!`);
         res.redirect('/supplier/products');
 

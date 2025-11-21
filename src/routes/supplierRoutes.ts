@@ -27,4 +27,8 @@ router.put("/products/:id", validateProduct, productController.updateProduct);
 // DELETE /products
 router.delete("/products/:id", productController.deleteProduct);
 
+// Profile
+router.get("/profile/edit", supplierController.getEditProfileForm);
+router.put("/profile", supplierController.updateProfile);
+
 export default router;

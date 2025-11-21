@@ -1,0 +1,86 @@
+<!-- Cabeçalho do Perfil -->
+<header class="profile-header" style="background-image: url('<%= company.banner|| '/images/default-banner.jpg' %>');">
+    
+    <!-- Botão de Edição (visível apenas para o dono) -->
+    <% if (isOwner) { %>
+        <div class="profile-header__actions">
+            <a href="/supplier/profile/edit" class="btn btn--primary">
+                <i class="fa-solid fa-pen-to-square"></i> Editar Perfil
+            </a>
+        </div>
+    <% } %>
+
+    <div class="container">
+        <div class="profile-header__content">
+            <img src="<%= company.logo || '/images/default-company-logo.png' %>" alt="Logo de <%= company.nomeFantasia %>" class="profile-header__logo">
+            <div class="profile-header__info">
+                <h1 class="profile-header__name"><%= company.nomeFantasia || company.razaoSocial %></h1>
+                <div class="profile-header__meta">
+                    <div class="supplier-rating">
+                        <i class="fa-solid fa-star"></i> 
+                        <strong><%= company.ratingAverage.toFixed(1) %></strong>
+                        <span>(<%= company.ratingCount %> avaliações)</span>
+                    </div>
+                    <% if (company.address) { %>
+                        <span class="location">
+                            <i class="fa-solid fa-map-marker-alt"></i> 
+                            <%= company.address.city %>, <%= company.address.state %>
+                        </span>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Corpo da Página -->
+<div class="profile-body">
+    <div class="container">
+        <!-- Seção de Produtos da Loja -->
+        <section class="section">
+            <h2 class="section__title">Produtos de <%= company.nomeFantasia %></h2>
+            <% if (company.products.length > 0) { %>
+                <div class="products-grid">
+                    <% company.products.forEach(product => { %>
+                        <div class="product-card">
+                            <a href="/catalog/products/<%= product.id %>" class="product-card__image">
+                                <img src="<%= product.images[0]?.url || '/images/placeholder-product.png' %>" alt="<%= product.name %>">
+                            </a>
+                            <div class="product-card__content">
+                                <h3 class="product-card__name"><%= product.name %></h3>
+                                <div class="product-card__footer">
+                                    <span class="product-card__price">R$ <%= product.price.toFixed(2).replace('.', ',') %></span>
+                                    <a href="/catalog/products/<%= product.id %>"  class="btn btn--secondary">Ver Mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p style="text-align: center;">Este fornecedor ainda não cadastrou produtos.</p>
+            <% } %>
+        </section>
+
+        <!-- Seção de Avaliações -->
+        <section class="section">
+            <h2 class="section__title">Avaliações Recentes</h2>
+            <% if (company.reviews.length > 0) { %>
+                <div class="reviews-list">
+                    <% company.reviews.forEach(review => { %>
+                        <div class="review-card">
+                            <div class="review-card__rating">
+                                <% for(let i = 0; i < 5; i++) { %>
+                                    <i class="fa-solid fa-star" style="color: <%= i < review.rating ? '#facc15' : '#e5e7eb' %>;"></i>
+                                <% } %>
+                            </div>
+                            <p class="review-card__comment">"<%= review.comment %>"</p>
+                            <small class="review-card__author">- <%= review.buyer.name %>, <%= new Date(review.createdAt).toLocaleDateString('pt-BR') %></small>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p style="text-align: center;">Este fornecedor ainda não recebeu avaliações.</p>
+            <% } %>
+        </section>
+    </div>
+</div>

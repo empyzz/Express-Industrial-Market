@@ -11,7 +11,7 @@
             <!-- Barra de Pesquisa Central -->
             <div class="header__search-wrapper">
                 <form action="/search" method="GET" class="header__search">
-                    <input type="text" name="q" class="header__search-input" placeholder="Buscar produtos ou fornecedores..." required>
+                    <input type="text" name="q" class="header__search-input" placeholder="Buscar produtos ou fornecedores..." required autocomplete="off">
                     <button type="submit" class="header__search-button" aria-label="Buscar">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -28,20 +28,15 @@
                         <a href="/auth/register" class="btn btn--primary">Cadastre-se</a>
                     </nav>
                 <% } else { %>
-                    <!-- Menu para Usuários Logados -->
+                    <% if (user.userType == "SUPPLIER") { %>
                     <nav class="header__nav--user">
                         <a href="/supplier/dashboard" class="header__action-btn" title="Dashboard">
                             <i class="fa-solid fa-table-columns"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a href="/notifications" class="header__action-btn" title="Notificações">
-                            <i class="fa-solid fa-bell"></i>
-                            <% if (unreadNotifications > 0) { %>
-                                <span class="notification-badge"><%= unreadNotifications %></span>
-                            <% } %>
-                            <span>Notificações</span>
-                        </a>
+                    <% } %>
 
+                        <a href="/catalog" class="header__nav-link">Catálogo</a>
                         <!-- Dropdown do Usuário -->
                         <div class="user-dropdown">
                             <button class="user-dropdown__toggle" aria-label="Menu do usuário">
@@ -54,14 +49,23 @@
                                     <strong><%= user.name %></strong>
                                     <small><%= user.email %></small>
                                 </div>
-                                <a href="/profile"><i class="fa-solid fa-user-pen"></i> Meu Perfil</a>
 
-                                <% if (user.userType === 'SUPPLIER' && !user.company) { %>
-                                    <a href="/auth/complete-profile" class="highlight-action">
-                                        <i class="fa-solid fa-store"></i> 
-                                        <strong>Complete o Perfil da Empresa</strong>
-                                    </a>
+                                <% if (user.userType === "SUPPLIER") { %>
+
+                                    <% if (user.company) { %>
+                                        <a href="/suppliers/<%= user.company.id %>"><i class="fa-solid fa-store"></i> Ver Minha Loja</a>
+                                        <a href="/supplier/profile/edit"><i class="fa-solid fa-pen-to-square"></i> Editar Loja</a>
+                                    <% } else { %>
+                                        <a href="/auth/complete-profile" class="link-emphasis">
+                                            <i class="fa-solid fa-exclamation-circle"></i> Complete seu Perfil
+                                        </a>
+                                    <% } %>
+
                                 <% } %>
+                            <% if (user.userType === "BUYER") { %>
+                                <a href="/buyer/profile"><i class="fa-solid fa-user-gear"></i> Meu Perfil</a>
+                            <% } %>
+
                                 
                                 <a href="/orders"><i class="fa-solid fa-box-archive"></i> Meus Pedidos</a>
                                 <a href="/favorites"><i class="fa-solid fa-heart"></i> Favoritos</a>

@@ -33,7 +33,6 @@ export const getDashboard = async (req: Request, res: Response, next: NextFuncti
             })
         ]);
 
-        // Calcular a receita total (exemplo simplificado)
         const revenueResult = await prisma.order.aggregate({
             _sum: {
                 totalAmount: true,
@@ -60,6 +59,82 @@ export const getDashboard = async (req: Request, res: Response, next: NextFuncti
 
     } catch (error) {
         console.error("Erro ao carregar dashboard do fornecedor:", error);
-        next(error); // Passa o erro para o error handler global
+        next(error);
+    }
+};
+
+
+export const getEditProfileForm = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const companyId = res.locals.user?.company?.id;
+
+        if (!companyId) {
+            req.flash('error_msg', 'Empresa não encontrada.');
+            return res.redirect('/supplier/dashboard');
+        }
+
+        const company = await prisma.company.findUnique({
+            where: { id: companyId },
+            include: { address: true }
+        });
+
+        if (!company) {
+            req.flash('error_msg', 'Não foi possível carregar os dados da sua empresa.');
+            return res.redirect('/supplier/dashboard');
+        }
+
+        res.render('public/edit-profile', {
+            title: 'Editar Perfil da Loja',
+            layout: 'layout/dashboard',
+            company
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+export const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const companyId = res.locals.user?.company?.id;
+
+        if (!companyId) {
+            req.flash('error_msg', 'Sessão inválida. Por favor, faça login novamente.');
+            return res.redirect('/auth/login');
+        }
+
+        const {
+            razaoSocial,
+            nomeFantasia,
+            phone,
+            email,
+            website,
+            description,
+            logo,
+            banner
+        } = req.body;
+
+
+        await prisma.company.update({
+            where: { id: companyId },
+            data: {
+                razaoSocial,
+                nomeFantasia,
+                phone,
+                email,
+                website: website || null,
+                description: description || null,
+                logo: logo || null,
+                banner: banner || null
+            }
+        });
+
+        req.flash('success_msg', 'Perfil da loja atualizado com sucesso!');
+        res.redirect('/supplier/profile/edit');
+
+    } catch (error) {
+        console.error("Erro ao atualizar perfil:", error);
+        req.flash('error_msg', 'Ocorreu um erro ao salvar as alterações.');
+        next(error);
     }
 };

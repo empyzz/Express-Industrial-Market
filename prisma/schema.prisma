@@ -89,7 +89,7 @@ model Company {
   ordersAsSupplier  Order[]   @relation("SupplierOrders")
   reviews           Review[]
   favoritedBy       FavoriteSupplier[]
-  selectedQuotations Quotation[] // CORREÇÃO: Adicionado campo de volta para selectedSupplier
+  selectedQuotations Quotation[]
 
   @@map("companies")
 }

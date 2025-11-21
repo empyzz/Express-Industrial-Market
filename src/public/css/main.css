@@ -650,3 +650,8 @@ img {
         grid-column: 2 / 3;
     }
 }
+
+.link-emphasis {
+    color: var(--color-accent);
+    font-weight: 600;
+}

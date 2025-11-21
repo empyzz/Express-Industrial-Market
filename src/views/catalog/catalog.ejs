@@ -4,10 +4,10 @@
         <h4>Filtros</h4>
         <form action="/catalog" method="GET" id="filter-form">
             <!-- Filtro de Pesquisa -->
-            <div class="filter-group">
-                <label for="q">Buscar por nome</label>
-                <input type="text" name="q" id="q" placeholder="Ex: Motor elétrico" value="<%= filters.q || '' %>">
-            </div>
+        <div class="filter-group">
+            <label for="q">Buscar por nome</label>
+            <input type="text" name="q" id="q" placeholder="Ex: Motor elétrico" value="<%= filters.q || '' %>">
+        </div>
 
             <!-- Filtro de Categoria -->
             <div class="filter-group">
@@ -41,7 +41,6 @@
     <main class="catalog-main">
         <header class="catalog-header">
             <h2><%= totalProducts %> Produtos Encontrados</h2>
-            <!-- Você pode adicionar um seletor de ordenação aqui no futuro -->
         </header>
 
         <!-- Grid de Produtos -->
@@ -49,7 +48,7 @@
             <div class="products-grid">
                 <% products.forEach(product => { %>
                     <div class="product-card">
-                        <a href="/products/<%= product.id %>">
+                        <a href="catalog/products/<%= product.id %>">
                             <div class="product-image">
                                 <img src="<%= product.images[0]?.url || '/images/placeholder-product.png' %>" alt="<%= product.name %>">
                             </div>

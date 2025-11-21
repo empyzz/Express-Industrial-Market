@@ -1,0 +1,100 @@
+<div class="product-page-container">
+    <div class="product-main-content">
+        <!-- Galeria de Imagens -->
+        <div class="product-gallery">
+            <div class="gallery__main-image">
+                <!-- A primeira imagem é exibida aqui -->
+                <img src="<%= product.images[0]?.url || '/images/placeholder-product.png' %>" alt="<%= product.name %>" id="main-product-image">
+            </div>
+            <% if (product.images.length > 1) { %>
+                <div class="gallery__thumbnails">
+                    <!-- Loop para as miniaturas -->
+                    <% product.images.forEach(image => { %>
+                        <img src="<%= image.url %>" alt="Miniatura de <%= product.name %>" class="thumbnail" onclick="changeImage('<%= image.url %>')">
+                    <% }) %>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Informações do Produto -->
+        <div class="product-details">
+            <p class="product-category"><%= product.category.name %></p>
+            <h1 class="product-title"><%= product.name %></h1>
+            
+            <div class="product-price-stock">
+                <span class="price">R$ <%= product.price.toFixed(2).replace('.', ',') %></span>
+                <% if (product.stockQuantity > 0) { %>
+                    <span class="stock-status in-stock">
+                        <i class="fa-solid fa-check-circle"></i> Em Estoque (<%= product.stockQuantity %> <%= product.unit %>)
+                    </span>
+                <% } else { %>
+                    <span class="stock-status out-of-stock">
+                        <i class="fa-solid fa-times-circle"></i> Fora de Estoque
+                    </span>
+                <% } %>
+            </div>
+
+            <div class="product-description">
+                <h4>Descrição</h4>
+                <p><%= product.description.replace(/\n/g, '  ') %></p>
+            </div>
+
+            <!-- Ações de Compra -->
+            <div class="product-actions">
+                <div class="quantity-selector">
+                    <label for="quantity">Quantidade:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= product.stockQuantity %>">
+                </div>
+                <button class="btn btn--primary btn--large">Adicionar à Cotação</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informações do Fornecedor -->
+    <aside class="product-sidebar">
+        <div class="supplier-card">
+            <h4>Vendido e entregue por</h4>
+            <div class="supplier-info">
+                <img src="<%= product.supplier.logo || '/images/default-company-logo.png' %>" alt="Logo de <%= product.supplier.nomeFantasia %>" class="supplier-logo">
+                <div class="supplier-details">
+                    <a href="/suppliers/<%= product.supplier.id %>" class="supplier-name"><%= product.supplier.nomeFantasia %></a>
+                    <div class="supplier-rating">
+                        <i class="fa-solid fa-star"></i> <%= product.supplier.ratingAverage.toFixed(1) %> 
+                        <span>(<%= product.supplier.ratingCount %> avaliações)</span>
+                    </div>
+                </div>
+            </div>
+            <a href="/suppliers/<%= product.supplier.id %>" class="btn btn--secondary btn--full-width">Ver Perfil do Fornecedor</a>
+        </div>
+    </aside>
+</div>
+
+<!-- Seção de Produtos Relacionados -->
+<% if (otherProducts.length > 0) { %>
+<section class="section related-products">
+    <div class="container">
+        <h2 class="section__title">Mais produtos deste fornecedor</h2>
+        <div class="products-grid">
+            <% otherProducts.forEach(otherProd => { %>
+                <div class="product-card">
+                    <a href="/catalog/products/<%= otherProd.id %>" class="product-card__image">
+                        <img src="<%= otherProd.images[0]?.url || '/images/placeholder-product.png' %>" alt="<%= otherProd.name %>">
+                    </a>
+                    <div class="product-card__content">
+                        <h3 class="product-card__name"><%= otherProd.name %></h3>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">R$ <%= otherProd.price.toFixed(2).replace('.', ',') %></span>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+<% } %>
+
+<script>
+    function changeImage(newImageUrl) {
+        document.getElementById('main-product-image').src = newImageUrl;
+    }
+</script>

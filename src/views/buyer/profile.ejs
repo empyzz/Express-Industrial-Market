@@ -1,0 +1,67 @@
+<!-- Cabeçalho da Página -->
+<header class="dashboard-header">
+    <h1>Meu Perfil e Configurações</h1>
+    <p>Gerencie suas informações pessoais, segurança e preferências.</p>
+</header>
+
+<!-- Seção de Informações Pessoais -->
+<section class="dashboard-section">
+    <div class="section-header">
+        <h2><i class="fa-solid fa-user-edit"></i> Informações Pessoais</h2>
+    </div>
+    <div style="padding: 1.5rem;">
+        <form action="/buyer/profile" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" value="<%= user.phone || '' %>">
+                </div>
+                <div class="form-group">
+                    <!-- Espaço vazio para alinhamento, ou pode adicionar outro campo no futuro -->
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn--primary">Salvar Informações</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Seção de Segurança -->
+<section class="dashboard-section">
+    <div class="section-header">
+        <h2><i class="fa-solid fa-shield-halved"></i> Segurança</h2>
+    </div>
+    <div style="padding: 1.5rem;">
+        <form action="/buyer/profile/change-password" method="POST">
+            <p style="margin-bottom: 1.5rem; color: var(--color-text-muted);">Altere sua senha regularmente para manter sua conta segura.</p>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="currentPassword">Senha Atual</label>
+                    <input type="password" id="currentPassword" name="currentPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Nova Senha</label>
+                    <input type="password" id="newPassword" name="newPassword" class="form-control" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirmar Nova Senha</label>
+                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn--primary">Alterar Senha</button>
+            </div>
+        </form>
+    </div>
+</section>

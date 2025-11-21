@@ -16,15 +16,15 @@
             <div class="container">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-card__value">120+</div>
+                        <div class="stat-card__value"><%= company.length %></div>
                         <p class="stat-card__label">Fornecedores Qualificados</p>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-card__value">8.500+</div>
+                        <div class="stat-card__value"><%= products.length %></div>
                         <p class="stat-card__label">Produtos Cadastrados</p>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-card__value">430+</div>
+                        <div class="stat-card__value"><%= quotations.length %></div>
                         <p class="stat-card__label">Cotações Realizadas</p>
                     </div>
                     <div class="stat-card">
@@ -35,72 +35,45 @@
             </div>
         </section>
 
-        <!-- Seção de Categorias -->
-        <section class="section" style="background-color: var(--color-surface);">
-            <div class="container">
-                <h2 class="section__title">Navegue por Categorias</h2>
-                <div class="categories-grid">
-                    <a href="/categories/pecas" class="category-card">
-                        <div class="category-card__icon">⚙️</div>
-                        <h3 class="category-card__name">Peças Industriais</h3>
-                    </a>
-                    <a href="/categories/eletrica" class="category-card">
-                        <div class="category-card__icon">🔌</div>
-                        <h3 class="category-card__name">Componentes Elétricos</h3>
-                    </a>
-                    <a href="/categories/ferramentas" class="category-card">
-                        <div class="category-card__icon">🛠️</div>
-                        <h3 class="category-card__name">Ferramentas e Usinagem</h3>
-                    </a>
-                    <a href="/categories/seguranca" class="category-card">
-                        <div class="category-card__icon">🛡️</div>
-                        <h3 class="category-card__name">Segurança (EPI)</h3>
-                    </a>
-                </div>
-            </div>
-        </section>
 
         <!-- Seção de Produtos em Destaque -->
         <section class="section">
             <div class="container">
                 <h2 class="section__title">Produtos em Destaque</h2>
-                <div class="products-grid">
-                    <!-- Card de Produto 1 -->
-                    <div class="product-card">
-                        <a href="/produtos/1" class="product-card__image">
-                            <img src="https://via.placeholder.com/300x220/EBF4FF/808080?text=Produto+1" alt="Motor Industrial XP-5000">
-                        </a>
-                        <div class="product-card__content">
-                            <h3 class="product-card__name">Motor Industrial XP-5000</h3>
-                            <p class="product-card__supplier">por Metalúrgica Brasil</p>
-                            <div class="product-card__footer">
-                                <span class="product-card__price">R$ 2.500</span>
-                                <a href="/produtos/1" class="btn btn--secondary">Ver Mais</a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Card de Produto 2 -->
-                    <div class="product-card">
-                        <a href="/produtos/2" class="product-card__image">
-                            <img src="https://via.placeholder.com/300x220/EBF4FF/808080?text=Produto+2" alt="Correia de Borracha Premium">
-                        </a>
-                        <div class="product-card__content">
-                            <h3 class="product-card__name">Correia de Borracha Premium</h3>
-                            <p class="product-card__supplier">por Indústria Forte S/A</p>
-                            <div class="product-card__footer">
-                                <span class="product-card__price">R$ 180</span>
-                                <a href="/produtos/2" class="btn btn--secondary">Ver Mais</a>
+                <!-- Verificamos se a lista de produtos não está vazia -->
+                <% if (typeof products !== 'undefined' && products.length > 0) { %>
+                    <div class="products-grid">
+                        
+                        <!-- Loop para renderizar cada card de produto -->
+                        <% products.forEach(product => { %>
+                            <div class="product-card">
+                                <a href="/catalog/products/<%= product.id %>" class="product-card__image">
+                                    <img src="<%= product.images[0]?.url || 'https://via.placeholder.com/300x220/EBF4FF/808080?text=Produto' %>" alt="<%= product.name %>">
+                                </a>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__name"><%= product.name %></h3>
+                                    <p class="product-card__supplier">por <%= product.supplier?.nomeFantasia || 'Fornecedor' %></p>
+                                    <div class="product-card__footer">
+                                        <span class="product-card__price">R$ <%= product.price.toFixed(2 ).replace('.', ',') %></span>
+                                        <a href="catalog/products/<%= product.id %>" class="btn btn--secondary">Ver Mais</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Adicione mais produtos aqui -->
+                        <% }) %>
 
-                </div>
-                <div class="text-center" style="margin-top: 2.5rem;">
-                    <a href="/catalog" class="btn btn--primary btn--large">Ver Todos os Produtos</a>
+                    </div>
+                <% } else { %>
+                    <!-- Mensagem exibida se nenhum produto for encontrado -->
+                    <div class="empty-state" style="text-align: center; padding: 2rem;">
+                        <p>Nenhum produto em destaque no momento.</p>
+                    </div>
+                <% } %>
+
+                <div class="section__footer">
+                    <a href="/catalog" class="btn btn--primary btn--large">Ver Catálogo Completo</a>
                 </div>
             </div>
         </section>
+
     </main>
