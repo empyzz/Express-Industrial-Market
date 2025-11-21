@@ -161,10 +161,13 @@
     color: var(--color-text-muted);
 }
 .supplier-rating .fa-star {
-    color: #facc15; /* Amarelo */
+    color: #facc15;
 }
 
-/* --- Produtos Relacionados --- */
 .related-products {
     background-color: var(--color-bg);
+}
+
+.product-card {
+    position: relative;
 }

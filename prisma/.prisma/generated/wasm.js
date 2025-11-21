@@ -103,8 +103,6 @@ exports.Prisma.UserScalarFieldEnum = {
   avatar: 'avatar',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
-  resetPasswordToken: 'resetPasswordToken',
-  resetPasswordExpires: 'resetPasswordExpires',
   lastLogin: 'lastLogin',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -116,9 +114,7 @@ exports.Prisma.CompanyScalarFieldEnum = {
   nomeFantasia: 'nomeFantasia',
   cnpj: 'cnpj',
   inscricaoEstadual: 'inscricaoEstadual',
-  companyType: 'companyType',
   phone: 'phone',
-  whatsapp: 'whatsapp',
   email: 'email',
   website: 'website',
   description: 'description',
@@ -126,15 +122,11 @@ exports.Prisma.CompanyScalarFieldEnum = {
   banner: 'banner',
   ratingAverage: 'ratingAverage',
   ratingCount: 'ratingCount',
-  totalOrders: 'totalOrders',
-  totalProducts: 'totalProducts',
-  totalQuotations: 'totalQuotations',
   isActive: 'isActive',
   isVerified: 'isVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  userId: 'userId',
-  businessHours: 'businessHours'
+  userId: 'userId'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -142,123 +134,51 @@ exports.Prisma.ProductScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   description: 'description',
-  shortDescription: 'shortDescription',
   price: 'price',
-  compareAtPrice: 'compareAtPrice',
   stockQuantity: 'stockQuantity',
-  minQuantity: 'minQuantity',
   unit: 'unit',
   ncm: 'ncm',
-  weight: 'weight',
-  length: 'length',
-  width: 'width',
-  height: 'height',
   isActive: 'isActive',
   isFeatured: 'isFeatured',
-  views: 'views',
-  favorites: 'favorites',
-  sales: 'sales',
-  seoTitle: 'seoTitle',
-  seoDescription: 'seoDescription',
-  tags: 'tags',
-  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   supplierId: 'supplierId',
-  categoryId: 'categoryId',
-  specifications: 'specifications'
-};
-
-exports.Prisma.OrderScalarFieldEnum = {
-  id: 'id',
-  orderNumber: 'orderNumber',
-  subtotal: 'subtotal',
-  shippingCost: 'shippingCost',
-  discount: 'discount',
-  tax: 'tax',
-  totalAmount: 'totalAmount',
-  paymentMethod: 'paymentMethod',
-  paymentStatus: 'paymentStatus',
-  paymentInstallments: 'paymentInstallments',
-  paymentTransactionId: 'paymentTransactionId',
-  paymentProof: 'paymentProof',
-  paidAt: 'paidAt',
-  status: 'status',
-  buyerNotes: 'buyerNotes',
-  supplierNotes: 'supplierNotes',
-  internalNotes: 'internalNotes',
-  hasReview: 'hasReview',
-  confirmedAt: 'confirmedAt',
-  cancelledAt: 'cancelledAt',
-  estimatedDelivery: 'estimatedDelivery',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  buyerId: 'buyerId',
-  buyerCompanyId: 'buyerCompanyId',
-  supplierId: 'supplierId',
-  quotationId: 'quotationId'
-};
-
-exports.Prisma.QuotationScalarFieldEnum = {
-  id: 'id',
-  quotationNumber: 'quotationNumber',
-  title: 'title',
-  description: 'description',
-  deliveryDeadline: 'deliveryDeadline',
-  paymentPreference: 'paymentPreference',
-  status: 'status',
-  validUntil: 'validUntil',
-  sentAt: 'sentAt',
-  completedAt: 'completedAt',
-  cancelledAt: 'cancelledAt',
-  internalNotes: 'internalNotes',
-  totalResponses: 'totalResponses',
-  averageResponseTime: 'averageResponseTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  buyerId: 'buyerId',
-  buyerCompanyId: 'buyerCompanyId',
-  selectedSupplierId: 'selectedSupplierId'
-};
-
-exports.Prisma.ReviewScalarFieldEnum = {
-  id: 'id',
-  rating: 'rating',
-  comment: 'comment',
-  pros: 'pros',
-  cons: 'cons',
-  wouldRecommend: 'wouldRecommend',
-  ratingProductQuality: 'ratingProductQuality',
-  ratingDeliveryTime: 'ratingDeliveryTime',
-  ratingCustomerService: 'ratingCustomerService',
-  ratingValueForMoney: 'ratingValueForMoney',
-  supplierResponseComment: 'supplierResponseComment',
-  supplierRespondedAt: 'supplierRespondedAt',
-  helpfulCount: 'helpfulCount',
-  isApproved: 'isApproved',
-  isVisible: 'isVisible',
-  isVerifiedPurchase: 'isVerifiedPurchase',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  orderId: 'orderId',
-  buyerId: 'buyerId',
-  companyId: 'companyId',
-  supplierRespondedById: 'supplierRespondedById'
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
-  description: 'description',
-  icon: 'icon',
   image: 'image',
   isActive: 'isActive',
-  order: 'order',
-  productsCount: 'productsCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  orderNumber: 'orderNumber',
+  totalAmount: 'totalAmount',
+  paymentMethod: 'paymentMethod',
+  paymentStatus: 'paymentStatus',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  parentId: 'parentId'
+  buyerId: 'buyerId',
+  supplierId: 'supplierId'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  comment: 'comment',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  orderId: 'orderId',
+  buyerId: 'buyerId',
+  companyId: 'companyId'
 };
 
 exports.Prisma.AddressScalarFieldEnum = {
@@ -270,11 +190,7 @@ exports.Prisma.AddressScalarFieldEnum = {
   city: 'city',
   state: 'state',
   cep: 'cep',
-  recipient: 'recipient',
-  phone: 'phone',
-  companyId: 'companyId',
-  orderId: 'orderId',
-  quotationId: 'quotationId'
+  companyId: 'companyId'
 };
 
 exports.Prisma.OrderItemScalarFieldEnum = {
@@ -282,98 +198,48 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   productName: 'productName',
   quantity: 'quantity',
   unitPrice: 'unitPrice',
-  totalPrice: 'totalPrice',
-  specifications: 'specifications',
   orderId: 'orderId',
   productId: 'productId'
 };
 
-exports.Prisma.QuotationItemScalarFieldEnum = {
+exports.Prisma.QuotationCartScalarFieldEnum = {
+  id: 'id',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.QuotationCartItemScalarFieldEnum = {
   id: 'id',
   quantity: 'quantity',
-  specifications: 'specifications',
-  quotationId: 'quotationId',
+  cartId: 'cartId',
   productId: 'productId'
 };
 
 exports.Prisma.ProductImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  alt: 'alt',
   isPrimary: 'isPrimary',
   order: 'order',
   productId: 'productId'
 };
 
-exports.Prisma.CompanyCategoryScalarFieldEnum = {
-  companyId: 'companyId',
-  categoryId: 'categoryId'
-};
-
 exports.Prisma.FavoriteProductScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
   userId: 'userId',
-  productId: 'productId',
-  addedAt: 'addedAt'
+  productId: 'productId'
 };
 
 exports.Prisma.FavoriteSupplierScalarFieldEnum = {
-  userId: 'userId',
-  supplierId: 'supplierId',
-  addedAt: 'addedAt'
-};
-
-exports.Prisma.HelpfulReviewScalarFieldEnum = {
-  userId: 'userId',
-  reviewId: 'reviewId'
-};
-
-exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
-  type: 'type',
-  title: 'title',
-  message: 'message',
-  link: 'link',
-  read: 'read',
   createdAt: 'createdAt',
-  userId: 'userId'
-};
-
-exports.Prisma.StatusHistoryScalarFieldEnum = {
-  id: 'id',
-  status: 'status',
-  date: 'date',
-  comment: 'comment',
-  orderId: 'orderId',
-  updatedById: 'updatedById'
-};
-
-exports.Prisma.ShippingInfoScalarFieldEnum = {
-  id: 'id',
-  method: 'method',
-  trackingCode: 'trackingCode',
-  estimatedDelivery: 'estimatedDelivery',
-  shippedAt: 'shippedAt',
-  deliveredAt: 'deliveredAt',
-  orderId: 'orderId'
-};
-
-exports.Prisma.InvoiceScalarFieldEnum = {
-  id: 'id',
-  number: 'number',
-  key: 'key',
-  issueDate: 'issueDate',
-  url: 'url',
-  orderId: 'orderId'
+  userId: 'userId',
+  supplierId: 'supplierId'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-};
-
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -385,18 +251,7 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-};
 exports.UserType = exports.$Enums.UserType = {
-  BUYER: 'BUYER',
-  SUPPLIER: 'SUPPLIER'
-};
-
-exports.CompanyType = exports.$Enums.CompanyType = {
   BUYER: 'BUYER',
   SUPPLIER: 'SUPPLIER'
 };
@@ -404,12 +259,9 @@ exports.CompanyType = exports.$Enums.CompanyType = {
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
-  PROCESSING: 'PROCESSING',
-  READY_TO_SHIP: 'READY_TO_SHIP',
   SHIPPED: 'SHIPPED',
   DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-  REFUNDED: 'REFUNDED'
+  CANCELLED: 'CANCELLED'
 };
 
 exports.PaymentMethod = exports.$Enums.PaymentMethod = {
@@ -423,47 +275,23 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  REFUNDED: 'REFUNDED'
-};
-
-exports.QuotationStatus = exports.$Enums.QuotationStatus = {
-  DRAFT: 'DRAFT',
-  SENT: 'SENT',
-  IN_PROGRESS: 'IN_PROGRESS',
-  COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED',
-  EXPIRED: 'EXPIRED'
-};
-
-exports.PaymentPreference = exports.$Enums.PaymentPreference = {
-  BOLETO: 'BOLETO',
-  CARTAO: 'CARTAO',
-  PIX: 'PIX',
-  TRANSFERENCIA: 'TRANSFERENCIA',
-  A_NEGOCIAR: 'A_NEGOCIAR'
+  REJECTED: 'REJECTED'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
   Company: 'Company',
   Product: 'Product',
-  Order: 'Order',
-  Quotation: 'Quotation',
-  Review: 'Review',
   Category: 'Category',
+  Order: 'Order',
+  Review: 'Review',
   Address: 'Address',
   OrderItem: 'OrderItem',
-  QuotationItem: 'QuotationItem',
+  QuotationCart: 'QuotationCart',
+  QuotationCartItem: 'QuotationCartItem',
   ProductImage: 'ProductImage',
-  CompanyCategory: 'CompanyCategory',
   FavoriteProduct: 'FavoriteProduct',
-  FavoriteSupplier: 'FavoriteSupplier',
-  HelpfulReview: 'HelpfulReview',
-  Notification: 'Notification',
-  StatusHistory: 'StatusHistory',
-  ShippingInfo: 'ShippingInfo',
-  Invoice: 'Invoice'
+  FavoriteSupplier: 'FavoriteSupplier'
 };
 /**
  * Create the Client
@@ -504,7 +332,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -513,13 +340,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./.prisma/generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id                   String    @id @default(cuid())\n  name                 String\n  email                String    @unique\n  password             String\n  userType             UserType\n  phone                String?\n  avatar               String?   @default(\"/images/default-avatar.png\")\n  isActive             Boolean   @default(true)\n  emailVerified        Boolean   @default(false)\n  resetPasswordToken   String?\n  resetPasswordExpires DateTime?\n  lastLogin            DateTime?\n  createdAt            DateTime  @default(now())\n  updatedAt            DateTime  @updatedAt\n\n  company           Company?\n  orders            Order[]            @relation(\"BuyerOrders\")\n  quotations        Quotation[]        @relation(\"BuyerQuotations\")\n  reviews           Review[]\n  favoriteProducts  FavoriteProduct[]\n  favoriteSuppliers FavoriteSupplier[]\n  notifications     Notification[]\n  statusUpdates     StatusHistory[]\n  reviewResponses   Review[]           @relation(\"ReviewResponder\")\n  helpfulReviews    HelpfulReview[]\n\n  @@map(\"users\")\n}\n\nenum UserType {\n  BUYER\n  SUPPLIER\n}\n\n// ---------------------------------\n//        Model de Empresas\n// ---------------------------------\nmodel Company {\n  id                String      @id @default(cuid())\n  razaoSocial       String\n  nomeFantasia      String?\n  cnpj              String      @unique\n  inscricaoEstadual String?\n  companyType       CompanyType\n  phone             String\n  whatsapp          String?\n  email             String\n  website           String?\n  description       String?     @db.Text\n  logo              String?     @default(\"/images/default-company-logo.png\")\n  banner            String?\n  ratingAverage     Float       @default(0)\n  ratingCount       Int         @default(0)\n  totalOrders       Int         @default(0)\n  totalProducts     Int         @default(0)\n  totalQuotations   Int         @default(0)\n  isActive          Boolean     @default(true)\n  isVerified        Boolean     @default(false)\n  createdAt         DateTime    @default(now())\n  updatedAt         DateTime    @updatedAt\n\n  // Relacionamentos\n  user   User   @relation(fields: [userId], references: [id])\n  userId String @unique\n\n  address            Address?\n  businessHours      Json?\n  categories         CompanyCategory[]\n  products           Product[]\n  ordersAsBuyer      Order[]            @relation(\"BuyerCompanyOrders\")\n  ordersAsSupplier   Order[]            @relation(\"SupplierOrders\")\n  reviews            Review[]\n  favoritedBy        FavoriteSupplier[]\n  selectedQuotations Quotation[] // CORREÇÃO: Adicionado campo de volta para selectedSupplier\n\n  @@map(\"companies\")\n}\n\nenum CompanyType {\n  BUYER\n  SUPPLIER\n}\n\n// ---------------------------------\n//        Model de Produtos\n// ---------------------------------\nmodel Product {\n  id               String    @id @default(cuid())\n  name             String\n  slug             String    @unique\n  description      String    @db.Text\n  shortDescription String?\n  price            Decimal   @db.Decimal(10, 2)\n  compareAtPrice   Decimal?  @db.Decimal(10, 2)\n  stockQuantity    Int       @default(0)\n  minQuantity      Int       @default(1)\n  unit             String    @default(\"un\")\n  ncm              String?\n  weight           Float?\n  length           Float?\n  width            Float?\n  height           Float?\n  isActive         Boolean   @default(true)\n  isFeatured       Boolean   @default(false)\n  views            Int       @default(0)\n  favorites        Int       @default(0)\n  sales            Int       @default(0)\n  seoTitle         String?\n  seoDescription   String?\n  tags             String[]\n  deletedAt        DateTime?\n  createdAt        DateTime  @default(now())\n  updatedAt        DateTime  @updatedAt\n\n  supplier   Company  @relation(fields: [supplierId], references: [id])\n  supplierId String\n  category   Category @relation(fields: [categoryId], references: [id])\n  categoryId String\n\n  specifications Json?\n  images         ProductImage[]\n  orderItems     OrderItem[]\n  quotationItems QuotationItem[]\n  favoritedBy    FavoriteProduct[]\n\n  @@map(\"products\")\n}\n\n// ---------------------------------\n//        Model de Pedidos\n// ---------------------------------\nmodel Order {\n  id                   String        @id @default(cuid())\n  orderNumber          String        @unique\n  subtotal             Decimal       @db.Decimal(10, 2)\n  shippingCost         Decimal       @default(0) @db.Decimal(10, 2)\n  discount             Decimal       @default(0) @db.Decimal(10, 2)\n  tax                  Decimal       @default(0) @db.Decimal(10, 2)\n  totalAmount          Decimal       @db.Decimal(10, 2)\n  paymentMethod        PaymentMethod\n  paymentStatus        PaymentStatus @default(PENDING)\n  paymentInstallments  Int           @default(1)\n  paymentTransactionId String?\n  paymentProof         String?\n  paidAt               DateTime?\n  status               OrderStatus   @default(PENDING)\n  buyerNotes           String?       @db.Text\n  supplierNotes        String?       @db.Text\n  internalNotes        String?       @db.Text\n  hasReview            Boolean       @default(false)\n  confirmedAt          DateTime?\n  cancelledAt          DateTime?\n  estimatedDelivery    DateTime?\n  createdAt            DateTime      @default(now())\n  updatedAt            DateTime      @updatedAt\n\n  buyer          User       @relation(\"BuyerOrders\", fields: [buyerId], references: [id])\n  buyerId        String\n  buyerCompany   Company    @relation(\"BuyerCompanyOrders\", fields: [buyerCompanyId], references: [id])\n  buyerCompanyId String\n  supplier       Company    @relation(\"SupplierOrders\", fields: [supplierId], references: [id])\n  supplierId     String\n  quotation      Quotation? @relation(fields: [quotationId], references: [id])\n  quotationId    String?    @unique\n\n  deliveryAddress Address?\n  shipping        ShippingInfo?\n  items           OrderItem[]\n  statusHistory   StatusHistory[]\n  invoice         Invoice?\n  review          Review?\n\n  @@map(\"orders\")\n}\n\nenum OrderStatus {\n  PENDING\n  CONFIRMED\n  PROCESSING\n  READY_TO_SHIP\n  SHIPPED\n  DELIVERED\n  CANCELLED\n  REFUNDED\n}\n\nenum PaymentMethod {\n  BOLETO\n  CARTAO\n  PIX\n  TRANSFERENCIA\n  A_PRAZO\n}\n\nenum PaymentStatus {\n  PENDING\n  APPROVED\n  REJECTED\n  REFUNDED\n}\n\n// ---------------------------------\n//        Model de Cotações\n// ---------------------------------\nmodel Quotation {\n  id                  String            @id @default(cuid())\n  quotationNumber     String            @unique\n  title               String\n  description         String            @db.Text\n  deliveryDeadline    DateTime?\n  paymentPreference   PaymentPreference @default(A_NEGOCIAR)\n  status              QuotationStatus   @default(DRAFT)\n  validUntil          DateTime\n  sentAt              DateTime?\n  completedAt         DateTime?\n  cancelledAt         DateTime?\n  internalNotes       String?           @db.Text\n  totalResponses      Int               @default(0)\n  averageResponseTime Float?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  buyer              User     @relation(\"BuyerQuotations\", fields: [buyerId], references: [id])\n  buyerId            String\n  buyerCompanyId     String\n  selectedSupplier   Company? @relation(fields: [selectedSupplierId], references: [id])\n  selectedSupplierId String?\n\n  deliveryAddress  Address?\n  items            QuotationItem[]\n  convertedToOrder Order?\n\n  @@map(\"quotations\")\n}\n\nenum QuotationStatus {\n  DRAFT\n  SENT\n  IN_PROGRESS\n  COMPLETED\n  CANCELLED\n  EXPIRED\n}\n\nenum PaymentPreference {\n  BOLETO\n  CARTAO\n  PIX\n  TRANSFERENCIA\n  A_NEGOCIAR\n}\n\n// ---------------------------------\n//        Model de Avaliações\n// ---------------------------------\nmodel Review {\n  id                      String    @id @default(cuid())\n  rating                  Int       @db.SmallInt\n  comment                 String    @db.Text\n  pros                    String[]\n  cons                    String[]\n  wouldRecommend          Boolean\n  ratingProductQuality    Int?      @db.SmallInt\n  ratingDeliveryTime      Int?      @db.SmallInt\n  ratingCustomerService   Int?      @db.SmallInt\n  ratingValueForMoney     Int?      @db.SmallInt\n  supplierResponseComment String?   @db.Text\n  supplierRespondedAt     DateTime?\n  helpfulCount            Int       @default(0)\n  isApproved              Boolean   @default(true)\n  isVisible               Boolean   @default(true)\n  isVerifiedPurchase      Boolean   @default(true)\n  createdAt               DateTime  @default(now())\n  updatedAt               DateTime  @updatedAt\n\n  order                 Order   @relation(fields: [orderId], references: [id])\n  orderId               String  @unique\n  buyer                 User    @relation(fields: [buyerId], references: [id])\n  buyerId               String\n  company               Company @relation(fields: [companyId], references: [id])\n  companyId             String\n  supplierRespondedBy   User?   @relation(\"ReviewResponder\", fields: [supplierRespondedById], references: [id])\n  supplierRespondedById String?\n\n  helpfulUsers HelpfulReview[]\n\n  @@map(\"reviews\")\n}\n\n// ---------------------------------\n//       Model de Categorias\n// ---------------------------------\nmodel Category {\n  id            String   @id @default(cuid())\n  name          String   @unique\n  slug          String   @unique\n  description   String?\n  icon          String?\n  image         String?\n  isActive      Boolean  @default(true)\n  order         Int      @default(0)\n  productsCount Int      @default(0)\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  parent        Category?  @relation(\"SubCategories\", fields: [parentId], references: [id])\n  parentId      String?\n  subcategories Category[] @relation(\"SubCategories\")\n\n  products  Product[]\n  companies CompanyCategory[]\n\n  @@map(\"categories\")\n}\n\n// =================================================================\n//                 MODELOS DE SUPORTE E RELACIONAMENTO\n// =================================================================\n\nmodel Address {\n  id           String  @id @default(cuid())\n  street       String\n  number       String\n  complement   String?\n  neighborhood String\n  city         String\n  state        String\n  cep          String\n  recipient    String?\n  phone        String?\n\n  company     Company?   @relation(fields: [companyId], references: [id])\n  companyId   String?    @unique\n  order       Order?     @relation(fields: [orderId], references: [id])\n  orderId     String?    @unique\n  quotation   Quotation? @relation(fields: [quotationId], references: [id])\n  quotationId String?    @unique\n\n  @@map(\"addresses\")\n}\n\nmodel OrderItem {\n  id             String  @id @default(cuid())\n  productName    String\n  quantity       Int\n  unitPrice      Decimal @db.Decimal(10, 2)\n  totalPrice     Decimal @db.Decimal(10, 2)\n  specifications String? @db.Text\n\n  order     Order   @relation(fields: [orderId], references: [id])\n  orderId   String\n  product   Product @relation(fields: [productId], references: [id])\n  productId String\n\n  @@map(\"order_items\")\n}\n\nmodel QuotationItem {\n  id             String  @id @default(cuid())\n  quantity       Int\n  specifications String? @db.Text\n\n  quotation   Quotation @relation(fields: [quotationId], references: [id])\n  quotationId String\n  product     Product   @relation(fields: [productId], references: [id])\n  productId   String\n\n  @@map(\"quotation_items\")\n}\n\nmodel ProductImage {\n  id        String  @id @default(cuid())\n  url       String\n  alt       String?\n  isPrimary Boolean @default(false)\n  order     Int     @default(0)\n\n  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)\n  productId String\n\n  @@map(\"product_images\")\n}\n\nmodel CompanyCategory {\n  company    Company  @relation(fields: [companyId], references: [id])\n  companyId  String\n  category   Category @relation(fields: [categoryId], references: [id])\n  categoryId String\n\n  @@id([companyId, categoryId])\n  @@map(\"company_categories\")\n}\n\nmodel FavoriteProduct {\n  user      User     @relation(fields: [userId], references: [id])\n  userId    String\n  product   Product  @relation(fields: [productId], references: [id])\n  productId String\n  addedAt   DateTime @default(now())\n\n  @@id([userId, productId])\n  @@map(\"favorite_products\")\n}\n\nmodel FavoriteSupplier {\n  user       User     @relation(fields: [userId], references: [id])\n  userId     String\n  supplier   Company  @relation(fields: [supplierId], references: [id])\n  supplierId String\n  addedAt    DateTime @default(now())\n\n  @@id([userId, supplierId])\n  @@map(\"favorite_suppliers\")\n}\n\nmodel HelpfulReview {\n  user     User   @relation(fields: [userId], references: [id])\n  userId   String\n  review   Review @relation(fields: [reviewId], references: [id])\n  reviewId String\n\n  @@id([userId, reviewId])\n  @@map(\"helpful_reviews\")\n}\n\nmodel Notification {\n  id        String   @id @default(cuid())\n  type      String\n  title     String\n  message   String\n  link      String?\n  read      Boolean  @default(false)\n  createdAt DateTime @default(now())\n\n  user   User   @relation(fields: [userId], references: [id])\n  userId String\n\n  @@map(\"notifications\")\n}\n\nmodel StatusHistory {\n  id      String   @id @default(cuid())\n  status  String\n  date    DateTime @default(now())\n  comment String?\n\n  order       Order   @relation(fields: [orderId], references: [id])\n  orderId     String\n  updatedBy   User?   @relation(fields: [updatedById], references: [id])\n  updatedById String?\n\n  @@map(\"status_history\")\n}\n\nmodel ShippingInfo {\n  id                String    @id @default(cuid())\n  method            String?\n  trackingCode      String?\n  estimatedDelivery DateTime?\n  shippedAt         DateTime?\n  deliveredAt       DateTime?\n\n  order   Order  @relation(fields: [orderId], references: [id])\n  orderId String @unique\n\n  @@map(\"shipping_info\")\n}\n\nmodel Invoice {\n  id        String    @id @default(cuid())\n  number    String?\n  key       String?\n  issueDate DateTime?\n  url       String?\n\n  order   Order  @relation(fields: [orderId], references: [id])\n  orderId String @unique\n\n  @@map(\"invoices\")\n}\n",
-  "inlineSchemaHash": "15e1c8dd58e9faa249f5c53464dfe0f4a878390195f2e91803ca01d61a16c2f8",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./.prisma/generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String\n  email         String    @unique\n  password      String\n  userType      UserType\n  phone         String?\n  avatar        String?   @default(\"/images/default-avatar.png\")\n  isActive      Boolean   @default(true)\n  emailVerified Boolean   @default(false)\n  lastLogin     DateTime?\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @updatedAt\n\n  // Relacionamentos\n  company           Company?\n  orders            Order[]\n  reviews           Review[]\n  favoriteProducts  FavoriteProduct[]\n  favoriteSuppliers FavoriteSupplier[]\n  quotationCart     QuotationCart?\n\n  @@map(\"users\")\n}\n\nenum UserType {\n  BUYER\n  SUPPLIER\n}\n\nmodel Company {\n  id                String   @id @default(cuid())\n  razaoSocial       String\n  nomeFantasia      String?\n  cnpj              String   @unique\n  inscricaoEstadual String?\n  phone             String\n  email             String\n  website           String?\n  description       String?  @db.Text\n  logo              String?  @default(\"/images/default-company-logo.png\")\n  banner            String?\n  ratingAverage     Float    @default(0)\n  ratingCount       Int      @default(0)\n  isActive          Boolean  @default(true)\n  isVerified        Boolean  @default(false)\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n\n  // Relacionamentos\n  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId           String             @unique\n  address          Address?\n  products         Product[]\n  ordersAsSupplier Order[]\n  reviews          Review[]\n  favoritedBy      FavoriteSupplier[]\n\n  @@map(\"companies\")\n}\n\nmodel Product {\n  id            String   @id @default(cuid())\n  name          String\n  slug          String   @unique\n  description   String   @db.Text\n  price         Decimal  @db.Decimal(10, 2)\n  stockQuantity Int      @default(0)\n  unit          String   @default(\"un\")\n  ncm           String?\n  isActive      Boolean  @default(true)\n  isFeatured    Boolean  @default(false)\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  // Relacionamentos\n  supplier           Company             @relation(fields: [supplierId], references: [id], onDelete: Cascade)\n  supplierId         String\n  category           Category            @relation(fields: [categoryId], references: [id], onDelete: Restrict)\n  categoryId         String\n  images             ProductImage[]\n  orderItems         OrderItem[]\n  favoritedBy        FavoriteProduct[]\n  quotationCartItems QuotationCartItem[]\n\n  @@map(\"products\")\n}\n\nmodel Category {\n  id        String   @id @default(cuid())\n  name      String   @unique\n  slug      String   @unique\n  image     String?\n  isActive  Boolean  @default(true)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  // Relacionamentos\n  products Product[]\n\n  @@map(\"categories\")\n}\n\nmodel Order {\n  id            String        @id @default(cuid())\n  orderNumber   String        @unique\n  totalAmount   Decimal       @db.Decimal(10, 2)\n  paymentMethod PaymentMethod\n  paymentStatus PaymentStatus @default(PENDING)\n  status        OrderStatus   @default(PENDING)\n  createdAt     DateTime      @default(now())\n  updatedAt     DateTime      @updatedAt\n\n  // Relacionamentos\n  buyer      User        @relation(fields: [buyerId], references: [id])\n  buyerId    String\n  supplier   Company     @relation(fields: [supplierId], references: [id])\n  supplierId String\n  items      OrderItem[]\n  review     Review?\n\n  @@map(\"orders\")\n}\n\nenum OrderStatus {\n  PENDING\n  CONFIRMED\n  SHIPPED\n  DELIVERED\n  CANCELLED\n}\n\nenum PaymentMethod {\n  BOLETO\n  CARTAO\n  PIX\n  TRANSFERENCIA\n  A_PRAZO\n}\n\nenum PaymentStatus {\n  PENDING\n  APPROVED\n  REJECTED\n}\n\nmodel Review {\n  id         String   @id @default(cuid())\n  rating     Int      @db.SmallInt\n  comment    String   @db.Text\n  isApproved Boolean  @default(true)\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  // Relacionamentos\n  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)\n  orderId   String  @unique\n  buyer     User    @relation(fields: [buyerId], references: [id], onDelete: Cascade)\n  buyerId   String\n  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)\n  companyId String\n\n  @@map(\"reviews\")\n}\n\n// =================================================================\n//                 MODELOS DE SUPORTE E RELACIONAMENTO\n// =================================================================\n\n// --- Endereço (Simplificado) ---\nmodel Address {\n  id           String  @id @default(cuid())\n  street       String\n  number       String\n  complement   String?\n  neighborhood String\n  city         String\n  state        String\n  cep          String\n\n  // Relacionamento 1-para-1 com a Empresa\n  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)\n  companyId String  @unique\n\n  @@map(\"addresses\")\n}\n\nmodel OrderItem {\n  id          String  @id @default(cuid())\n  productName String\n  quantity    Int\n  unitPrice   Decimal @db.Decimal(10, 2)\n\n  // Relacionamentos\n  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)\n  orderId String\n\n  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)\n  productId String?\n\n  @@map(\"order_items\")\n}\n\n// --- Carrinho de Cotações ---\nmodel QuotationCart {\n  id        String   @id @default(cuid())\n  updatedAt DateTime @updatedAt\n\n  // Relacionamentos\n  user   User                @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId String              @unique\n  items  QuotationCartItem[]\n\n  @@map(\"quotation_carts\")\n}\n\nmodel QuotationCartItem {\n  id       String @id @default(cuid())\n  quantity Int    @default(1)\n\n  // Relacionamentos\n  cart      QuotationCart @relation(fields: [cartId], references: [id], onDelete: Cascade)\n  cartId    String\n  product   Product       @relation(fields: [productId], references: [id], onDelete: Cascade)\n  productId String\n\n  @@unique([cartId, productId])\n  @@map(\"quotation_cart_items\")\n}\n\n// --- Imagens de Produto ---\nmodel ProductImage {\n  id        String  @id @default(cuid())\n  url       String\n  isPrimary Boolean @default(false)\n  order     Int     @default(0)\n\n  // Relacionamentos\n  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)\n  productId String\n\n  @@map(\"product_images\")\n}\n\n// --- Favoritos ---\nmodel FavoriteProduct {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n\n  // Relacionamentos\n  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId    String\n  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)\n  productId String\n\n  @@unique([userId, productId])\n  @@map(\"favorite_products\")\n}\n\nmodel FavoriteSupplier {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n\n  // Relacionamentos\n  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId     String\n  supplier   Company @relation(fields: [supplierId], references: [id], onDelete: Cascade)\n  supplierId String\n\n  @@unique([userId, supplierId])\n  @@map(\"favorite_suppliers\")\n}\n",
+  "inlineSchemaHash": "9363a5ffc92c5c3a4ce36f79971743a250712b6a35efbaa236441a4123de1768",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userType\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"resetPasswordToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"resetPasswordExpires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"lastLogin\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"company\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToUser\"},{\"name\":\"orders\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"BuyerOrders\"},{\"name\":\"quotations\",\"kind\":\"object\",\"type\":\"Quotation\",\"relationName\":\"BuyerQuotations\"},{\"name\":\"reviews\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"ReviewToUser\"},{\"name\":\"favoriteProducts\",\"kind\":\"object\",\"type\":\"FavoriteProduct\",\"relationName\":\"FavoriteProductToUser\"},{\"name\":\"favoriteSuppliers\",\"kind\":\"object\",\"type\":\"FavoriteSupplier\",\"relationName\":\"FavoriteSupplierToUser\"},{\"name\":\"notifications\",\"kind\":\"object\",\"type\":\"Notification\",\"relationName\":\"NotificationToUser\"},{\"name\":\"statusUpdates\",\"kind\":\"object\",\"type\":\"StatusHistory\",\"relationName\":\"StatusHistoryToUser\"},{\"name\":\"reviewResponses\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"ReviewResponder\"},{\"name\":\"helpfulReviews\",\"kind\":\"object\",\"type\":\"HelpfulReview\",\"relationName\":\"HelpfulReviewToUser\"}],\"dbName\":\"users\"},\"Company\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"razaoSocial\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nomeFantasia\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cnpj\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"inscricaoEstadual\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"companyType\",\"kind\":\"enum\",\"type\":\"CompanyType\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"whatsapp\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"website\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"logo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"banner\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ratingAverage\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"ratingCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"totalOrders\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"totalProducts\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"totalQuotations\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CompanyToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"object\",\"type\":\"Address\",\"relationName\":\"AddressToCompany\"},{\"name\":\"businessHours\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"categories\",\"kind\":\"object\",\"type\":\"CompanyCategory\",\"relationName\":\"CompanyToCompanyCategory\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"CompanyToProduct\"},{\"name\":\"ordersAsBuyer\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"BuyerCompanyOrders\"},{\"name\":\"ordersAsSupplier\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"SupplierOrders\"},{\"name\":\"reviews\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"CompanyToReview\"},{\"name\":\"favoritedBy\",\"kind\":\"object\",\"type\":\"FavoriteSupplier\",\"relationName\":\"CompanyToFavoriteSupplier\"},{\"name\":\"selectedQuotations\",\"kind\":\"object\",\"type\":\"Quotation\",\"relationName\":\"CompanyToQuotation\"}],\"dbName\":\"companies\"},\"Product\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"shortDescription\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"compareAtPrice\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"stockQuantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"minQuantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unit\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ncm\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"weight\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"length\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"width\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"height\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isFeatured\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"views\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"favorites\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sales\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"seoTitle\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"seoDescription\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"supplier\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToProduct\"},{\"name\":\"supplierId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToProduct\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"specifications\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"images\",\"kind\":\"object\",\"type\":\"ProductImage\",\"relationName\":\"ProductToProductImage\"},{\"name\":\"orderItems\",\"kind\":\"object\",\"type\":\"OrderItem\",\"relationName\":\"OrderItemToProduct\"},{\"name\":\"quotationItems\",\"kind\":\"object\",\"type\":\"QuotationItem\",\"relationName\":\"ProductToQuotationItem\"},{\"name\":\"favoritedBy\",\"kind\":\"object\",\"type\":\"FavoriteProduct\",\"relationName\":\"FavoriteProductToProduct\"}],\"dbName\":\"products\"},\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orderNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subtotal\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"shippingCost\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"discount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"tax\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"totalAmount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"paymentMethod\",\"kind\":\"enum\",\"type\":\"PaymentMethod\"},{\"name\":\"paymentStatus\",\"kind\":\"enum\",\"type\":\"PaymentStatus\"},{\"name\":\"paymentInstallments\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"paymentTransactionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paymentProof\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paidAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"OrderStatus\"},{\"name\":\"buyerNotes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supplierNotes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"internalNotes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"hasReview\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"confirmedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"cancelledAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"estimatedDelivery\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"buyer\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BuyerOrders\"},{\"name\":\"buyerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"buyerCompany\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"BuyerCompanyOrders\"},{\"name\":\"buyerCompanyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supplier\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"SupplierOrders\"},{\"name\":\"supplierId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quotation\",\"kind\":\"object\",\"type\":\"Quotation\",\"relationName\":\"OrderToQuotation\"},{\"name\":\"quotationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deliveryAddress\",\"kind\":\"object\",\"type\":\"Address\",\"relationName\":\"AddressToOrder\"},{\"name\":\"shipping\",\"kind\":\"object\",\"type\":\"ShippingInfo\",\"relationName\":\"OrderToShippingInfo\"},{\"name\":\"items\",\"kind\":\"object\",\"type\":\"OrderItem\",\"relationName\":\"OrderToOrderItem\"},{\"name\":\"statusHistory\",\"kind\":\"object\",\"type\":\"StatusHistory\",\"relationName\":\"OrderToStatusHistory\"},{\"name\":\"invoice\",\"kind\":\"object\",\"type\":\"Invoice\",\"relationName\":\"InvoiceToOrder\"},{\"name\":\"review\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"OrderToReview\"}],\"dbName\":\"orders\"},\"Quotation\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quotationNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deliveryDeadline\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"paymentPreference\",\"kind\":\"enum\",\"type\":\"PaymentPreference\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"QuotationStatus\"},{\"name\":\"validUntil\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sentAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"completedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"cancelledAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"internalNotes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"totalResponses\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"averageResponseTime\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"buyer\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BuyerQuotations\"},{\"name\":\"buyerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"buyerCompanyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"selectedSupplier\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToQuotation\"},{\"name\":\"selectedSupplierId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deliveryAddress\",\"kind\":\"object\",\"type\":\"Address\",\"relationName\":\"AddressToQuotation\"},{\"name\":\"items\",\"kind\":\"object\",\"type\":\"QuotationItem\",\"relationName\":\"QuotationToQuotationItem\"},{\"name\":\"convertedToOrder\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToQuotation\"}],\"dbName\":\"quotations\"},\"Review\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"pros\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cons\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"wouldRecommend\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"ratingProductQuality\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ratingDeliveryTime\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ratingCustomerService\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ratingValueForMoney\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"supplierResponseComment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supplierRespondedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"helpfulCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isApproved\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isVisible\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isVerifiedPurchase\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToReview\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"buyer\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ReviewToUser\"},{\"name\":\"buyerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"company\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToReview\"},{\"name\":\"companyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supplierRespondedBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ReviewResponder\"},{\"name\":\"supplierRespondedById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"helpfulUsers\",\"kind\":\"object\",\"type\":\"HelpfulReview\",\"relationName\":\"HelpfulReviewToReview\"}],\"dbName\":\"reviews\"},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"icon\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"productsCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"parent\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"SubCategories\"},{\"name\":\"parentId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subcategories\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"SubCategories\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"CategoryToProduct\"},{\"name\":\"companies\",\"kind\":\"object\",\"type\":\"CompanyCategory\",\"relationName\":\"CategoryToCompanyCategory\"}],\"dbName\":\"categories\"},\"Address\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"street\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"complement\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"neighborhood\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"city\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cep\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"recipient\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"company\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"AddressToCompany\"},{\"name\":\"companyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"AddressToOrder\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quotation\",\"kind\":\"object\",\"type\":\"Quotation\",\"relationName\":\"AddressToQuotation\"},{\"name\":\"quotationId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"addresses\"},\"OrderItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"productName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unitPrice\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"totalPrice\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"specifications\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToOrderItem\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"OrderItemToProduct\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"order_items\"},\"QuotationItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"specifications\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quotation\",\"kind\":\"object\",\"type\":\"Quotation\",\"relationName\":\"QuotationToQuotationItem\"},{\"name\":\"quotationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToQuotationItem\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"quotation_items\"},\"ProductImage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"alt\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isPrimary\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToProductImage\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"product_images\"},\"CompanyCategory\":{\"fields\":[{\"name\":\"company\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToCompanyCategory\"},{\"name\":\"companyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToCompanyCategory\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"company_categories\"},\"FavoriteProduct\":{\"fields\":[{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FavoriteProductToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"FavoriteProductToProduct\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"addedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"favorite_products\"},\"FavoriteSupplier\":{\"fields\":[{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FavoriteSupplierToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supplier\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToFavoriteSupplier\"},{\"name\":\"supplierId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"addedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"favorite_suppliers\"},\"HelpfulReview\":{\"fields\":[{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"HelpfulReviewToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"review\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"HelpfulReviewToReview\"},{\"name\":\"reviewId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"helpful_reviews\"},\"Notification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"link\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"read\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"notifications\"},\"StatusHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToStatusHistory\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"StatusHistoryToUser\"},{\"name\":\"updatedById\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"status_history\"},\"ShippingInfo\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"method\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"trackingCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"estimatedDelivery\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"shippedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deliveredAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToShippingInfo\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"shipping_info\"},\"Invoice\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"key\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"issueDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"InvoiceToOrder\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"invoices\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userType\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"lastLogin\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"company\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToUser\"},{\"name\":\"orders\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToUser\"},{\"name\":\"reviews\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"ReviewToUser\"},{\"name\":\"favoriteProducts\",\"kind\":\"object\",\"type\":\"FavoriteProduct\",\"relationName\":\"FavoriteProductToUser\"},{\"name\":\"favoriteSuppliers\",\"kind\":\"object\",\"type\":\"FavoriteSupplier\",\"relationName\":\"FavoriteSupplierToUser\"},{\"name\":\"quotationCart\",\"kind\":\"object\",\"type\":\"QuotationCart\",\"relationName\":\"QuotationCartToUser\"}],\"dbName\":\"users\"},\"Company\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"razaoSocial\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nomeFantasia\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cnpj\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"inscricaoEstadual\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"website\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"logo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"banner\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ratingAverage\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"ratingCount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CompanyToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"object\",\"type\":\"Address\",\"relationName\":\"AddressToCompany\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"CompanyToProduct\"},{\"name\":\"ordersAsSupplier\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"CompanyToOrder\"},{\"name\":\"reviews\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"CompanyToReview\"},{\"name\":\"favoritedBy\",\"kind\":\"object\",\"type\":\"FavoriteSupplier\",\"relationName\":\"CompanyToFavoriteSupplier\"}],\"dbName\":\"companies\"},\"Product\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"stockQuantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unit\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ncm\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isFeatured\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"supplier\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToProduct\"},{\"name\":\"supplierId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToProduct\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"images\",\"kind\":\"object\",\"type\":\"ProductImage\",\"relationName\":\"ProductToProductImage\"},{\"name\":\"orderItems\",\"kind\":\"object\",\"type\":\"OrderItem\",\"relationName\":\"OrderItemToProduct\"},{\"name\":\"favoritedBy\",\"kind\":\"object\",\"type\":\"FavoriteProduct\",\"relationName\":\"FavoriteProductToProduct\"},{\"name\":\"quotationCartItems\",\"kind\":\"object\",\"type\":\"QuotationCartItem\",\"relationName\":\"ProductToQuotationCartItem\"}],\"dbName\":\"products\"},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"CategoryToProduct\"}],\"dbName\":\"categories\"},\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orderNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"totalAmount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"paymentMethod\",\"kind\":\"enum\",\"type\":\"PaymentMethod\"},{\"name\":\"paymentStatus\",\"kind\":\"enum\",\"type\":\"PaymentStatus\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"OrderStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"buyer\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"OrderToUser\"},{\"name\":\"buyerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supplier\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToOrder\"},{\"name\":\"supplierId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"items\",\"kind\":\"object\",\"type\":\"OrderItem\",\"relationName\":\"OrderToOrderItem\"},{\"name\":\"review\",\"kind\":\"object\",\"type\":\"Review\",\"relationName\":\"OrderToReview\"}],\"dbName\":\"orders\"},\"Review\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isApproved\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToReview\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"buyer\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ReviewToUser\"},{\"name\":\"buyerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"company\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToReview\"},{\"name\":\"companyId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"reviews\"},\"Address\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"street\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"complement\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"neighborhood\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"city\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cep\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"company\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"AddressToCompany\"},{\"name\":\"companyId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"addresses\"},\"OrderItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"productName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"unitPrice\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToOrderItem\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"OrderItemToProduct\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"order_items\"},\"QuotationCart\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"QuotationCartToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"items\",\"kind\":\"object\",\"type\":\"QuotationCartItem\",\"relationName\":\"QuotationCartToQuotationCartItem\"}],\"dbName\":\"quotation_carts\"},\"QuotationCartItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quantity\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"cart\",\"kind\":\"object\",\"type\":\"QuotationCart\",\"relationName\":\"QuotationCartToQuotationCartItem\"},{\"name\":\"cartId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToQuotationCartItem\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"quotation_cart_items\"},\"ProductImage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isPrimary\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToProductImage\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"product_images\"},\"FavoriteProduct\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FavoriteProductToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"FavoriteProductToProduct\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"favorite_products\"},\"FavoriteSupplier\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FavoriteSupplierToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supplier\",\"kind\":\"object\",\"type\":\"Company\",\"relationName\":\"CompanyToFavoriteSupplier\"},{\"name\":\"supplierId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"favorite_suppliers\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

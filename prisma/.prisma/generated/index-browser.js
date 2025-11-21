@@ -131,8 +131,6 @@ exports.Prisma.UserScalarFieldEnum = {
   avatar: 'avatar',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
-  resetPasswordToken: 'resetPasswordToken',
-  resetPasswordExpires: 'resetPasswordExpires',
   lastLogin: 'lastLogin',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -144,9 +142,7 @@ exports.Prisma.CompanyScalarFieldEnum = {
   nomeFantasia: 'nomeFantasia',
   cnpj: 'cnpj',
   inscricaoEstadual: 'inscricaoEstadual',
-  companyType: 'companyType',
   phone: 'phone',
-  whatsapp: 'whatsapp',
   email: 'email',
   website: 'website',
   description: 'description',
@@ -154,15 +150,11 @@ exports.Prisma.CompanyScalarFieldEnum = {
   banner: 'banner',
   ratingAverage: 'ratingAverage',
   ratingCount: 'ratingCount',
-  totalOrders: 'totalOrders',
-  totalProducts: 'totalProducts',
-  totalQuotations: 'totalQuotations',
   isActive: 'isActive',
   isVerified: 'isVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  userId: 'userId',
-  businessHours: 'businessHours'
+  userId: 'userId'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -170,123 +162,51 @@ exports.Prisma.ProductScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   description: 'description',
-  shortDescription: 'shortDescription',
   price: 'price',
-  compareAtPrice: 'compareAtPrice',
   stockQuantity: 'stockQuantity',
-  minQuantity: 'minQuantity',
   unit: 'unit',
   ncm: 'ncm',
-  weight: 'weight',
-  length: 'length',
-  width: 'width',
-  height: 'height',
   isActive: 'isActive',
   isFeatured: 'isFeatured',
-  views: 'views',
-  favorites: 'favorites',
-  sales: 'sales',
-  seoTitle: 'seoTitle',
-  seoDescription: 'seoDescription',
-  tags: 'tags',
-  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   supplierId: 'supplierId',
-  categoryId: 'categoryId',
-  specifications: 'specifications'
-};
-
-exports.Prisma.OrderScalarFieldEnum = {
-  id: 'id',
-  orderNumber: 'orderNumber',
-  subtotal: 'subtotal',
-  shippingCost: 'shippingCost',
-  discount: 'discount',
-  tax: 'tax',
-  totalAmount: 'totalAmount',
-  paymentMethod: 'paymentMethod',
-  paymentStatus: 'paymentStatus',
-  paymentInstallments: 'paymentInstallments',
-  paymentTransactionId: 'paymentTransactionId',
-  paymentProof: 'paymentProof',
-  paidAt: 'paidAt',
-  status: 'status',
-  buyerNotes: 'buyerNotes',
-  supplierNotes: 'supplierNotes',
-  internalNotes: 'internalNotes',
-  hasReview: 'hasReview',
-  confirmedAt: 'confirmedAt',
-  cancelledAt: 'cancelledAt',
-  estimatedDelivery: 'estimatedDelivery',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  buyerId: 'buyerId',
-  buyerCompanyId: 'buyerCompanyId',
-  supplierId: 'supplierId',
-  quotationId: 'quotationId'
-};
-
-exports.Prisma.QuotationScalarFieldEnum = {
-  id: 'id',
-  quotationNumber: 'quotationNumber',
-  title: 'title',
-  description: 'description',
-  deliveryDeadline: 'deliveryDeadline',
-  paymentPreference: 'paymentPreference',
-  status: 'status',
-  validUntil: 'validUntil',
-  sentAt: 'sentAt',
-  completedAt: 'completedAt',
-  cancelledAt: 'cancelledAt',
-  internalNotes: 'internalNotes',
-  totalResponses: 'totalResponses',
-  averageResponseTime: 'averageResponseTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  buyerId: 'buyerId',
-  buyerCompanyId: 'buyerCompanyId',
-  selectedSupplierId: 'selectedSupplierId'
-};
-
-exports.Prisma.ReviewScalarFieldEnum = {
-  id: 'id',
-  rating: 'rating',
-  comment: 'comment',
-  pros: 'pros',
-  cons: 'cons',
-  wouldRecommend: 'wouldRecommend',
-  ratingProductQuality: 'ratingProductQuality',
-  ratingDeliveryTime: 'ratingDeliveryTime',
-  ratingCustomerService: 'ratingCustomerService',
-  ratingValueForMoney: 'ratingValueForMoney',
-  supplierResponseComment: 'supplierResponseComment',
-  supplierRespondedAt: 'supplierRespondedAt',
-  helpfulCount: 'helpfulCount',
-  isApproved: 'isApproved',
-  isVisible: 'isVisible',
-  isVerifiedPurchase: 'isVerifiedPurchase',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  orderId: 'orderId',
-  buyerId: 'buyerId',
-  companyId: 'companyId',
-  supplierRespondedById: 'supplierRespondedById'
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
-  description: 'description',
-  icon: 'icon',
   image: 'image',
   isActive: 'isActive',
-  order: 'order',
-  productsCount: 'productsCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  orderNumber: 'orderNumber',
+  totalAmount: 'totalAmount',
+  paymentMethod: 'paymentMethod',
+  paymentStatus: 'paymentStatus',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  parentId: 'parentId'
+  buyerId: 'buyerId',
+  supplierId: 'supplierId'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  comment: 'comment',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  orderId: 'orderId',
+  buyerId: 'buyerId',
+  companyId: 'companyId'
 };
 
 exports.Prisma.AddressScalarFieldEnum = {
@@ -298,11 +218,7 @@ exports.Prisma.AddressScalarFieldEnum = {
   city: 'city',
   state: 'state',
   cep: 'cep',
-  recipient: 'recipient',
-  phone: 'phone',
-  companyId: 'companyId',
-  orderId: 'orderId',
-  quotationId: 'quotationId'
+  companyId: 'companyId'
 };
 
 exports.Prisma.OrderItemScalarFieldEnum = {
@@ -310,98 +226,48 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   productName: 'productName',
   quantity: 'quantity',
   unitPrice: 'unitPrice',
-  totalPrice: 'totalPrice',
-  specifications: 'specifications',
   orderId: 'orderId',
   productId: 'productId'
 };
 
-exports.Prisma.QuotationItemScalarFieldEnum = {
+exports.Prisma.QuotationCartScalarFieldEnum = {
+  id: 'id',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.QuotationCartItemScalarFieldEnum = {
   id: 'id',
   quantity: 'quantity',
-  specifications: 'specifications',
-  quotationId: 'quotationId',
+  cartId: 'cartId',
   productId: 'productId'
 };
 
 exports.Prisma.ProductImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  alt: 'alt',
   isPrimary: 'isPrimary',
   order: 'order',
   productId: 'productId'
 };
 
-exports.Prisma.CompanyCategoryScalarFieldEnum = {
-  companyId: 'companyId',
-  categoryId: 'categoryId'
-};
-
 exports.Prisma.FavoriteProductScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
   userId: 'userId',
-  productId: 'productId',
-  addedAt: 'addedAt'
+  productId: 'productId'
 };
 
 exports.Prisma.FavoriteSupplierScalarFieldEnum = {
-  userId: 'userId',
-  supplierId: 'supplierId',
-  addedAt: 'addedAt'
-};
-
-exports.Prisma.HelpfulReviewScalarFieldEnum = {
-  userId: 'userId',
-  reviewId: 'reviewId'
-};
-
-exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
-  type: 'type',
-  title: 'title',
-  message: 'message',
-  link: 'link',
-  read: 'read',
   createdAt: 'createdAt',
-  userId: 'userId'
-};
-
-exports.Prisma.StatusHistoryScalarFieldEnum = {
-  id: 'id',
-  status: 'status',
-  date: 'date',
-  comment: 'comment',
-  orderId: 'orderId',
-  updatedById: 'updatedById'
-};
-
-exports.Prisma.ShippingInfoScalarFieldEnum = {
-  id: 'id',
-  method: 'method',
-  trackingCode: 'trackingCode',
-  estimatedDelivery: 'estimatedDelivery',
-  shippedAt: 'shippedAt',
-  deliveredAt: 'deliveredAt',
-  orderId: 'orderId'
-};
-
-exports.Prisma.InvoiceScalarFieldEnum = {
-  id: 'id',
-  number: 'number',
-  key: 'key',
-  issueDate: 'issueDate',
-  url: 'url',
-  orderId: 'orderId'
+  userId: 'userId',
+  supplierId: 'supplierId'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-};
-
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -413,18 +279,7 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-};
 exports.UserType = exports.$Enums.UserType = {
-  BUYER: 'BUYER',
-  SUPPLIER: 'SUPPLIER'
-};
-
-exports.CompanyType = exports.$Enums.CompanyType = {
   BUYER: 'BUYER',
   SUPPLIER: 'SUPPLIER'
 };
@@ -440,58 +295,31 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  REFUNDED: 'REFUNDED'
+  REJECTED: 'REJECTED'
 };
 
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
-  PROCESSING: 'PROCESSING',
-  READY_TO_SHIP: 'READY_TO_SHIP',
   SHIPPED: 'SHIPPED',
   DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED',
-  REFUNDED: 'REFUNDED'
-};
-
-exports.PaymentPreference = exports.$Enums.PaymentPreference = {
-  BOLETO: 'BOLETO',
-  CARTAO: 'CARTAO',
-  PIX: 'PIX',
-  TRANSFERENCIA: 'TRANSFERENCIA',
-  A_NEGOCIAR: 'A_NEGOCIAR'
-};
-
-exports.QuotationStatus = exports.$Enums.QuotationStatus = {
-  DRAFT: 'DRAFT',
-  SENT: 'SENT',
-  IN_PROGRESS: 'IN_PROGRESS',
-  COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED',
-  EXPIRED: 'EXPIRED'
+  CANCELLED: 'CANCELLED'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
   Company: 'Company',
   Product: 'Product',
-  Order: 'Order',
-  Quotation: 'Quotation',
-  Review: 'Review',
   Category: 'Category',
+  Order: 'Order',
+  Review: 'Review',
   Address: 'Address',
   OrderItem: 'OrderItem',
-  QuotationItem: 'QuotationItem',
+  QuotationCart: 'QuotationCart',
+  QuotationCartItem: 'QuotationCartItem',
   ProductImage: 'ProductImage',
-  CompanyCategory: 'CompanyCategory',
   FavoriteProduct: 'FavoriteProduct',
-  FavoriteSupplier: 'FavoriteSupplier',
-  HelpfulReview: 'HelpfulReview',
-  Notification: 'Notification',
-  StatusHistory: 'StatusHistory',
-  ShippingInfo: 'ShippingInfo',
-  Invoice: 'Invoice'
+  FavoriteSupplier: 'FavoriteSupplier'
 };
 
 /**
