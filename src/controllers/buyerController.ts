@@ -70,3 +70,33 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
         res.redirect('/buyer/profile');
     }
 };
+
+
+export const getOrders = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = res.locals.user?.id;
+
+        if (userId == null) {
+            return res.status(401).json({ error: "Not authenticated" });
+        }
+
+        const orders = await prisma.order.findMany({
+            where: { buyerId: userId },
+            orderBy: { createdAt: 'desc' },
+            include: {
+                supplier: {
+                    select: { nomeFantasia: true, id:true }
+                }
+            }
+        });
+
+        res.render('buyer/orders', {
+            title: 'Meus Pedidos',
+            layout: 'layout/dashboard-buyer',
+            orders: orders
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

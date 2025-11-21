@@ -89,7 +89,7 @@ export const getSupplierProfile = async (req: Request, res: Response, next: Next
             return res.redirect('/');
         }
 
-        res.render('public/supplier-profile', {
+        res.render('supplier/supplier-profile', {
             title: company.nomeFantasia || company.razaoSocial,
             layout: 'layout/main', 
             company,

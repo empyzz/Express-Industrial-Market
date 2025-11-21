@@ -19,12 +19,9 @@
                 </a>
             </div>
         <nav class="sidebar__menu">
-            <a href="/buyer/dashboard" class="<%= currentPath === '/buyer/dashboard' ? 'active' : '' %>">
+            <a href="/buyer/orders" class="<%= currentPath === '/buyer/orders' ? 'active' : '' %>">
                 <i class="fa-solid fa-table-columns"></i> Meus Pedidos</a>
 
-            <a href="/buyer/quotation" class="<%= currentPath.startsWith('/buyer/quotation') ? 'active' : '' %>">
-                <i class="fa-solid fa-box-archive"></i> Minhas Cotações</a>
-            
             <a href="/buyer/profile" class="<%= currentPath.startsWith('/buyer/profile') ? 'active' : '' %>">
                 <i class="fa-solid fa-receipt"></i> Meu Perfil</a>
         </nav>

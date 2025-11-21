@@ -36,7 +36,17 @@
                         </a>
                     <% } %>
 
+                    <% if (user.userType == "BUYER") { %>
+                    <nav class="header__nav--user">
+                        <a href="/buyer/cart" class="header__action-btn" title="Carrinho">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Carrinho</span>
+                        </a>
+                    <% } %>
+
+
                         <a href="/catalog" class="header__nav-link">Catálogo</a>
+
                         <!-- Dropdown do Usuário -->
                         <div class="user-dropdown">
                             <button class="user-dropdown__toggle" aria-label="Menu do usuário">

@@ -1,0 +1,66 @@
+<div class="container page-container">
+    <header class="page-header">
+        <h1><i class="fa-solid fa-cart-shopping"></i> Minha Cotação</h1>
+        <p>Revise os itens abaixo antes de solicitar sua cotação aos fornecedores.</p>
+    </header>
+
+    <% if (items.length > 0) { %>
+        <div class="cart-layout">
+
+            <div class="cart-items-list">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Produto</th>
+                            <th>Quantidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% items.forEach(item => { %>
+                            <tr class="cart-item" data-item-id="<%= item.id %>">
+                                <td class="cart-item__image">
+                                    <img src="<%= item.product.images[0]?.url || '/images/placeholder-product.png' %>" alt="<%= item.product.name %>">
+                                </td>
+                                <td class="cart-item__details">
+                                    <a href="/products/<%= item.product.id %>" class="cart-item__name"><%= item.product.name %></a>
+                                    <small class="cart-item__supplier">Vendido por: <%= item.product.supplier.nomeFantasia %></small>
+                                </td>
+                                <td class="cart-item__quantity">
+                                    <input type="number" class="form-control quantity-input" value="<%= item.quantity %>" min="1" max=<%= item.product.stockQuantity %> data-product-id="<%= item.product.id %>">
+                                </td>
+                                <td class="cart-item__actions">
+                                     <form action="/buyer/cart/<%= item.id %>?_method=DELETE" method="POST" style="display: inline;">
+                                        <button type="submit" class="btn-icon danger" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este produto do carrinho?');">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+
+            <aside class="cart-summary">
+                <div class="summary-card">
+                    <h3>Resumo da Cotação</h3>
+                    <p>Você tem <strong><%= items.length %></strong> produto(s) na sua lista.</p>
+                    <p>Após o envio, os fornecedores responderão com os preços e condições para os itens solicitados.</p>
+                    <a href="/buyer/quotation/send" class="btn btn--primary btn--full-width">
+                        Continuar e Enviar Cotação <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </aside>
+        </div>
+    <% } else { %>
+        <div class="empty-state-container">
+            <div class="empty-state">
+                <i class="fa-solid fa-cart-plus"></i>
+                <h2>Sua lista de cotação está vazia.</h2>
+                <p>Adicione produtos para começar a cotar com os melhores fornecedores.</p>
+                <a href="/catalog" class="btn btn--primary">Explorar Catálogo</a>
+            </div>
+        </div>
+    <% } %>
+</div>

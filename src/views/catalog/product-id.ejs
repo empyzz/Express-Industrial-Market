@@ -42,10 +42,19 @@
             <!-- Ações de Compra -->
             <div class="product-actions">
                 <div class="quantity-selector">
-                    <label for="quantity">Quantidade:</label>
-                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= product.stockQuantity %>">
+                        <form id="add-to-cart-form">
+                            <input type="hidden" name="productId" value="<%= product.id %>">
+                            
+                            <div class="form-group">
+                                <label for="quantity">Quantidade:</label>
+                                <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1"  max="<%= product.stockQuantity %>" step="1" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--full-width">
+                                <i class="fa-solid fa-plus"></i> Adicionar à Cotação
+                            </button>
+                        </form>
                 </div>
-                <button class="btn btn--primary btn--large">Adicionar à Cotação</button>
             </div>
         </div>
     </div>
@@ -93,8 +102,4 @@
 </section>
 <% } %>
 
-<script>
-    function changeImage(newImageUrl) {
-        document.getElementById('main-product-image').src = newImageUrl;
-    }
-</script>
+<script src="/js/product.js"></script>

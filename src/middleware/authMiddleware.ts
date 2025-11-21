@@ -86,7 +86,12 @@ export const validateLogin = [
 
 // Verificar se usuário está autenticado
 export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session?.user) {
+  if (req.session.user) {
+    return next();
+  }
+
+  if (req.headers['accept']?.includes('application/json')) {
+    req.flash("error_msg", "Por favor, faça login para acessar esta página.");
     return next();
   }
 
@@ -96,7 +101,7 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
 
 
 export const isGuest = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session?.user) {
+  if (req.session.user) {
     const redirectPath = req.session.user.userType === "SUPPLIER" ? "/supplier/dashboard" : "/";
     return res.redirect(redirectPath);
   }

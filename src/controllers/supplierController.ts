@@ -2,59 +2,61 @@ import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
 
 
+const ORDERS_PER_PAGE = 10;
+
 export const getDashboard = async (req: Request, res: Response, next: NextFunction) => {
-
-    if( res.locals.user == null){
-        console.log("User dashboard null");
-    }
-
     try {
-        const company = res.locals.user?.company;
-        const companyId = res.locals.user?.company.id;
-        const [totalProducts, totalOrders, recentOrders] = await Promise.all([
+        const companyId = res.locals.user?.company?.id;
 
-            prisma.product.count({
-                where: { supplierId: companyId }
-            }),
+        if (!companyId) {
+            req.flash('error_msg', 'Empresa não encontrada.');
+            return res.redirect('/auth/login');
+        }
 
-            prisma.order.count({
-                where: { supplierId: companyId }
-            }),
+        const page = parseInt(req.query.page as string) || 1;
+        const skip = (page - 1) * ORDERS_PER_PAGE;
 
+        const [
+            totalProducts,
+            totalOrders,
+            pagedOrders, 
+            revenueResult
+        ] = await Promise.all([
+            prisma.product.count({ where: { supplierId: companyId } }),
+            prisma.order.count({ where: { supplierId: companyId } }),
             prisma.order.findMany({
                 where: { supplierId: companyId },
                 orderBy: { createdAt: 'desc' },
-                take: 5,
+                skip: skip,
+                take: ORDERS_PER_PAGE,
                 include: {
-                    buyer: {
-                        select: { name: true }
-                    }
+                    buyer: { select: { name: true } }
                 }
+            }),
+            prisma.order.aggregate({
+                _sum: { totalAmount: true },
+                where: { supplierId: companyId, paymentStatus: 'APPROVED' }
             })
         ]);
 
-        const revenueResult = await prisma.order.aggregate({
-            _sum: {
-                totalAmount: true,
-            },
-            where: {
-                supplierId: companyId,
-                paymentStatus: 'APPROVED',
-            },
-        });
         const totalRevenue = revenueResult._sum.totalAmount || 0;
 
+        const totalPages = Math.ceil(totalOrders / ORDERS_PER_PAGE);
 
         res.render('supplier/dashboard', {
             title: 'Painel do Fornecedor',
             layout: 'layout/dashboard',
-            company: company,
+            company: res.locals.user?.company,
             stats: {
                 totalProducts,
                 totalOrders,
                 totalRevenue
             },
-            recentOrders,
+            orders: pagedOrders,
+            pagination: {
+                currentPage: page,
+                totalPages: totalPages
+            }
         });
 
     } catch (error) {
@@ -83,7 +85,7 @@ export const getEditProfileForm = async (req: Request, res: Response, next: Next
             return res.redirect('/supplier/dashboard');
         }
 
-        res.render('public/edit-profile', {
+        res.render('supplier/edit-profile', {
             title: 'Editar Perfil da Loja',
             layout: 'layout/dashboard',
             company
@@ -138,3 +140,5 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+

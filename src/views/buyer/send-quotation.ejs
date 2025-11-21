@@ -1,0 +1,23 @@
+<div class="container page-container">
+    <header class="page-header">
+        <h1><i class="fa-solid fa-paper-plane"></i> Revisar e Enviar</h1>
+        <p>Sua solicitação com <%= itemCount %> produto(s) será enviada aos respectivos fornecedores.</p>
+    </header>
+
+    <div class="form-container" style="max-width: 700px; margin: 0 auto;">
+        <form action="/buyer/quotation/send" method="POST">
+            <div class="form-group">
+                <label for="buyerNotes">Notas ou Observações (Opcional)</label>
+                <textarea id="buyerNotes" name="buyerNotes" class="form-control" rows="5" placeholder="Ex: Preciso de entrega urgente, favor informar o prazo."></textarea>
+                <small class="form-text">Estas notas serão visíveis para todos os fornecedores.</small>
+            </div>
+
+            <div class="form-actions" style="text-align: center; margin-top: 2rem;">
+                <a href="/buyer/cart" class="btn btn--secondary">Voltar ao Carrinho</a>
+                <button type="submit" class="btn btn--primary">
+                    <i class="fa-solid fa-check"></i> Confirmar e Enviar para Fornecedores
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

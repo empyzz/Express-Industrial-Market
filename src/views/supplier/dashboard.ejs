@@ -50,11 +50,12 @@
     </div>
 </section>
 
+
 <!-- Pedidos Recentes -->
 <section class="dashboard-section">
     <div class="section-header">
-        <h2>Pedidos Recentes</h2>
-        <a href="/supplier/orders" class="btn-link">Ver Todos</a>
+        <h2>Histórico de Pedidos</h2>
+        <!-- O link "Ver Todos" não é mais necessário aqui -->
     </div>
     <div class="table-responsive">
         <table class="data-table">
@@ -63,35 +64,59 @@
                     <th>Pedido</th>
                     <th>Data</th>
                     <th>Comprador</th>
-                    <th>Valor</th>
+                    <th>Valor Total</th>
                     <th>Status</th>
-                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <% if (recentOrders.length > 0) { %>
-                    <% recentOrders.forEach(order => { %>
+                <% if (orders.length > 0) { %>
+                    <% orders.forEach(order => { %>
                         <tr>
                             <td><strong>#<%= order.orderNumber %></strong></td>
                             <td><%= new Date(order.createdAt).toLocaleDateString('pt-BR') %></td>
                             <td><%= order.buyer.name %></td>
-                            <td>R$ <%= order.totalAmount.toFixed(2).replace('.', ',') %></td>
+                            <td>R$ <%= Number(order.totalAmount).toFixed(2).replace('.', ',') %></td>
                             <td><span class="badge badge-<%= order.status.toLowerCase() %>"><%= order.status %></span></td>
-                            <td>
-                                <a href="/supplier/orders/<%= order.id %>" class="btn-icon" title="Ver Detalhes">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
-                            </td>
                         </tr>
                     <% }) %>
                 <% } else { %>
                     <tr>
-                        <td colspan="6" class="empty-state">
-                            <p>Nenhum pedido recebido ainda.</p>
+                        <td colspan="6">
+                            <div class="empty-state" style="padding: 2rem 0;">
+                                <p>Nenhum pedido recebido ainda.</p>
+                            </div>
                         </td>
                     </tr>
                 <% } %>
             </tbody>
         </table>
     </div>
+
+    <!-- CONTROLES DE PAGINAÇÃO -->
+    <% if (pagination.totalPages > 1) { %>
+        <div class="pagination">
+            <!-- Botão 'Anterior' -->
+            <% if (pagination.currentPage > 1) { %>
+                <a href="/supplier/dashboard?page=<%= pagination.currentPage - 1 %>">&laquo; Anterior</a>
+            <% } else { %>
+                <span class="disabled">&laquo; Anterior</span>
+            <% } %>
+
+            <!-- Números das Páginas (lógica simplificada) -->
+            <% for (let i = 1; i <= pagination.totalPages; i++) { %>
+                <% if (i === pagination.currentPage) { %>
+                    <span class="active"><%= i %></span>
+                <% } else { %>
+                    <a href="/supplier/dashboard?page=<%= i %>"><%= i %></a>
+                <% } %>
+            <% } %>
+
+            <!-- Botão 'Próximo' -->
+            <% if (pagination.currentPage < pagination.totalPages) { %>
+                <a href="/supplier/dashboard?page=<%= pagination.currentPage + 1 %>">Próximo &raquo;</a>
+            <% } else { %>
+                <span class="disabled">Próximo &raquo;</span>
+            <% } %>
+        </div>
+    <% } %>
 </section>

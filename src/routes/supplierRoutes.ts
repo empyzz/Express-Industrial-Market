@@ -6,7 +6,8 @@ import { validateProduct } from "../middleware/productMiddleware";
 
 const router = Router();
 
-router.use(isSupplier, hasCompany);
+router.use(isSupplier);
+router.use(hasCompany);
 
 router.get("/dashboard", hasCompany, isSupplier ,supplierController.getDashboard);
 
