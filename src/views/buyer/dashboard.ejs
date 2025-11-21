@@ -1,0 +1,70 @@
+<header class="dashboard-header">
+    <h1>Olá, <%= user.name.split(' ')[0] %>!</h1>
+    <p>Bem-vindo ao seu painel. Aqui você pode gerenciar suas cotações, pedidos e perfil.</p>
+</header>
+
+<!-- Ações Rápidas -->
+<section class="quick-actions">
+    <h2>Ações Rápidas</h2>
+    <div class="actions-grid">
+        <a href="/catalog" class="action-card">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Explorar Catálogo</span>
+        </a>
+        <a href="/buyer/cart" class="action-card">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Minha Cotação</span>
+        </a>
+        <a href="/buyer/profile" class="action-card">
+            <i class="fa-solid fa-user-pen"></i>
+            <span>Editar Perfil</span>
+        </a>
+    </div>
+</section>
+
+<!-- Pedidos Recentes -->
+<section class="dashboard-section">
+    <div class="section-header">
+        <h2>Seus Pedidos Recentes</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (recentOrders.length > 0) { %>
+                    <% recentOrders.forEach(order => { %>
+                        <tr>
+                            <td><strong>#<%= order.orderNumber %></strong></td>
+                            <td><%= new Date(order.createdAt).toLocaleDateString('pt-BR') %></td>
+                            <td><span class="badge badge-<%= order.status.toLowerCase() %>"><%= order.status %></span></td>
+                            <td>R$ <%= Number(order.totalAmount).toFixed(2).replace('.', ',') %></td>
+                            <td>
+                                <a href="/buyer/orders/<%= order.id %>" class="btn-icon" title="Ver Detalhes">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">
+                            <div class="empty-state" style="padding: 2rem 0;">
+                                <i class="fa-solid fa-file-circle-question"></i>
+                                <p>Você ainda não fez nenhum pedido.</p>
+                                <a href="/catalog" class="btn btn--primary">Comece a Explorar</a>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</section>

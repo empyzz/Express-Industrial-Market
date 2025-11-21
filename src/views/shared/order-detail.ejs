@@ -1,0 +1,77 @@
+<header class="dashboard-header">
+    <h1>Detalhes do Pedido <span class="order-number">#<%= order.orderNumber %></span></h1>
+    <p>Status atual: <span class="badge badge-<%= order.status.toLowerCase() %>"><%= order.status %></span></p>
+</header>
+
+<div class="order-detail-layout">
+
+    <div class="order-main-content">
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2>Itens do Pedido</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th style="text-align: center;">Quantidade</th>
+                            <th style="text-align: right;">Preço Unitário</th>
+                            <th style="text-align: right;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% order.items.forEach(item => { %>
+                            <tr>
+                                <td>
+                                    <a href="/products/<%= item.product.id %>" style="font-weight: 600;"><%= item.productName %></a>
+                                </td>
+                                <td style="text-align: center;"><%= item.quantity %></td>
+                                <td style="text-align: right;">R$ <%= Number(item.unitPrice).toFixed(2).replace('.', ',') %></td>
+                                <td style="text-align: right;">R$ <%= (Number(item.unitPrice) * item.quantity).toFixed(2).replace('.', ',') %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                    <tfoot>
+                        <tr class="summary-row">
+                            <td colspan="3">Total do Pedido</td>
+                            <td>R$ <%= Number(order.totalAmount).toFixed(2).replace('.', ',') %></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <aside class="order-sidebar">
+        <% if (isSupplier) { %>
+            <section class="dashboard-section info-card">
+                <h3>Informações do Comprador</h3>
+                <p><strong>Nome:</strong> <%= order.buyer.name %></p>
+                <p><strong>Email:</strong> <%= order.buyer.email %></p>
+            </section>
+        <% } else { %>
+
+            <section class="dashboard-section info-card">
+                <h3>Informações do Fornecedor</h3>
+                <p><strong>Empresa:</strong> <%= order.supplier.nomeFantasia || order.supplier.razaoSocial %></p>
+                <p><strong>Email:</strong> <%= order.supplier.email %></p>
+                <% if (order.supplier.address) { %>
+                    <p><strong>Local:</strong> <%= order.supplier.address.city %>, <%= order.supplier.address.state %></p>
+                <% } %>
+            </section>
+        <% } %>
+
+        <% if (isSupplier && order.status === 'PENDING') { %>
+            <section class="dashboard-section actions-card">
+                <h3>Ações do Pedido</h3>
+                <form action="/supplier/orders/<%= order.id %>/confirm" method="POST">
+                    <button type="submit" class="btn btn--primary btn--full-width">Confirmar Pedido</button>
+                </form>
+                <form action="/supplier/orders/<%= order.id %>/cancel" method="POST" style="margin-top: 0.5rem;">
+                    <button type="submit" class="btn btn--danger btn--full-width">Cancelar Pedido</button>
+                </form>
+            </section>
+        <% } %>
+    </aside>
+</div>

@@ -14,8 +14,8 @@ export const PostLogin = async (req: Request, res: Response): Promise<void> => {
     const { email, password } = req.body;
 
     if (!email || !password) {
+      req.flash('error_msg', 'Insira seu Email e Senha');
       res.render("auth/login", { 
-        error: "Email and password required",
         title: "Login"
       });
       return;
@@ -25,8 +25,8 @@ export const PostLogin = async (req: Request, res: Response): Promise<void> => {
     });
 
     if (!user) {
+      req.flash('error_msg', "Usuario incorreto",);
       res.render("auth/login", {
-        error: "User not found",
         title:"Login"
       });
       return;
@@ -35,6 +35,7 @@ export const PostLogin = async (req: Request, res: Response): Promise<void> => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
+      req.flash('error_msg', "Senha incorreta");
       res.render("auth/login", {
         error: "Invalid password",
         title:"Login"
@@ -50,8 +51,6 @@ export const PostLogin = async (req: Request, res: Response): Promise<void> => {
       userType: user.userType
     };
 
-
-    // ensure session is persisted before redirect:
     req.session.save((err) => {
       if (err) {
         console.error('Session save error:', err);

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
-
+import { getOrderDetail } from './orderController';
+export { getOrderDetail };
 
 export const getDashboard = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -68,35 +69,5 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
             req.flash('error_msg', 'Ocorreu um erro ao atualizar o perfil.');
         }
         res.redirect('/buyer/profile');
-    }
-};
-
-
-export const getOrders = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const userId = res.locals.user?.id;
-
-        if (userId == null) {
-            return res.status(401).json({ error: "Not authenticated" });
-        }
-
-        const orders = await prisma.order.findMany({
-            where: { buyerId: userId },
-            orderBy: { createdAt: 'desc' },
-            include: {
-                supplier: {
-                    select: { nomeFantasia: true, id:true }
-                }
-            }
-        });
-
-        res.render('buyer/orders', {
-            title: 'Meus Pedidos',
-            layout: 'layout/dashboard-buyer',
-            orders: orders
-        });
-
-    } catch (error) {
-        next(error);
     }
 };

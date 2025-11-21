@@ -32,4 +32,6 @@ router.delete("/products/:id", productController.deleteProduct);
 router.get("/profile/edit", supplierController.getEditProfileForm);
 router.put("/profile", supplierController.updateProfile);
 
+router.get("/orders/:orderId", supplierController.getOrderDetail);
+
 export default router;

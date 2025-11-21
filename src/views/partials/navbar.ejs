@@ -65,6 +65,7 @@
                                     <% if (user.company) { %>
                                         <a href="/suppliers/<%= user.company.id %>"><i class="fa-solid fa-store"></i> Ver Minha Loja</a>
                                         <a href="/supplier/profile/edit"><i class="fa-solid fa-pen-to-square"></i> Editar Loja</a>
+                                        <a href="/supplier/dashboard"><i class="fa-solid fa-box-archive"></i> Meus Pedidos</a>
                                     <% } else { %>
                                         <a href="/auth/complete-profile" class="link-emphasis">
                                             <i class="fa-solid fa-exclamation-circle"></i> Complete seu Perfil
@@ -74,11 +75,10 @@
                                 <% } %>
                             <% if (user.userType === "BUYER") { %>
                                 <a href="/buyer/profile"><i class="fa-solid fa-user-gear"></i> Meu Perfil</a>
-                            <% } %>
-
-                                
                                 <a href="/orders"><i class="fa-solid fa-box-archive"></i> Meus Pedidos</a>
                                 <a href="/favorites"><i class="fa-solid fa-heart"></i> Favoritos</a>
+                            <% } %>
+
                                 <hr>
                                 <a href="/auth/logout" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
                             </div>

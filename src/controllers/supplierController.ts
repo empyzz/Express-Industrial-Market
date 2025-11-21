@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
-
+import { getOrderDetail } from './orderController';
+export { getOrderDetail };
 
 const ORDERS_PER_PAGE = 10;
 

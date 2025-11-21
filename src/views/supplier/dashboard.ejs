@@ -66,6 +66,7 @@
                     <th>Comprador</th>
                     <th>Valor Total</th>
                     <th>Status</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,6 +78,11 @@
                             <td><%= order.buyer.name %></td>
                             <td>R$ <%= Number(order.totalAmount).toFixed(2).replace('.', ',') %></td>
                             <td><span class="badge badge-<%= order.status.toLowerCase() %>"><%= order.status %></span></td>
+                            <td>
+                                <a href="/supplier/orders/<%= order.id %>" class="btn-icon" title="Ver Detalhes e Responder">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </td>
                         </tr>
                     <% }) %>
                 <% } else { %>
