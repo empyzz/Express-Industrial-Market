@@ -11,8 +11,6 @@ export const getIndexPage = async (req: Request, res: Response, next: NextFuncti
             }
         })
 
-        const quotations = await prisma.quotation.findMany({
-        })
 
         const users = await prisma.user.findMany({
             where: {
@@ -44,7 +42,6 @@ export const getIndexPage = async (req: Request, res: Response, next: NextFuncti
             layout: 'layout/main',
             products: featuredProducts,
             company: company,
-            quotations: quotations,
             users: users,
         });
 

@@ -191,7 +191,6 @@ export const postCompleteProfile = async (req: Request, res: Response) => {
                 inscricaoEstadual,
                 phone,
                 email,
-                companyType: 'SUPPLIER',
                 user: {
                     connect: { id: userId }
                 },

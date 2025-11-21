@@ -13,7 +13,6 @@ export const getCatalog = async (req: Request, res: Response, next: NextFunction
         const maxPrice = parseFloat(req.query.maxPrice as string) || undefined;
         const searchQuery = req.query.q as string;
 
-        // --- Construção da Cláusula 'where' do Prisma ---
         let where: Prisma.ProductWhereInput = {
             isActive: true,
         };
