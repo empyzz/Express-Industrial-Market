@@ -2,6 +2,7 @@ import { Router } from "express";
 import { isAuthenticated, isBuyer } from "../middleware/authMiddleware";
 import * as buyerController from "../controllers/buyerController";
 import * as cartController from "../controllers/cartController";
+import * as reviewController from "../controllers/ReviewController"
 
 const router = Router();
 
@@ -22,5 +23,8 @@ router.post("/quotation/send", cartController.createOrdersFromCart);
 
 router.get("/orders/:orderId", buyerController.getOrderDetail);
 
+router.get("/orders/:orderId/review", reviewController.getReviewChoicePage);
+router.get("/order-item/:itemId/review", reviewController.getReviewForm);
+router.post("/order-item/:itemId/review", reviewController.createReview);
 
 export default router;

@@ -34,4 +34,10 @@ router.put("/profile", supplierController.updateProfile);
 
 router.get("/orders/:orderId", supplierController.getOrderDetail);
 
-export default router;
+
+router.post("/orders/:orderId/confirm", supplierController.confirmOrder);
+router.post("/orders/:orderId/cancel", supplierController.cancelOrder);
+router.post("/orders/:orderId/ship", supplierController.shipOrder);
+router.post("/orders/:orderId/deliver", supplierController.deliveredOrder);
+
+export default router;      

@@ -206,7 +206,9 @@ exports.Prisma.ReviewScalarFieldEnum = {
   updatedAt: 'updatedAt',
   orderId: 'orderId',
   buyerId: 'buyerId',
-  companyId: 'companyId'
+  companyId: 'companyId',
+  orderItemId: 'orderItemId',
+  productId: 'productId'
 };
 
 exports.Prisma.AddressScalarFieldEnum = {

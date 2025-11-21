@@ -38,6 +38,30 @@
                 <h4>Descrição</h4>
                 <p><%= product.description.replace(/\n/g, '  ') %></p>
             </div>
+            
+                <section class="product-reviews">
+                    <h3>Avaliações do Fornecedor</h3>
+                    <div class="reviews-list">
+                        <% if (reviews.length > 0) { %>
+                            <% reviews.forEach(review => { %>
+                                <div class="review-card">
+                                    <div class="review-card__header">
+                                        <span class="review-card__author"><%= review.buyer.name %></span>
+                                        <span class="review-card__rating">
+                                            <% for(let i = 1; i <= 5; i++) { %>
+                                                <i class="fa-solid fa-star <%= i <= review.rating ? 'active' : '' %>"></i>
+                                            <% } %>
+                                        </span>
+                                    </div>
+                                    <p class="review-card__comment"><%= review.comment %></p>
+                                    <small class="review-card__date"><%= new Date(review.createdAt).toLocaleDateString('pt-BR') %></small>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="text-muted">Este fornecedor ainda não foi avaliado.</p>
+                        <% } %>
+                    </div>
+                </section>
 
             <!-- Ações de Compra -->
             <div class="product-actions">

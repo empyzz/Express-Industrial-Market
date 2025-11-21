@@ -1,0 +1,43 @@
+<header class="dashboard-header">
+    <h1>Avaliar Pedido #<%= item.orderNumber %></h1>
+    <p>Sua opinião é muito importante para o fornecedor <strong><%= item.order.supplier.nomeFantasia %></strong> e para a comunidade.</p>
+</header>
+
+<section class="dashboard-section">
+    <form action="/buyer/order-item/<%= item.id %>/review" method="POST">
+        <!-- Avaliação Geral (Estrelas) -->
+        <div class="form-group">
+            <label for="rating">Sua avaliação geral</label>
+            <div class="star-rating">
+                <% for(let i = 5; i >= 1; i--) { %>
+                    <input type="radio" id="star<%= i %>" name="rating" value="<%= i %>" required/>
+                    <label for="star<%= i %>" title="<%= i %> estrelas"><i class="fa-solid fa-star"></i></label>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Comentário -->
+        <div class="form-group">
+            <label for="comment">Seu comentário</label>
+            <textarea id="comment" name="comment" class="form-control" rows="6" placeholder="Conte mais sobre sua experiência com o produto e o atendimento." required></textarea>
+        </div>
+
+        <!-- Recomendaria? -->
+        <div class="form-group">
+            <label>Você recomendaria este fornecedor?</label>
+            <div class="radio-group-inline">
+                <label class="radio-label">
+                    <input type="radio" name="wouldRecommend" value="true" required> Sim
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="wouldRecommend" value="false"> Não
+                </label>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a href="/buyer/orders/<%= item.orderId %>" class="btn btn--secondary">Cancelar</a>
+            <button type="submit" class="btn btn--primary">Enviar Avaliação</button>
+        </div>
+    </form>
+</section>

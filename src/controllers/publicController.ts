@@ -69,17 +69,24 @@ export const getSupplierProfile = async (req: Request, res: Response, next: Next
             },
             include: {
                 address: true,
-                
                 products: { 
                     where: { isActive: true },
                     take: 12,
                     orderBy: { createdAt: 'desc' },
                     include: { images: { take: 1 } }
                 },
-                reviews: { 
-                    take: 5,
+                reviews: {
+                    take: 10,
                     orderBy: { createdAt: 'desc' },
-                    include: { buyer: { select: { name: true } } }
+                    include: {
+                        buyer: { select: { name: true } },
+                        product: { 
+                            select: {
+                                id: true,
+                                name: true
+                            }
+                        }
+                    }
                 }
             }
         });

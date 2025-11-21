@@ -178,3 +178,41 @@
     border-color: var(--color-primary);
     font-weight: 600;
 }
+
+
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+.review-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+}
+.review-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.review-card__author {
+    font-weight: 600;
+}
+.review-card__rating .fa-star {
+    color: #ccc;
+}
+.review-card__rating .fa-star.active {
+    color: #f59e0b;
+}
+.review-card__comment {
+    margin-bottom: 1rem;
+    color: var(--color-text-body);
+}
+.review-card__date {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}

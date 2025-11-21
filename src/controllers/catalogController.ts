@@ -88,7 +88,7 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
             return res.redirect('/catalog');
         }
 
-        const product = await prisma.product.findUnique({
+       const product = await prisma.product.findUnique({
             where: { 
                 id: id,
                 isActive: true
@@ -96,13 +96,20 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
             include: {
                 images: { orderBy: { order: 'asc' } },
                 category: true,
-                supplier: { 
+                supplier: {                     
                     select: {
                         id: true,
                         nomeFantasia: true,
                         logo: true,
                         ratingAverage: true,
-                        ratingCount: true
+ 
+                    }
+                },
+                reviews: {
+                    orderBy: { createdAt: 'desc' },
+                    take: 5,
+                    include: {
+                        buyer: { select: { name: true } }
                     }
                 }
             }
@@ -129,7 +136,8 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
             title: product.name,
             layout: 'layout/main',
             product,
-            otherProducts: otherProductsFromSupplier
+            otherProducts: otherProductsFromSupplier,
+            reviews: product.reviews,
         });
 
     } catch (error) {

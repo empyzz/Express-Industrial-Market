@@ -1,6 +1,10 @@
+<!-- Cabeçalho da Página -->
 <header class="dashboard-header">
     <h1>Detalhes do Pedido <span class="order-number">#<%= order.orderNumber %></span></h1>
-    <p>Status atual: <span class="badge badge-<%= order.status.toLowerCase() %>"><%= order.status %></span></p>
+    <p>
+        Data do Pedido: <%= new Date(order.createdAt).toLocaleDateString('pt-BR') %> | 
+        Status: <span class="badge badge-<%= order.status.toLowerCase() %>"><%= order.status %></span>
+    </p>
 </header>
 
 <div class="order-detail-layout">
@@ -24,7 +28,11 @@
                         <% order.items.forEach(item => { %>
                             <tr>
                                 <td>
-                                    <a href="/products/<%= item.product.id %>" style="font-weight: 600;"><%= item.productName %></a>
+                                    <% if (item.product) { %>
+                                        <a href="/products/<%= item.product.id %>" style="font-weight: 600;"><%= item.productName %></a>
+                                    <% } else { %>
+                                        <span style="font-weight: 600; color: var(--color-text-muted);"><%= item.productName %> (Produto não disponível)</span>
+                                    <% } %>
                                 </td>
                                 <td style="text-align: center;"><%= item.quantity %></td>
                                 <td style="text-align: right;">R$ <%= Number(item.unitPrice).toFixed(2).replace('.', ',') %></td>
@@ -44,34 +52,67 @@
     </div>
 
     <aside class="order-sidebar">
-        <% if (isSupplier) { %>
-            <section class="dashboard-section info-card">
+
+        <section class="dashboard-section info-card">
+            <% if (isSupplier) { %>
                 <h3>Informações do Comprador</h3>
                 <p><strong>Nome:</strong> <%= order.buyer.name %></p>
-                <p><strong>Email:</strong> <%= order.buyer.email %></p>
-            </section>
-        <% } else { %>
-
-            <section class="dashboard-section info-card">
+                <p><strong>Email:</strong> <a href="mailto:<%= order.buyer.email %>"><%= order.buyer.email %></a></p>
+            <% } else { %>
                 <h3>Informações do Fornecedor</h3>
                 <p><strong>Empresa:</strong> <%= order.supplier.nomeFantasia || order.supplier.razaoSocial %></p>
-                <p><strong>Email:</strong> <%= order.supplier.email %></p>
+                <p><strong>Email:</strong> <a href="mailto:<%= order.supplier.email %>"><%= order.supplier.email %></a></p>
                 <% if (order.supplier.address) { %>
                     <p><strong>Local:</strong> <%= order.supplier.address.city %>, <%= order.supplier.address.state %></p>
                 <% } %>
-            </section>
-        <% } %>
+            <% } %>
+        </section>
 
-        <% if (isSupplier && order.status === 'PENDING') { %>
-            <section class="dashboard-section actions-card">
-                <h3>Ações do Pedido</h3>
-                <form action="/supplier/orders/<%= order.id %>/confirm" method="POST">
-                    <button type="submit" class="btn btn--primary btn--full-width">Confirmar Pedido</button>
-                </form>
-                <form action="/supplier/orders/<%= order.id %>/cancel" method="POST" style="margin-top: 0.5rem;">
-                    <button type="submit" class="btn btn--danger btn--full-width">Cancelar Pedido</button>
-                </form>
-            </section>
-        <% } %>
+        <section class="dashboard-section actions-card">
+            <h3>Ações</h3>
+            
+            <% if (isSupplier) { %>
+                <% if (order.status === 'PENDING') { %>
+                    <form action="/supplier/orders/<%= order.id %>/confirm" method="POST" class="form-action">
+                        <button type="submit" class="btn btn--primary btn--full-width"><i class="fa-solid fa-check"></i> Confirmar Pedido</button>
+                    </form>
+                    <form action="/supplier/orders/<%= order.id %>/cancel" method="POST" class="form-action">
+                        <button type="submit" class="btn btn--danger btn--full-width" onclick="return confirm('Tem certeza que deseja cancelar este pedido?');"><i class="fa-solid fa-times"></i> Cancelar Pedido</button>
+                    </form>
+                <% } else if (order.status === 'CONFIRMED') { %>
+                    <form action="/supplier/orders/<%= order.id %>/ship" method="POST" class="form-action">
+                        <button type="submit" class="btn btn--primary btn--full-width"><i class="fa-solid fa-truck"></i> Marcar como Enviado</button>
+                    </form>
+                    <form action="/supplier/orders/<%= order.id %>/cancel" method="POST" class="form-action">
+                        <button type="submit" class="btn btn--danger btn--full-width" onclick="return confirm('Atenção: Cancelar um pedido confirmado irá devolver os itens ao estoque. Deseja continuar?');"><i class="fa-solid fa-times"></i> Cancelar Pedido</button>
+                    </form>
+                <% } else if (order.status === 'SHIPPED') { %>
+                    <form action="/supplier/orders/<%= order.id %>/deliver" method="POST" class="form-action">
+                        <button type="submit" class="btn btn--primary btn--full-width"><i class="fa-solid fa-box-check"></i> Marcar como Entregue</button>
+                    </form>
+                <% } else if (order.status === 'DELIVERED') { %>
+                    <p class="text-center text-muted"><i class="fa-solid fa-check-circle" style="color: var(--color-success);"></i> Este pedido foi concluído.</p>
+                <% } else if (order.status === 'CANCELLED') { %>
+                    <p class="text-center text-muted"><i class="fa-solid fa-times-circle" style="color: var(--color-danger);"></i> Este pedido foi cancelado.</p>
+                <% } else { %>
+                    <p class="text-center text-muted">Nenhuma ação disponível.</p>
+                <% } %>
+
+            <% } else { %>
+                <% if (order.status === 'DELIVERED') { %>
+                    <% if (order.review) { %>
+                        <p class="text-center text-muted"><i class="fa-solid fa-star" style="color: #f59e0b;"></i> Você já avaliou este pedido.</p>
+                        <!-- <a href="/reviews/<%= order.review.id %>" class="btn btn--secondary btn--full-width" style="margin-top: 1rem;">Ver/Editar Avaliação</a> -->
+                    <% } else { %>
+                        <p>Gostou dos produtos e do atendimento? Deixe sua avaliação!</p>
+                        <a href="/buyer/orders/<%= order.id %>/review" class="btn btn--primary btn--full-width" style="margin-top: 1rem;">
+                            <i class="fa-solid fa-pen-to-square"></i> Deixar Avaliação
+                        </a>
+                    <% } %>
+                <% } else { %>
+                    <p class="text-center text-muted">Aguardando a finalização do pedido para poder avaliar.</p>
+                <% } %>
+            <% } %>
+        </section>
     </aside>
 </div>

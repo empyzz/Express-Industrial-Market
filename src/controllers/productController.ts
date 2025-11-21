@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
-import slugify from 'slugify'; // 1. Importe a biblioteca
+import slugify from 'slugify';
 import { randomBytes } from 'crypto';
 
 export const GetProduts = async (req: Request, res: Response, next: NextFunction) => {
@@ -28,7 +28,8 @@ export const GetProduts = async (req: Request, res: Response, next: NextFunction
                     take: 1,
                     orderBy: { order: 'asc' },
                     select: { url: true }
-                }
+                },
+                
             }
         });
 

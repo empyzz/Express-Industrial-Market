@@ -63,24 +63,34 @@
 
         <!-- Seção de Avaliações -->
         <section class="section">
-            <h2 class="section__title">Avaliações Recentes</h2>
-            <% if (company.reviews.length > 0) { %>
+            <div class="container">
+                <h2 class="section__title">Avaliações Recentes</h2>
                 <div class="reviews-list">
-                    <% company.reviews.forEach(review => { %>
-                        <div class="review-card">
-                            <div class="review-card__rating">
-                                <% for(let i = 0; i < 5; i++) { %>
-                                    <i class="fa-solid fa-star" style="color: <%= i < review.rating ? '#facc15' : '#e5e7eb' %>;"></i>
+                    <% if (company.reviews.length > 0) { %>
+                        <% company.reviews.forEach(review => { %>
+                            <div class="review-card">
+                                <div class="review-card__header">
+                                    <span class="review-card__author"><%= review.buyer.name %></span>
+                                    <span class="review-card__rating">
+                                        <% for(let i = 1; i <= 5; i++) { %>
+                                            <i class="fa-solid fa-star <%= i <= review.rating ? 'active' : '' %>"></i>
+                                        <% } %>
+                                    </span>
+                                </div>
+                                <% if (review.product) { %>
+                                    <div class="review-card__product-context">
+                                        Avaliação para: <a href="/catalog/products/<%= review.product.id %>"><%= review.product.name %></a>
+                                    </div>
                                 <% } %>
+                                <p class="review-card__comment"><%= review.comment %></p>
+                                <small class="review-card__date"><%= new Date(review.createdAt).toLocaleDateString('pt-BR') %></small>
                             </div>
-                            <p class="review-card__comment">"<%= review.comment %>"</p>
-                            <small class="review-card__author">- <%= review.buyer.name %>, <%= new Date(review.createdAt).toLocaleDateString('pt-BR') %></small>
-                        </div>
-                    <% }) %>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="text-center text-muted">Este fornecedor ainda não recebeu nenhuma avaliação.</p>
+                    <% } %>
                 </div>
-            <% } else { %>
-                <p style="text-align: center;">Este fornecedor ainda não recebeu avaliações.</p>
-            <% } %>
+            </div>
         </section>
     </div>
 </div>

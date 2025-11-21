@@ -98,6 +98,7 @@ model Product {
   orderItems         OrderItem[]
   favoritedBy        FavoriteProduct[]
   quotationCartItems QuotationCartItem[]
+  reviews            Review[]
 
   @@map("products")
 }
@@ -168,13 +169,18 @@ model Review {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  // Relacionamentos
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId   String  @unique
   buyer     User    @relation(fields: [buyerId], references: [id], onDelete: Cascade)
   buyerId   String
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId String
+
+  orderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
+  orderItemId String?    @unique
+
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productId String?
 
   @@map("reviews")
 }
@@ -213,6 +219,8 @@ model OrderItem {
 
   product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
   productId String?
+
+  review Review?
 
   @@map("order_items")
 }
