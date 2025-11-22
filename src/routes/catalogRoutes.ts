@@ -4,11 +4,10 @@ import * as catalogController from "../controllers/catalogController";
 const router = Router();
 
 
-// GET /catalog
+// Catalog Main Page
 router.get("/", catalogController.getCatalog);
 
-// GET /catalog/{product_id}
+// Catalog Product Specific Page
 router.get("/products/:id", catalogController.getProductById);
-
 
 export default router;

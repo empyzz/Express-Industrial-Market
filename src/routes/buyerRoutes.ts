@@ -10,20 +10,22 @@ const router = Router();
 router.use(isAuthenticated);
 router.use(isBuyer);        
 
+// Buyer Dashboard
 router.get("/dashboard", buyerController.getDashboard);
 
+// Buyer Profile | Update Profile
 router.get("/profile", buyerController.getProfilePage);
 router.post("/profile", upload.single('avatar'), buyerController.updateProfile);
 
+// Cart | Add Items | Delete Cart | Send Order to Supplier
 router.post("/cart/items", cartController.addOrUpdateCartItem);
 router.get("/cart", cartController.getCart);
 router.delete("/cart/:id", cartController.removeCartItem)
-
 router.get("/quotation/send", cartController.getQuotationSendPage);
 router.post("/quotation/send", cartController.createOrdersFromCart);
 
+// Get Orders | Review Order | Post Review on the Product
 router.get("/orders/:orderId", buyerController.getOrderDetail);
-
 router.get("/orders/:orderId/review", reviewController.getReviewChoicePage);
 router.get("/order-item/:itemId/review", reviewController.getReviewForm);
 router.post("/order-item/:itemId/review", reviewController.createReview);

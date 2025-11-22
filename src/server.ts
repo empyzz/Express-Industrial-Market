@@ -48,7 +48,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
     },
   })
@@ -75,16 +75,11 @@ app.use("/supplier", supplierRoutes);
 app.use("/catalog", catalogRoutes)
 
 
-// Test route
-app.get("/ping", (req: Request, res: Response) => {
-  res.send("pong");
-});
 
-
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
 
 

@@ -10,10 +10,13 @@ const router = Router();
 router.use(isSupplier);
 router.use(hasCompany);
 
+// Dashboard
 router.get("/dashboard", hasCompany, isSupplier ,supplierController.getDashboard);
 
+// Get all supplier products 
 router.get("/products", productController.GetProduts);
 
+// CRUD Products
 router.get("/products/new", productController.getCreateProdutc);
 router.post(
     "/products", 
@@ -32,7 +35,7 @@ router.put(
 
 router.delete("/products/:id", productController.deleteProduct);
 
-
+// Edit Profile
 router.get("/profile/edit", supplierController.getEditProfileForm);
 router.put(
     "/profile",
@@ -43,12 +46,14 @@ router.put(
     supplierController.updateProfile
 );
 
+// Control Order Status
 router.get("/orders/:orderId", supplierController.getOrderDetail);
 router.post("/orders/:orderId/confirm", supplierController.confirmOrder);
 router.post("/orders/:orderId/cancel", supplierController.cancelOrder);
 router.post("/orders/:orderId/ship", supplierController.shipOrder);
 router.post("/orders/:orderId/deliver", supplierController.deliveredOrder);
 
+// Get all the reviews for the supplier
 router.get("/reviews", supplierController.getReviewsPage);
 
 export default router;      
