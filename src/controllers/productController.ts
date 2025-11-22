@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
 import slugify from 'slugify';
 import { randomBytes } from 'crypto';
+import { Prisma } from '../../prisma/.prisma/generated';
 
 export const GetProduts = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -205,16 +206,15 @@ export const getEditProductForm = async (req: Request, res: Response, next: Next
 
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id } = req.params;
+        const { id: productId } = req.params;
         const companyId = res.locals.user?.company?.id;
 
-        if (!id || typeof id !== 'string') {
-            req.flash('error_msg', 'ID do produto inválido.');
-            return res.redirect('/supplier/products');
-        }
+        if (productId == null || companyId == null){
+            return res.redirect('/');
+        };
 
         const productOwnerCheck = await prisma.product.findFirst({
-            where: { id: id, supplierId: companyId }
+            where: { id: productId, supplierId: companyId }
         });
 
         if (!productOwnerCheck) {
@@ -230,45 +230,51 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
             categoryId,
             unit,
             ncm,
-            imageUrls,
             isActive
         } = req.body;
 
-        let slug = productOwnerCheck.slug;
+        const dataToUpdate: Prisma.ProductUpdateInput = {
+            name,
+            description,
+            price: parseFloat(price),
+            stockQuantity: parseInt(stockQuantity, 10),
+            unit,
+            ncm: ncm || null,
+            isActive: isActive === 'on',
+            category: { connect: { id: categoryId } },
+        };
+
         if (name !== productOwnerCheck.name) {
             const baseSlug = slugify(name, { lower: true, strict: true });
             const randomSuffix = randomBytes(4).toString('hex');
-            slug = `${baseSlug}-${randomSuffix}`;
+            dataToUpdate.slug = `${baseSlug}-${randomSuffix}`;
+        }
+
+        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+
+        if (files.images && files.images.length > 0) {
+            dataToUpdate.images = {
+                deleteMany: {},
+                create: files.images.map((file, index) => ({
+                    url: `/uploads/images/${file.filename}`,
+                    order: index,
+                    isPrimary: index === 0
+                }))
+            };
+        }
+
+        if (files.manual && files.manual.length > 0) {
+            dataToUpdate.technicalManualUrl = `/uploads/manuals/${files.manual[0]!.filename}`;
         }
 
         await prisma.product.update({
-            where: { id: id },
-            data: {
-                name,
-                slug,
-                description,
-                price,
-                stockQuantity,
-                unit,
-                ncm: ncm || null,
-                isActive: isActive === 'on',
-                category: {
-                    connect: { id: categoryId }
-                },
-
-                images: {
-                    deleteMany: {},
-                    create: imageUrls.split(',').map((url: string, index: number) => ({
-                        url: url.trim(),
-                        order: index,
-                        isPrimary: index === 0
-                    }))
-                }
-            }
+            where: { id: productId },
+            data: dataToUpdate
         });
 
         req.flash('success_msg', `Produto "${name}" atualizado com sucesso!`);
-        res.redirect('/supplier/products');
+        res.redirect(`/supplier/products/${productId}/edit`);
 
     } catch (error) {
         console.error("Erro ao atualizar produto:", error);

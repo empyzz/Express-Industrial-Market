@@ -76,18 +76,19 @@ model Company {
 }
 
 model Product {
-  id            String   @id @default(cuid())
-  name          String
-  slug          String   @unique
-  description   String   @db.Text
-  price         Decimal  @db.Decimal(10, 2)
-  stockQuantity Int      @default(0)
-  unit          String   @default("un")
-  ncm           String?
-  isActive      Boolean  @default(true)
-  isFeatured    Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  name               String
+  slug               String   @unique
+  description        String   @db.Text
+  price              Decimal  @db.Decimal(10, 2)
+  stockQuantity      Int      @default(0)
+  unit               String   @default("un")
+  ncm                String?
+  isActive           Boolean  @default(true)
+  isFeatured         Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  technicalManualUrl String?
 
   // Relacionamentos
   supplier           Company             @relation(fields: [supplierId], references: [id], onDelete: Cascade)

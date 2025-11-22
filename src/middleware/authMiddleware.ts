@@ -159,11 +159,14 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
         email: true,
         userType: true,
         lastLogin: true,
+        avatar: true,
         company: {
           select: {
             id: true,
             razaoSocial: true,
-            cnpj: true
+            cnpj: true,
+            logo: true,
+            banner: true
           },
         },
 

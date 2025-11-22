@@ -50,7 +50,11 @@
                         <!-- Dropdown do Usuário -->
                         <div class="user-dropdown">
                             <button class="user-dropdown__toggle" aria-label="Menu do usuário">
-                                <img src="<%= user.avatar || '/images/default-avatar.png' %>" alt="Avatar de <%= user.name %>" class="user-avatar">
+                                <% if (user.userType === 'SUPPLIER' && user.company?.logo) { %>
+                                    <img src="<%= user.company.logo %>" alt="Logo de <%= user.company.nomeFantasia %>" class="user-avatar">
+                                <% } else { %>
+                                    <img src="<%= user.avatar || '/images/default-avatar.png' %>" alt="Avatar de <%= user.name %>" class="user-avatar">
+                                <% } %> 
                                 <span class="user-name"><%= user.name.split(' ')[0] %></span>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </button>

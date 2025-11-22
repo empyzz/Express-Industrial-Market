@@ -12,7 +12,7 @@
 
     <div style="padding: 1.5rem;">
 
-        <form action="/supplier/profile?_method=PUT" method="POST">
+        <form action="/supplier/profile?_method=PUT" method="POST"  enctype="multipart/form-data">
             
             <!-- Razão Social e Nome Fantasia -->
             <div class="form-row">
@@ -63,12 +63,12 @@
             <!-- Imagens de Perfil -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="logo">URL do Logo</label>
-                    <input type="url" id="logo" name="logo" class="form-control" placeholder="https://link-para-seu-logo.png" value="<%= company.logo || '' %>">
+                    <label for="logo">Logo da Empresa</label>
+                    <input type="file" id="logo" name="logo" class="form-control" accept="image/*">
                 </div>
                 <div class="form-group">
-                    <label for="banner">URL do Banner da Página</label>
-                    <input type="url" id="banner" name="banner" class="form-control" placeholder="https://link-para-seu-banner.jpg" value="<%= company.banner || '' %>">
+                    <label for="banner">Banner da Loja</label>
+                    <input type="file" id="banner" name="banner" class="form-control" accept="image/*">
                 </div>
             </div>
 

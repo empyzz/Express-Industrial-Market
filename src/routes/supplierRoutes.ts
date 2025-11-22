@@ -3,6 +3,7 @@ import { isSupplier, hasCompany } from "../middleware/authMiddleware";
 import * as supplierController from "../controllers/supplierController";
 import * as productController from "../controllers/productController";
 import { validateProduct } from "../middleware/productMiddleware";
+import upload from "../config/multer";
 
 const router = Router();
 
@@ -23,14 +24,30 @@ router.post("/products", validateProduct, productController.createProduct);
 
 // GET/PUT /products
 router.get("/products/:id/edit", productController.getEditProductForm);
-router.put("/products/:id", validateProduct, productController.updateProduct);
+router.put(
+    "/products/:id",
+    upload.fields([
+        { name: 'images', maxCount: 5 }, 
+        { name: 'manual', maxCount: 1 }
+    ]),
+    validateProduct,
+    productController.updateProduct
+);
 
 // DELETE /products
 router.delete("/products/:id", productController.deleteProduct);
 
 // Profile
 router.get("/profile/edit", supplierController.getEditProfileForm);
-router.put("/profile", supplierController.updateProfile);
+
+router.put(
+    "/profile",
+    upload.fields([
+        { name: 'logo', maxCount: 1 },
+        { name: 'banner', maxCount: 1 }
+    ]),
+    supplierController.updateProfile
+);
 
 router.get("/orders/:orderId", supplierController.getOrderDetail);
 

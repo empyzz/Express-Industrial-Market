@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
 import { getOrderDetail, confirmOrder, cancelOrder, shipOrder, deliveredOrder } from './orderController';
+import { Prisma } from '../../prisma/.prisma/generated';
 export { getOrderDetail, confirmOrder, cancelOrder, shipOrder, deliveredOrder };
 
 const ORDERS_PER_PAGE = 10;
@@ -113,31 +114,37 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
             email,
             website,
             description,
-            logo,
-            banner
         } = req.body;
 
 
+        const dataToUpdate: Prisma.CompanyUpdateInput = {
+            razaoSocial,
+            nomeFantasia,
+            phone,
+            email,
+            website: website || null,
+            description: description || null,
+        };
+
+        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+        if (files.logo && files.logo.length > 0) {
+            dataToUpdate.logo = `/uploads/images/${files.logo[0]!.filename}`;
+        }
+
+        if (files.banner && files.banner.length > 0) {
+            dataToUpdate.banner = `/uploads/images/${files.banner[0]!.filename}`;
+        }
+
         await prisma.company.update({
             where: { id: companyId },
-            data: {
-                razaoSocial,
-                nomeFantasia,
-                phone,
-                email,
-                website: website || null,
-                description: description || null,
-                logo: logo || null,
-                banner: banner || null
-            }
+            data: dataToUpdate
         });
 
         req.flash('success_msg', 'Perfil da loja atualizado com sucesso!');
         res.redirect('/supplier/profile/edit');
 
     } catch (error) {
-        console.error("Erro ao atualizar perfil:", error);
-        req.flash('error_msg', 'Ocorreu um erro ao salvar as alterações.');
         next(error);
     }
 };

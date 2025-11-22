@@ -41,5 +41,19 @@
             <%- body %>
         </main>
     </div>
+    
+    <script>
+        document.addEventListener("click", function (event) {
+            const closeButton = event.target.closest(".alert__close");
+
+            if (closeButton) {
+                const alertBox = closeButton.closest(".alert");
+                if (alertBox) {
+                    alertBox.classList.add("fade-out");
+                    setTimeout(() => alertBox.remove(), 300);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

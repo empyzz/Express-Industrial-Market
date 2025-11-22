@@ -170,6 +170,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   isFeatured: 'isFeatured',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  technicalManualUrl: 'technicalManualUrl',
   supplierId: 'supplierId',
   categoryId: 'categoryId'
 };

@@ -10,29 +10,31 @@
         <h2><i class="fa-solid fa-user-edit"></i> Informações Pessoais</h2>
     </div>
     <div style="padding: 1.5rem;">
-        <form action="/buyer/profile" method="POST">
+        <form action="/buyer/profile" method="POST" enctype="multipart/form-data">
             <div class="form-row">
-                <div class="form-group">
-                    <label for="name">Nome Completo</label>
-                    <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" required>
-                </div>
+
+            <div class="form-group">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" name="name" class="form-control" value="<%= user.name %>" required>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="phone">Telefone</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" value="<%= user.phone || '' %>">
-                </div>
-                <div class="form-group">
-                    <!-- Espaço vazio para alinhamento, ou pode adicionar outro campo no futuro -->
-                </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" disabled>
+                <small>O email não pode ser alterado.</small>
             </div>
+
+            <div class="form-group">
+                <label for="avatar">Foto de Perfil (Avatar)</label>
+                <input type="file" id="avatar" name="avatar" class="form-control" accept="image/*">
+                <small>Envie uma nova imagem para atualizar seu avatar.</small>
+            </div>
+
             <div class="form-actions">
-                <button type="submit" class="btn btn--primary">Salvar Informações</button>
+                <button type="submit" class="btn btn--primary">Salvar Alterações</button>
             </div>
+
+            
         </form>
     </div>
 </section>

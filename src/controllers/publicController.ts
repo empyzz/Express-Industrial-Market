@@ -5,12 +5,12 @@ import { prisma } from '../lib/prisma';
 export const getIndexPage = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
+
         const company = await prisma.company.findMany({
-            where: {
-                isActive: true
+            where: {     
+                isActive: true 
             }
         })
-
 
         const users = await prisma.user.findMany({
             where: {

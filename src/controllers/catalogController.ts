@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../prisma/.prisma/generated';
 
 const PRODUCTS_PER_PAGE = 12; // Define quantos produtos mostrar por página
 

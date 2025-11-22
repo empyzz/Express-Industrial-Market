@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
 import { getOrderDetail } from './orderController';
+import { Prisma } from '../../prisma/.prisma/generated';
 export { getOrderDetail };
 
 export const getDashboard = async (req: Request, res: Response, next: NextFunction) => {
@@ -47,27 +48,33 @@ export const getProfilePage = async (req: Request, res: Response, next: NextFunc
 
 export const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = res.locals.user!.id;
-        const { name, email, phone } = req.body;
+        const userId = res.locals.user?.id;
+        if (!userId) {
+            req.flash('error_msg', 'Sessão inválida.');
+            return res.redirect('/auth/login');
+        }
+
+        const { name } = req.body;
+
+        const dataToUpdate: Prisma.UserUpdateInput = {
+            name,
+        };
+
+        const avatarFile = req.file;
+        if (avatarFile) {
+            dataToUpdate.avatar = `/uploads/images/${avatarFile.filename}`;
+        }
 
         await prisma.user.update({
             where: { id: userId },
-            data: {
-                name,
-                email,
-                phone
-            }
+            data: dataToUpdate
         });
 
-        req.flash('success_msg', 'Perfil atualizado com sucesso!');
+        req.flash('success_msg', 'Seu perfil foi atualizado com sucesso!');
         res.redirect('/buyer/profile');
 
-    } catch (error: unknown) {
-        if (error === 'P2002' && error?.includes('email')) {
-            req.flash('error_msg', 'Este e-mail já está em uso por outra conta.');
-        } else {
-            req.flash('error_msg', 'Ocorreu um erro ao atualizar o perfil.');
-        }
-        res.redirect('/buyer/profile');
+    } catch (error) {
+        console.error("Erro ao atualizar perfil do comprador:", error);
+        next(error);
     }
 };

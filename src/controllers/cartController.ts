@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
-import { Prisma } from "@prisma/client"
 
 export const addOrUpdateCartItem = async (req: Request, res: Response, next: NextFunction) => {
 
