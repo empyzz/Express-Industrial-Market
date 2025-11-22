@@ -31,9 +31,10 @@ Open `.env` and set up:
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/db` |
-| `JWT_SECRET` | Token signing key | `your-super-secret-key` |
-| `PORT` | Server port | `3000` |
-| `NODE_ENV` | Environment mode | `development` / `production` |
+| `MAIL_HOST` | Host for the email | `smtp.gmail.com` |
+| `MAIL_PORT` | Mail port | `465` |
+| `MAIL_USER` | Mail User | `youremail@gmail.com` |
+| `MAIL_PASS` | Google App Password | `1234 4567 7890` |
 
 ---
 
