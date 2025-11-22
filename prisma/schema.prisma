@@ -86,7 +86,6 @@ model Product {
   categoryId    String
   images        ProductImage[]
   orderItems    OrderItem[]
-  favoritedBy   FavoriteProduct[]
   quotationCartItems QuotationCartItem[]
   reviews          Review[]
 

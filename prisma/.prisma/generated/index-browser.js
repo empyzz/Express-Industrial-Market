@@ -190,8 +190,6 @@ exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   orderNumber: 'orderNumber',
   totalAmount: 'totalAmount',
-  paymentMethod: 'paymentMethod',
-  paymentStatus: 'paymentStatus',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -255,20 +253,6 @@ exports.Prisma.ProductImageScalarFieldEnum = {
   productId: 'productId'
 };
 
-exports.Prisma.FavoriteProductScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  userId: 'userId',
-  productId: 'productId'
-};
-
-exports.Prisma.FavoriteSupplierScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  userId: 'userId',
-  supplierId: 'supplierId'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -286,20 +270,6 @@ exports.Prisma.NullsOrder = {
 exports.UserType = exports.$Enums.UserType = {
   BUYER: 'BUYER',
   SUPPLIER: 'SUPPLIER'
-};
-
-exports.PaymentMethod = exports.$Enums.PaymentMethod = {
-  BOLETO: 'BOLETO',
-  CARTAO: 'CARTAO',
-  PIX: 'PIX',
-  TRANSFERENCIA: 'TRANSFERENCIA',
-  A_PRAZO: 'A_PRAZO'
-};
-
-exports.PaymentStatus = exports.$Enums.PaymentStatus = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED'
 };
 
 exports.OrderStatus = exports.$Enums.OrderStatus = {
@@ -321,9 +291,7 @@ exports.Prisma.ModelName = {
   OrderItem: 'OrderItem',
   QuotationCart: 'QuotationCart',
   QuotationCartItem: 'QuotationCartItem',
-  ProductImage: 'ProductImage',
-  FavoriteProduct: 'FavoriteProduct',
-  FavoriteSupplier: 'FavoriteSupplier'
+  ProductImage: 'ProductImage'
 };
 
 /**

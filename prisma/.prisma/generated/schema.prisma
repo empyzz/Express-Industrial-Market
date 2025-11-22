@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "./.prisma/generated"
@@ -15,28 +9,24 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  name      String
-  email     String    @unique
-  password  String
-  userType  UserType
-  phone     String?
-  avatar    String?   @default("/images/default-avatar.png")
-  isActive  Boolean   @default(true)
-  lastLogin DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
+  id                   String    @id @default(cuid())
+  name                 String
+  email                String    @unique
+  password             String
+  userType             UserType
+  phone                String?
+  avatar               String?   @default("/images/default-avatar.png")
+  isActive             Boolean   @default(true)
+  lastLogin            DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
   resetPasswordToken   String?
   resetPasswordExpires DateTime?
 
-  // Relacionamentos
-  company           Company?
-  orders            Order[]
-  reviews           Review[]
-  favoriteProducts  FavoriteProduct[]
-  favoriteSuppliers FavoriteSupplier[]
-  quotationCart     QuotationCart?
+  company       Company?
+  orders        Order[]
+  reviews       Review[]
+  quotationCart QuotationCart?
 
   @@map("users")
 }
@@ -65,14 +55,12 @@ model Company {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  // Relacionamentos
-  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId           String             @unique
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String    @unique
   address          Address?
   products         Product[]
   ordersAsSupplier Order[]
   reviews          Review[]
-  favoritedBy      FavoriteSupplier[]
 
   @@map("companies")
 }
@@ -92,14 +80,12 @@ model Product {
   updatedAt          DateTime @updatedAt
   technicalManualUrl String?
 
-  // Relacionamentos
   supplier           Company             @relation(fields: [supplierId], references: [id], onDelete: Cascade)
   supplierId         String
   category           Category            @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   categoryId         String
   images             ProductImage[]
   orderItems         OrderItem[]
-  favoritedBy        FavoriteProduct[]
   quotationCartItems QuotationCartItem[]
   reviews            Review[]
 
@@ -115,23 +101,19 @@ model Category {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relacionamentos
   products Product[]
 
   @@map("categories")
 }
 
 model Order {
-  id            String        @id @default(cuid())
-  orderNumber   String        @unique
-  totalAmount   Decimal       @db.Decimal(10, 2)
-  paymentMethod PaymentMethod
-  paymentStatus PaymentStatus @default(PENDING)
-  status        OrderStatus   @default(PENDING)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  totalAmount Decimal     @db.Decimal(10, 2)
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
-  // Relacionamentos
   buyer      User        @relation(fields: [buyerId], references: [id])
   buyerId    String
   supplier   Company     @relation(fields: [supplierId], references: [id])
@@ -148,20 +130,6 @@ enum OrderStatus {
   SHIPPED
   DELIVERED
   CANCELLED
-}
-
-enum PaymentMethod {
-  BOLETO
-  CARTAO
-  PIX
-  TRANSFERENCIA
-  A_PRAZO
-}
-
-enum PaymentStatus {
-  PENDING
-  APPROVED
-  REJECTED
 }
 
 model Review {
@@ -188,11 +156,6 @@ model Review {
   @@map("reviews")
 }
 
-// =================================================================
-//                 MODELOS DE SUPORTE E RELACIONAMENTO
-// =================================================================
-
-// --- Endereço (Simplificado) ---
 model Address {
   id           String  @id @default(cuid())
   street       String
@@ -203,7 +166,6 @@ model Address {
   state        String
   cep          String
 
-  // Relacionamento 1-para-1 com a Empresa
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId String  @unique
 
@@ -216,7 +178,6 @@ model OrderItem {
   quantity    Int
   unitPrice   Decimal @db.Decimal(10, 2)
 
-  // Relacionamentos
   order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId String
 
@@ -228,7 +189,6 @@ model OrderItem {
   @@map("order_items")
 }
 
-// --- Carrinho de Cotações ---
 model QuotationCart {
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
@@ -245,7 +205,6 @@ model QuotationCartItem {
   id       String @id @default(cuid())
   quantity Int    @default(1)
 
-  // Relacionamentos
   cart      QuotationCart @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId    String
   product   Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
@@ -255,7 +214,6 @@ model QuotationCartItem {
   @@map("quotation_cart_items")
 }
 
-// --- Imagens de Produto ---
 model ProductImage {
   id        String  @id @default(cuid())
   url       String
@@ -267,33 +225,4 @@ model ProductImage {
   productId String
 
   @@map("product_images")
-}
-
-// --- Favoritos ---
-model FavoriteProduct {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-
-  // Relacionamentos
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId String
-
-  @@unique([userId, productId])
-  @@map("favorite_products")
-}
-
-model FavoriteSupplier {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-
-  // Relacionamentos
-  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String
-  supplier   Company @relation(fields: [supplierId], references: [id], onDelete: Cascade)
-  supplierId String
-
-  @@unique([userId, supplierId])
-  @@map("favorite_suppliers")
 }
