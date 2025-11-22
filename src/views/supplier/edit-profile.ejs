@@ -61,15 +61,30 @@
             </div>
 
             <!-- Imagens de Perfil -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="logo">Logo da Empresa</label>
-                    <input type="file" id="logo" name="logo" class="form-control" accept="image/*">
-                </div>
-                <div class="form-group">
-                    <label for="banner">Banner da Loja</label>
-                    <input type="file" id="banner" name="banner" class="form-control" accept="image/*">
-                </div>
+            <div class="form-group">
+                <label for="logo">Logo da Empresa</label>
+
+                <% if (company.logo && company.logo !== '/images/default-company-logo.png') { %>
+                    <div class="current-image-preview">
+                        <img src="<%= company.logo %>" alt="Logo atual" style="max-width: 150px; max-height: 80px; border-radius: var(--border-radius-md); margin-bottom: 1rem; border: 1px solid var(--color-border);">
+                    </div>
+                <% } %>
+                
+                <input type="file" id="logo" name="logo" class="form-control" accept="image/*">
+                <small class="form-text">Deixe em branco para manter o logo atual.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="banner">Banner da Loja</label>
+                
+                <% if (company.banner) { %>
+                    <div class="current-image-preview">
+                        <img src="<%= company.banner %>" alt="Banner atual" style="width: 150px; height: auto; border-radius: var(--border-radius-md); margin-bottom: 1rem; border: 1px solid var(--color-border);">
+                    </div>
+                <% } %>
+                
+                <input type="file" id="banner" name="banner" class="form-control" accept="image/*">
+                <small class="form-text">Deixe em branco para manter o banner atual.</small>
             </div>
 
             <div class="form-group">

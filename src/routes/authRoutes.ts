@@ -22,4 +22,11 @@ router.get("/logout", authController.GetLogout);
 router.get("/complete-profile", isAuthenticated, authController.getCompleteProfile);
 router.post("/complete-profile", isAuthenticated, authController.postCompleteProfile);
 
+
+router.get("/forgot-password", isGuest, authController.getForgotPasswordForm);
+router.post("/forgot-password", isGuest, authController.handleForgotPassword);
+
+router.get("/reset-password/:token", isGuest, authController.getResetPasswordForm);
+router.post("/reset-password/:token", isGuest, authController.handleResetPassword);
+
 export default router;

@@ -1,0 +1,63 @@
+<!-- Cabeçalho da Página -->
+<header class="dashboard-header">
+    <h1>Minhas Avaliações</h1>
+    <p>Veja o que os clientes estão dizendo sobre seus produtos.</p>
+</header>
+
+<!-- Seção da Tabela de Avaliações -->
+<section class="dashboard-section">
+    <div class="section-header">
+        <h2>Todas as Avaliações Recebidas</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Produto Avaliado</th>
+                    <th>Comprador</th>
+                    <th>Avaliação</th>
+                    <th style="width: 40%;">Comentário</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (reviews.length > 0) { %>
+                    <% reviews.forEach(review => { %>
+                        <tr>
+                            <td>
+                                <% if (review.product) { %>
+                                    <a href="/catalog/products/<%= review.product.id %>" target="_blank" style="font-weight: 600;">
+                                        <%= review.product.name %>
+                                    </a>
+                                <% } else { %>
+                                    <span class="text-muted">Produto Deletado</span>
+                                <% } %>
+                            </td>
+                            <td><%= review.buyer.name %></td>
+                            <td>
+                                <span class="star-rating-display">
+                                    <% for(let i = 1; i <= 5; i++) { %>
+                                        <i class="fa-solid fa-star <%= i <= review.rating ? 'active' : '' %>"></i>
+                                    <% } %>
+                                </span>
+                            </td>
+                            <td>
+                                <p><%= review.comment %></p>
+                            </td>
+                            <td><%= new Date(review.createdAt).toLocaleDateString('pt-BR') %></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <p>Você ainda não recebeu nenhuma avaliação.</p>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+

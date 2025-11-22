@@ -1,8 +1,8 @@
-import { body, validationResult } from 'express-validator'
+import { body } from 'express-validator';
 import { handleValidationErrors } from "../middleware/authMiddleware";
+import { Request, Response } from 'express';
 
-
-export const validateProduct = [
+const baseProductValidation = [
     body('name')
         .trim()
         .notEmpty().withMessage('O nome do produto é obrigatório.'),
@@ -13,7 +13,7 @@ export const validateProduct = [
 
     body('price')
         .isFloat({ gt: 0 }).withMessage('O preço deve ser um número maior que zero.')
-        .toFloat(), // Converte para número
+        .toFloat(), 
 
     body('stockQuantity')
         .isInt({ min: 0 }).withMessage('O estoque deve ser um número inteiro igual ou maior que zero.')
@@ -26,9 +26,27 @@ export const validateProduct = [
 
     body('unit')
         .notEmpty().withMessage('A unidade de medida é obrigatória.'),
+];
 
-    body('imageUrls')
-        .notEmpty().withMessage('Pelo menos uma imagem é obrigatória.'),
 
-    handleValidationErrors("/supplier/products"),
+export const validateCreateProduct = [
+    ...baseProductValidation, 
+    
+    body('images').custom((value, { req }) => {
+        if (!req.files || !('images' in req.files) || req.files.images.length === 0) {
+            throw new Error('Pelo menos uma imagem do produto é obrigatória.');
+        }
+        return true;
+    }),
+
+    handleValidationErrors("/supplier/products/new"),
+];
+
+export const validateUpdateProduct = [
+    ...baseProductValidation,
+    
+    (req: any, res: any, next: any) => {
+        const redirectUrl = `/supplier/products/${req.params.id}/edit`;
+        handleValidationErrors(redirectUrl)(req, res, next);
+    }
 ];

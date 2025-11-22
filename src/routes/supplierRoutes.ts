@@ -2,7 +2,7 @@ import { Router } from "express";
 import { isSupplier, hasCompany } from "../middleware/authMiddleware";
 import * as supplierController from "../controllers/supplierController";
 import * as productController from "../controllers/productController";
-import { validateProduct } from "../middleware/productMiddleware";
+import { validateCreateProduct, validateUpdateProduct } from "../middleware/productMiddleware";
 import upload from "../config/multer";
 
 const router = Router();
@@ -12,34 +12,28 @@ router.use(hasCompany);
 
 router.get("/dashboard", hasCompany, isSupplier ,supplierController.getDashboard);
 
-// --- GERENCIAMENTO DE PRODUTOS ---
-// (Exemplos de como seriam as rotas de produtos)
-
-// GET /supplier/products
 router.get("/products", productController.GetProduts);
 
-// GET / POST /supplier/products/new
 router.get("/products/new", productController.getCreateProdutc);
-router.post("/products", validateProduct, productController.createProduct);
+router.post(
+    "/products", 
+    upload.fields([{ name: 'images', maxCount: 5 }, { name: 'manual', maxCount: 1 }]),
+    validateCreateProduct,
+    productController.createProduct
+);
 
-// GET/PUT /products
 router.get("/products/:id/edit", productController.getEditProductForm);
 router.put(
-    "/products/:id",
-    upload.fields([
-        { name: 'images', maxCount: 5 }, 
-        { name: 'manual', maxCount: 1 }
-    ]),
-    validateProduct,
+    "/products/:id", 
+    upload.fields([{ name: 'images', maxCount: 5 }, { name: 'manual', maxCount: 1 }]),
+    validateUpdateProduct,
     productController.updateProduct
 );
 
-// DELETE /products
 router.delete("/products/:id", productController.deleteProduct);
 
-// Profile
-router.get("/profile/edit", supplierController.getEditProfileForm);
 
+router.get("/profile/edit", supplierController.getEditProfileForm);
 router.put(
     "/profile",
     upload.fields([
@@ -50,11 +44,11 @@ router.put(
 );
 
 router.get("/orders/:orderId", supplierController.getOrderDetail);
-
-
 router.post("/orders/:orderId/confirm", supplierController.confirmOrder);
 router.post("/orders/:orderId/cancel", supplierController.cancelOrder);
 router.post("/orders/:orderId/ship", supplierController.shipOrder);
 router.post("/orders/:orderId/deliver", supplierController.deliveredOrder);
+
+router.get("/reviews", supplierController.getReviewsPage);
 
 export default router;      

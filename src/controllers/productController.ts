@@ -203,7 +203,6 @@ export const getEditProductForm = async (req: Request, res: Response, next: Next
 };
 
 
-
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id: productId } = req.params;

@@ -2307,10 +2307,11 @@ export namespace Prisma {
     phone: string | null
     avatar: string | null
     isActive: boolean | null
-    emailVerified: boolean | null
     lastLogin: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    resetPasswordToken: string | null
+    resetPasswordExpires: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2322,10 +2323,11 @@ export namespace Prisma {
     phone: string | null
     avatar: string | null
     isActive: boolean | null
-    emailVerified: boolean | null
     lastLogin: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    resetPasswordToken: string | null
+    resetPasswordExpires: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2337,10 +2339,11 @@ export namespace Prisma {
     phone: number
     avatar: number
     isActive: number
-    emailVerified: number
     lastLogin: number
     createdAt: number
     updatedAt: number
+    resetPasswordToken: number
+    resetPasswordExpires: number
     _all: number
   }
 
@@ -2354,10 +2357,11 @@ export namespace Prisma {
     phone?: true
     avatar?: true
     isActive?: true
-    emailVerified?: true
     lastLogin?: true
     createdAt?: true
     updatedAt?: true
+    resetPasswordToken?: true
+    resetPasswordExpires?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2369,10 +2373,11 @@ export namespace Prisma {
     phone?: true
     avatar?: true
     isActive?: true
-    emailVerified?: true
     lastLogin?: true
     createdAt?: true
     updatedAt?: true
+    resetPasswordToken?: true
+    resetPasswordExpires?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2384,10 +2389,11 @@ export namespace Prisma {
     phone?: true
     avatar?: true
     isActive?: true
-    emailVerified?: true
     lastLogin?: true
     createdAt?: true
     updatedAt?: true
+    resetPasswordToken?: true
+    resetPasswordExpires?: true
     _all?: true
   }
 
@@ -2472,10 +2478,11 @@ export namespace Prisma {
     phone: string | null
     avatar: string | null
     isActive: boolean
-    emailVerified: boolean
     lastLogin: Date | null
     createdAt: Date
     updatedAt: Date
+    resetPasswordToken: string | null
+    resetPasswordExpires: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2504,10 +2511,11 @@ export namespace Prisma {
     phone?: boolean
     avatar?: boolean
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
     company?: boolean | User$companyArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -2526,10 +2534,11 @@ export namespace Prisma {
     phone?: boolean
     avatar?: boolean
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2541,10 +2550,11 @@ export namespace Prisma {
     phone?: boolean
     avatar?: boolean
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2556,13 +2566,14 @@ export namespace Prisma {
     phone?: boolean
     avatar?: boolean
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    resetPasswordToken?: boolean
+    resetPasswordExpires?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "userType" | "phone" | "avatar" | "isActive" | "emailVerified" | "lastLogin" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "userType" | "phone" | "avatar" | "isActive" | "lastLogin" | "createdAt" | "updatedAt" | "resetPasswordToken" | "resetPasswordExpires", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | User$companyArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -2594,10 +2605,11 @@ export namespace Prisma {
       phone: string | null
       avatar: string | null
       isActive: boolean
-      emailVerified: boolean
       lastLogin: Date | null
       createdAt: Date
       updatedAt: Date
+      resetPasswordToken: string | null
+      resetPasswordExpires: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3035,10 +3047,11 @@ export namespace Prisma {
     readonly phone: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly isActive: FieldRef<"User", 'Boolean'>
-    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly resetPasswordToken: FieldRef<"User", 'String'>
+    readonly resetPasswordExpires: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -17550,10 +17563,11 @@ export namespace Prisma {
     phone: 'phone',
     avatar: 'avatar',
     isActive: 'isActive',
-    emailVerified: 'emailVerified',
     lastLogin: 'lastLogin',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    resetPasswordToken: 'resetPasswordToken',
+    resetPasswordExpires: 'resetPasswordExpires'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -17904,10 +17918,11 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     isActive?: BoolFilter<"User"> | boolean
-    emailVerified?: BoolFilter<"User"> | boolean
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    resetPasswordToken?: StringNullableFilter<"User"> | string | null
+    resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     orders?: OrderListRelationFilter
     reviews?: ReviewListRelationFilter
@@ -17925,10 +17940,11 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     isActive?: SortOrder
-    emailVerified?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    resetPasswordToken?: SortOrderInput | SortOrder
+    resetPasswordExpires?: SortOrderInput | SortOrder
     company?: CompanyOrderByWithRelationInput
     orders?: OrderOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
@@ -17949,10 +17965,11 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     isActive?: BoolFilter<"User"> | boolean
-    emailVerified?: BoolFilter<"User"> | boolean
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    resetPasswordToken?: StringNullableFilter<"User"> | string | null
+    resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
     orders?: OrderListRelationFilter
     reviews?: ReviewListRelationFilter
@@ -17970,10 +17987,11 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     isActive?: SortOrder
-    emailVerified?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    resetPasswordToken?: SortOrderInput | SortOrder
+    resetPasswordExpires?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -17991,10 +18009,11 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
-    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetPasswordExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type CompanyWhereInput = {
@@ -18935,10 +18954,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutBuyerInput
     reviews?: ReviewCreateNestedManyWithoutBuyerInput
@@ -18956,10 +18976,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
@@ -18977,10 +18998,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUpdateManyWithoutBuyerNestedInput
@@ -18998,10 +19020,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
@@ -19019,10 +19042,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -19034,10 +19058,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -19049,10 +19074,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CompanyCreateInput = {
@@ -20146,10 +20172,11 @@ export namespace Prisma {
     phone?: SortOrder
     avatar?: SortOrder
     isActive?: SortOrder
-    emailVerified?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    resetPasswordToken?: SortOrder
+    resetPasswordExpires?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -20161,10 +20188,11 @@ export namespace Prisma {
     phone?: SortOrder
     avatar?: SortOrder
     isActive?: SortOrder
-    emailVerified?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    resetPasswordToken?: SortOrder
+    resetPasswordExpires?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -20176,10 +20204,11 @@ export namespace Prisma {
     phone?: SortOrder
     avatar?: SortOrder
     isActive?: SortOrder
-    emailVerified?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    resetPasswordToken?: SortOrder
+    resetPasswordExpires?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -22836,10 +22865,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     orders?: OrderCreateNestedManyWithoutBuyerInput
     reviews?: ReviewCreateNestedManyWithoutBuyerInput
     favoriteProducts?: FavoriteProductCreateNestedManyWithoutUserInput
@@ -22856,10 +22886,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
     favoriteProducts?: FavoriteProductUncheckedCreateNestedManyWithoutUserInput
@@ -23069,10 +23100,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     orders?: OrderUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUpdateManyWithoutBuyerNestedInput
     favoriteProducts?: FavoriteProductUpdateManyWithoutUserNestedInput
@@ -23089,10 +23121,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
     favoriteProducts?: FavoriteProductUncheckedUpdateManyWithoutUserNestedInput
@@ -23714,10 +23747,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyCreateNestedOneWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutBuyerInput
     favoriteProducts?: FavoriteProductCreateNestedManyWithoutUserInput
@@ -23734,10 +23768,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
     favoriteProducts?: FavoriteProductUncheckedCreateNestedManyWithoutUserInput
@@ -23884,10 +23919,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUpdateOneWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutBuyerNestedInput
     favoriteProducts?: FavoriteProductUpdateManyWithoutUserNestedInput
@@ -23904,10 +23940,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
     favoriteProducts?: FavoriteProductUncheckedUpdateManyWithoutUserNestedInput
@@ -24071,10 +24108,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutBuyerInput
     favoriteProducts?: FavoriteProductCreateNestedManyWithoutUserInput
@@ -24091,10 +24129,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
     favoriteProducts?: FavoriteProductUncheckedCreateNestedManyWithoutUserInput
@@ -24293,10 +24332,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutBuyerNestedInput
     favoriteProducts?: FavoriteProductUpdateManyWithoutUserNestedInput
@@ -24313,10 +24353,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
     favoriteProducts?: FavoriteProductUncheckedUpdateManyWithoutUserNestedInput
@@ -24838,10 +24879,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutBuyerInput
     reviews?: ReviewCreateNestedManyWithoutBuyerInput
@@ -24858,10 +24900,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
@@ -24916,10 +24959,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUpdateManyWithoutBuyerNestedInput
@@ -24936,10 +24980,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
@@ -25220,10 +25265,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutBuyerInput
     reviews?: ReviewCreateNestedManyWithoutBuyerInput
@@ -25240,10 +25286,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
@@ -25325,10 +25372,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUpdateManyWithoutBuyerNestedInput
@@ -25345,10 +25393,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput
@@ -25420,10 +25469,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutBuyerInput
     reviews?: ReviewCreateNestedManyWithoutBuyerInput
@@ -25440,10 +25490,11 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     isActive?: boolean
-    emailVerified?: boolean
     lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutBuyerInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutBuyerInput
@@ -25531,10 +25582,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUpdateManyWithoutBuyerNestedInput
@@ -25551,10 +25603,11 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutBuyerNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutBuyerNestedInput

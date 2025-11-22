@@ -61,23 +61,42 @@
 
             <div class="form-group">
                 <label for="images">Imagens do Produto (até 5)</label>
-                <input type="file" id="images" name="images" class="form-control" multiple accept="image/*">
-                <small>Selecione novas imagens para substituir as antigas.</small>
-            </div>
 
-            <div class="form-group">
-                <label class="checkbox-label">
-                    <input type="checkbox" name="isActive" <%= product.isActive ? 'checked' : '' %>>
-                    Produto Ativo (visível para compradores)
-                </label>    
+                <% if (product.images && product.images.length > 0) { %>
+                    <div class="current-images-preview">
+                        <p style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--color-text-muted);">Imagens atuais:</p>
+                        <div class="image-thumbnails">
+                            <% product.images.forEach(image => { %>
+                                <img src="<%= image.url %>" alt="Imagem atual de <%= product.name %>" class="thumbnail-preview">
+                            <% }) %>
+                        </div>
+                    </div>
+                <% } %>
+                
+                <input type="file" id="images" name="images" class="form-control" multiple accept="image/*">
+                <small class="form-text">
+                    <strong>Atenção:</strong> Enviar novas imagens irá <strong>substituir todas</strong> as imagens atuais. Deixe em branco para mantê-las.
+                </small>
             </div>
 
             <div class="form-group">
                 <label for="manual">Manual Técnico (PDF)</label>
-                <input type="file" id="manual" name="manual" class="form-control" accept=".pdf">
+
                 <% if (product.technicalManualUrl) { %>
-                    <small>Arquivo atual: <a href="<%= product.technicalManualUrl %>" target="_blank">Ver Manual</a></small>
+                    <div class="current-manual-link">
+                        <p>Manual atual: <a href="<%= product.technicalManualUrl %>" target="_blank">Ver Manual</a></p>
+                    </div>
                 <% } %>
+                
+                <input type="file" id="manual" name="manual" class="form-control" accept=".pdf">
+                <small class="form-text">Deixe em branco para manter o manual atual.</small>
+            </div>
+            
+                        <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="isActive" <%= product.isActive ? 'checked' : '' %>>
+                    Produto Ativo (visível para compradores)
+                </label>    
             </div>
 
             <div class="form-actions">

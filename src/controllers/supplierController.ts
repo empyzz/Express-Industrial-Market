@@ -150,3 +150,37 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
 };
 
 
+export const getReviewsPage = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const companyId = res.locals.user?.company?.id;
+
+        if (!companyId) {
+            req.flash('error_msg', 'Empresa não encontrada.');
+            return res.redirect('/supplier/dashboard');
+        }
+        
+        const reviews = await prisma.review.findMany({
+            where: { companyId: companyId },
+            orderBy: { createdAt: 'desc' },
+            include: {
+                buyer: {
+                    select: { name: true }
+                },
+                product: {
+                    select: { name: true, id: true }
+                }
+            }
+        });
+
+        res.render('supplier/reviews', {
+            title: 'Minhas Avaliações',
+            layout: 'layout/dashboard',
+            reviews: reviews,
+            currentUrl: req.path
+        });
+
+    } catch (error) {
+        console.error("Erro ao carregar página de avaliações:", error);
+        next(error);
+    }
+};

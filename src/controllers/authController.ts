@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { prisma } from "../lib/prisma";
-
+import { randomBytes } from 'crypto';
+import mailer from '../config/mailer';
 
 // Login controller
 
@@ -102,7 +103,6 @@ export const PostRegister = async (req: Request, res: Response) => {
         phone,
         userType,
         lastLogin: new Date(),
-        emailVerified: false,
         isActive: true,
       },
     });
@@ -214,5 +214,137 @@ export const postCompleteProfile = async (req: Request, res: Response) => {
         console.error("Erro ao criar empresa:", error);
         req.flash('error_msg', 'Ocorreu um erro ao salvar os dados da sua empresa. Tente novamente.');
         res.redirect('/auth/complete-profile');
+    }
+};
+
+
+export const getForgotPasswordForm = (req: Request, res: Response) => {
+    res.render('auth/forgot-password', {
+        title: 'Recuperar Senha',
+        layout: false
+    });
+};
+
+
+export const handleForgotPassword = async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+        const user = await prisma.user.findUnique({ where: { email } });
+
+        if (!user) {
+            req.flash('success_msg', 'Se um usuário com este e-mail existir, um link de recuperação foi enviado.');
+            return res.redirect('/auth/forgot-password');
+        }
+
+        const resetToken = randomBytes(20).toString('hex');
+        const resetPasswordExpires = new Date(Date.now() + 3600000);
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                resetPasswordToken: resetToken,
+                resetPasswordExpires: resetPasswordExpires
+            }
+        });
+
+        const resetUrl = `http://${req.headers.host}/auth/reset-password/${resetToken}`;
+
+        await mailer.sendMail({
+            to: user.email,
+            from: 'nao-responda@marketplace.com',
+            subject: 'Recuperação de Senha - Marketplace Industrial',
+            html: `
+                <p>Você solicitou a redefinição de senha para sua conta no Marketplace Industrial.</p>
+                <p>Clique no link a seguir para criar uma nova senha:</p>
+                <a href="${resetUrl}">${resetUrl}</a>
+                <p>Se você não solicitou isso, por favor, ignore este e-mail.</p>
+            `
+        } );
+
+        req.flash('success_msg', 'Um link de recuperação foi enviado para o seu e-mail.');
+        res.redirect('/auth/forgot-password');
+
+    } catch (error) {
+        req.flash('error_msg', 'Ocorreu um erro' + error);;
+    }
+};
+
+
+export const getResetPasswordForm = async (req: Request, res: Response) => {
+    try {
+        const { token } = req.params;
+    
+        if (token == null){
+          console.log("Something went wrong");
+          return ("/auth")
+        }
+
+        const user = await prisma.user.findFirst({
+            where: {
+                resetPasswordToken: token,
+                resetPasswordExpires: { gt: new Date() }
+            }
+        });
+
+        if (!user) {
+            req.flash('error_msg', 'O link de recuperação de senha é inválido ou expirou.');
+            return res.redirect('/auth/forgot-password');
+        }
+
+        res.render('auth/reset-password', {
+            title: 'Redefinir Senha',
+            layout: false
+        });
+
+    } catch (error) {
+        req.flash('error_msg', 'Ocorreu um erro' + error);;
+    }
+};
+
+
+export const handleResetPassword = async (req: Request, res: Response) => {
+    try {
+        const { token } = req.params;
+        const { password, confirmPassword } = req.body;
+
+        if (token == null){
+          console.log("Something went wrong");
+          return ("/auth")
+        }
+
+        const user = await prisma.user.findFirst({
+            where: {
+                resetPasswordToken: token,
+                resetPasswordExpires: { gt: new Date() }
+            }
+        });
+
+        if (!user) {
+            req.flash('error_msg', 'O link de recuperação de senha é inválido ou expirou.');
+            return res.redirect('/auth/forgot-password');
+        }
+
+        if (password !== confirmPassword) {
+            req.flash('error_msg', 'As senhas não coincidem.');
+            return res.redirect('back');
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                password: hashedPassword,
+                resetPasswordToken: null,
+                resetPasswordExpires: null
+            }
+        });
+
+        req.flash('success_msg', 'Sua senha foi redefinida com sucesso! Você já pode fazer login.');
+        res.redirect('/auth/login');
+
+    } catch (error) {
+        req.flash('error_msg', 'Ocorreu um erro' + error);;
     }
 };

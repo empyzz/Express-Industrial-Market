@@ -19,7 +19,7 @@
                 </a>
             </div>
         <nav class="sidebar__menu">
-            <a href="/supplier/dashboard" class="<%= currentPath === '/supplier/dashboard' ? 'active' : '' %>">
+            <a href="/supplier/dashboard" class="<%= currentPath.startsWith('/supplier/dashboard') ? 'active' : '' %>">
                 <i class="fa-solid fa-table-columns"></i> Dashboard</a>
 
             <a href="/supplier/products" class="<%= currentPath.startsWith('/supplier/products') ? 'active' : '' %>">

@@ -130,10 +130,11 @@ exports.Prisma.UserScalarFieldEnum = {
   phone: 'phone',
   avatar: 'avatar',
   isActive: 'isActive',
-  emailVerified: 'emailVerified',
   lastLogin: 'lastLogin',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  resetPasswordToken: 'resetPasswordToken',
+  resetPasswordExpires: 'resetPasswordExpires'
 };
 
 exports.Prisma.CompanyScalarFieldEnum = {

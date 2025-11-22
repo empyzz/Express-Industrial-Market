@@ -21,6 +21,15 @@
             <p class="product-category"><%= product.category.name %></p>
             <h1 class="product-title"><%= product.name %></h1>
             
+               <% if (product.technicalManualUrl) { %>
+                <div class="product-manual-section">
+                    <a href="<%= product.technicalManualUrl %>" target="_blank" class="btn btn--secondary btn--icon">
+                        <i class="fas fa-file-pdf"></i> Baixar Manual Técnico
+                    </a>
+                    <p class="manual-info">Documento em formato PDF com especificações detalhadas do produto.</p>
+                </div>
+            <% } %>
+
             <div class="product-price-stock">
                 <span class="price">R$ <%= product.price.toFixed(2).replace('.', ',') %></span>
                 <% if (product.stockQuantity > 0) { %>
@@ -32,7 +41,7 @@
                         <i class="fa-solid fa-times-circle"></i> Fora de Estoque
                     </span>
                 <% } %>
-            </div>
+            </div>  
 
             <div class="product-description">
                 <h4>Descrição</h4>

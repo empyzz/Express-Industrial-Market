@@ -655,3 +655,25 @@ img {
     color: var(--color-accent);
     font-weight: 600;
 }
+
+/* Estilo para o botão de download do manual */
+.product-manual-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+}
+
+.product-manual-section .btn--secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.product-manual-section .manual-info {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
