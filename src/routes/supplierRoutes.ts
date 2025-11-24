@@ -18,10 +18,11 @@ router.get("/products", productController.GetProduts);
 
 // CRUD Products
 router.get("/products/new", productController.getCreateProdutc);
+
 router.post(
-    "/products", 
-    upload.fields([{ name: 'images', maxCount: 5 }, { name: 'manual', maxCount: 1 }]),
-    validateCreateProduct,
+    "/products",
+    upload.fields([{ name: 'images', maxCount: 5 }, { name: 'manual', maxCount: 1 }]), 
+    validateCreateProduct, 
     productController.createProduct
 );
 

@@ -80,39 +80,53 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
             categoryId,
             unit,
             ncm,
-            imageUrls
         } = req.body;
+
+        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+        const images = files?.images || [];
+        const manual = files?.manual?.[0]; // 👈 PDF manual
+
+        if (images.length === 0) {
+            req.flash('error_msg', 'Pelo menos uma imagem do produto é obrigatória.');
+            return res.redirect('/supplier/products/new');
+        }
 
         const baseSlug = slugify(name, { lower: true, strict: true });
         const randomSuffix = randomBytes(4).toString('hex');
         const slug = `${baseSlug}-${randomSuffix}`;
+
+        const productImagesData: Prisma.ProductImageCreateWithoutProductInput[] =
+            images.map((file, index) => ({
+                url: `/uploads/images/${file.filename}`,
+                order: index,
+                isPrimary: index === 0
+            }));
 
         const newProduct = await prisma.product.create({
             data: {
                 name,
                 slug,
                 description,
-                price,
-                stockQuantity,
+                price: parseFloat(price),
+                stockQuantity: parseInt(stockQuantity, 10),
                 unit,
                 ncm: ncm || null,
                 isActive: true,
-                supplier: {
-                    connect: { id: companyId }
-                },
-                category: {
-                    connect: { id: categoryId }
-                },
+
+                supplier: { connect: { id: companyId } },
+                category: { connect: { id: categoryId } },
+
                 images: {
-                    create: imageUrls.split(',').map((url: string, index: number) => ({
-                        url: url.trim(),
-                        order: index,
-                        isPrimary: index === 0
-                    }))
-                }
+                    create: productImagesData
+                },
+
+                technicalManualUrl: manual
+                    ? `/uploads/manuals/${manual.filename}`
+                    : null
             }
         });
-        
+
         req.flash('success_msg', `Produto "${newProduct.name}" criado com sucesso!`);
         res.redirect('/supplier/products');
 
@@ -121,6 +135,8 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+
 
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {

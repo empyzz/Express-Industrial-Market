@@ -1,6 +1,7 @@
-import { body } from 'express-validator';
+import { body, check } from 'express-validator';
 import { handleValidationErrors } from "../middleware/authMiddleware";
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+
 
 const baseProductValidation = [
     body('name')
@@ -30,17 +31,22 @@ const baseProductValidation = [
 
 
 export const validateCreateProduct = [
-    ...baseProductValidation, 
-    
-    body('images').custom((value, { req }) => {
-        if (!req.files || !('images' in req.files) || req.files.images.length === 0) {
-            throw new Error('Pelo menos uma imagem do produto é obrigatória.');
-        }
-        return true;
-    }),
+    ...baseProductValidation,
 
-    handleValidationErrors("/supplier/products/new"),
+    (req: Request, res: Response, next: NextFunction) => { 
+        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+        
+        if (!files || !files.images || files.images.length === 0) {
+            req.flash('error_msg', 'Pelo menos uma imagem do produto é obrigatória.');
+            return res.redirect('/supplier/products/new');
+        }
+        
+        next();
+    },
+
+    handleValidationErrors("/supplier/products/new"), 
 ];
+
 
 export const validateUpdateProduct = [
     ...baseProductValidation,

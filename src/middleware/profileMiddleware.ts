@@ -6,7 +6,7 @@ export const checkProfileOwnership = (req: Request, res: Response, next: NextFun
     const loggedInUserId = res.locals.user?.id;
     const loggedInUserCompanyId = res.locals.user?.company?.id;
 
-    // Assume que não é o dono por padrão
+
     res.locals.isOwner = false;
 
     if (loggedInUserCompanyId && id === loggedInUserCompanyId) {
