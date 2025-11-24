@@ -16,6 +16,7 @@ router.get("/dashboard", buyerController.getDashboard);
 // Buyer Profile | Update Profile
 router.get("/profile", buyerController.getProfilePage);
 router.post("/profile", upload.single('avatar'), buyerController.updateProfile);
+router.post("/profile/delete", buyerController.deleteUserController);
 
 // Cart | Add Items | Delete Cart | Send Order to Supplier
 router.post("/cart/items", cartController.addOrUpdateCartItem);

@@ -11,7 +11,8 @@ const subfolderMap: { [key:string]: string } = {
     'image/webp': 'images',
     'application/pdf': 'manuals'
 };
-// Define onde e como os arquivos serão armazenados
+
+
 const uploadBaseDir = path.join("src", 'public', 'uploads');
 
 const storage = multer.diskStorage({
@@ -23,7 +24,6 @@ const storage = multer.diskStorage({
 
         const destinationPath = path.join(uploadBaseDir, subfolder);
 
-        // Garante que a pasta de destino exista
         fs.mkdirSync(destinationPath, { recursive: true });
 
         cb(null, destinationPath);
@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
     }
 });
 
-// Filtro para aceitar apenas os tipos de arquivo mapeados
+
 const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
     if (subfolderMap[file.mimetype]) {
         cb(null, true);

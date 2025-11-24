@@ -1,6 +1,4 @@
-    <!-- STATS -->
     <main>
-        <!-- Seção Hero -->
         <section class="hero">
             <div class="container">
                 <h1 class="hero__title">O Ponto de Encontro da Indústria</h1>
@@ -9,9 +7,6 @@
             </div>
         </section>
 
-
-
-        <!-- Seção de Estatísticas -->
         <section class="section">
             <div class="container">
                 <div class="stats-grid">
@@ -32,16 +27,13 @@
         </section>
 
 
-        <!-- Seção de Produtos em Destaque -->
         <section class="section">
             <div class="container">
                 <h2 class="section__title">Produtos em Destaque</h2>
 
-                <!-- Verificamos se a lista de produtos não está vazia -->
                 <% if (typeof products !== 'undefined' && products.length > 0) { %>
                     <div class="products-grid">
-                        
-                        <!-- Loop para renderizar cada card de produto -->
+
                         <% products.forEach(product => { %>
                             <div class="product-card">
                                 <a href="/catalog/products/<%= product.id %>" class="product-card__image">
@@ -60,7 +52,6 @@
 
                     </div>
                 <% } else { %>
-                    <!-- Mensagem exibida se nenhum produto for encontrado -->
                     <div class="empty-state" style="text-align: center; padding: 2rem;">
                         <p>Nenhum produto em destaque no momento.</p>
                     </div>

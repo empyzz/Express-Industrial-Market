@@ -46,6 +46,8 @@ router.put(
     supplierController.updateProfile
 );
 
+router.post('/profile/delete', supplierController.deleteCompanyController); 
+
 // Control Order Status
 router.get("/orders/:orderId", supplierController.getOrderDetail);
 router.post("/orders/:orderId/confirm", supplierController.confirmOrder);

@@ -235,7 +235,6 @@ export const createOrdersFromCart = async (req: Request, res: Response, next: Ne
                     data: {
                         orderNumber: `PED-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`,
                         totalAmount: totalAmount,
-                        paymentMethod: 'A_PRAZO',
                         status: 'PENDING',
                         buyerId: userId,
                         supplierId: supplierId,

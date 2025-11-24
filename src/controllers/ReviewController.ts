@@ -120,7 +120,7 @@ export const createReview = async (req: Request, res: Response, next: NextFuncti
                 }
             });
 
-            // 2. Recalcula e atualiza as estatísticas da EMPRESA
+
             const companyStats = await tx.review.aggregate({
                 where: { companyId: orderItem.order.supplierId, isApproved: true },
                 _avg: { rating: true },

@@ -9,14 +9,12 @@
                 Preencha os dados abaixo para começar a vender na plataforma.
             </p>
 
-            <!-- Exibir mensagens de erro, se houver -->
             <% if (typeof error_msg !== 'undefined' && error_msg.length > 0) { %>
                 <div class="alert alert--error"><%= error_msg %></div>
             <% } %>
 
             <form action="/auth/complete-profile" method="POST">
-                
-                <!-- Razão Social e Nome Fantasia -->
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="razaoSocial">Razão Social</label>
@@ -28,7 +26,6 @@
                     </div>
                 </div>
 
-                <!-- CNPJ e Inscrição Estadual -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cnpj">CNPJ</label>
@@ -40,7 +37,6 @@
                     </div>
                 </div>
 
-                <!-- Contato da Empresa -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="companyPhone">Telefone Comercial</label>
@@ -52,7 +48,6 @@
                     </div>
                 </div>
 
-                <!-- Endereço - CEP e Rua -->
                 <div class="form-row">
                     <div class="form-group" style="flex-basis: 30%;">
                         <label for="cep">CEP</label>
@@ -64,7 +59,6 @@
                     </div>
                 </div>
 
-                <!-- Endereço - Número, Complemento e Bairro -->
                 <div class="form-row">
                     <div class="form-group" style="flex-basis: 25%;">
                         <label for="number">Número</label>
@@ -80,7 +74,6 @@
                     </div>
                 </div>
 
-                <!-- Endereço - Cidade e Estado -->
                 <div class="form-row">
                     <div class="form-group" style="flex-basis: 70%;">
                         <label for="city">Cidade</label>
@@ -92,7 +85,6 @@
                     </div>
                 </div>
 
-                <!-- Botão de Envio -->
                 <button type="submit" class="btn btn--primary btn--full-width" style="margin-top: 1rem;">
                     Salvar e Continuar
                 </button>

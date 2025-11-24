@@ -82,7 +82,7 @@ model Product {
 
   supplier      Company   @relation(fields: [supplierId], references: [id], onDelete: Cascade)
   supplierId    String
-  category      Category  @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  category      Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId    String
   images        ProductImage[]
   orderItems    OrderItem[]

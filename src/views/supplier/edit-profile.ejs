@@ -99,5 +99,26 @@
                 </button>
             </div>
         </form>
+
+            <section class="dashboard-section danger-zone">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-triangle-exclamation"></i> Excluir Conta</h2>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <p style="margin-bottom: 1.5rem; color: var(--color-danger);">
+                        A exclusão da sua conta é uma ação permanente e não pode ser desfeita. 
+                        Todos os seus dados de comprador, histórico de pedidos e avaliações serão removidos.
+                    </p>
+                    <form id="delete-user-form" action="/supplier/profile/delete" method="POST">
+                        <button type="submit" class="btn btn--danger" onclick="return confirmDelete()">Excluir Minha Conta</button>
+                    </form>
+                </div>
+            </section>
     </div>
 </section>
+
+<script>
+    function confirmDelete() {
+        return confirm("ATENÇÃO: Você tem certeza que deseja excluir sua conta? Esta ação é irreversível e todos os seus dados serão perdidos.");
+    }
+</script>

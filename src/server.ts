@@ -7,7 +7,6 @@ import session from "express-session";
 const flash = require("connect-flash");
 import { PrismaClient } from "../prisma/.prisma/generated";
 
-
 // Routes
 import { loadUser } from "./middleware/authMiddleware";
 import authRoutes from "./routes/authRoutes";
@@ -28,7 +27,6 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
 
 // Set EJS as template engine
 app.set("view engine", "ejs");
@@ -73,8 +71,6 @@ app.use("/auth", authRoutes);
 app.use("/buyer", buyerRoutes);
 app.use("/supplier", supplierRoutes);
 app.use("/catalog", catalogRoutes)
-
-
 
 const PORT = 3000;
 

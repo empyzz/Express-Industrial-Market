@@ -1,11 +1,9 @@
-/* public/css/product-detail.css */
-
 .product-page-container {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
     display: grid;
-    grid-template-columns: 1fr 320px; /* Conteúdo principal e sidebar */
+    grid-template-columns: 1fr 320px;
     gap: 2.5rem;
 }
 
@@ -15,7 +13,6 @@
     gap: 2rem;
 }
 
-/* --- Galeria de Imagens --- */
 .product-gallery {
     display: flex;
     flex-direction: column;
@@ -54,7 +51,7 @@
     border-color: var(--color-primary);
 }
 
-/* --- Detalhes do Produto --- */
+
 .product-details .product-category {
     color: var(--color-text-muted);
     font-weight: 600;
@@ -116,7 +113,6 @@
     padding: 0.75rem;
 }
 
-/* --- Sidebar do Fornecedor --- */
 .product-sidebar .supplier-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);

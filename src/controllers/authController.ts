@@ -44,7 +44,6 @@ export const PostLogin = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // 3. Save session
     req.session.user = {
       id: user.id,
       email: user.email,

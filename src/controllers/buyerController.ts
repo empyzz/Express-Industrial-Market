@@ -78,3 +78,39 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+
+export const deleteUserController = async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user?.id; 
+
+    if (!userId) {
+        req.flash('error_msg', 'Usuário não autenticado.');
+        return res.redirect('/auth/login');
+    }
+
+    try {
+        const company = await prisma.company.findUnique({
+            where: { userId: userId },
+            select: { id: true }
+        });
+        if (company) {
+            await prisma.company.delete({
+                where: { id: company.id }
+            });
+        }
+        await prisma.user.delete({
+            where: { id: userId }
+        });
+
+        req.flash('success_msg', 'Sua conta foi excluída com sucesso.');
+        req.session.destroy((err) => {
+            if (err) return next(err);
+            res.redirect('/');
+        });
+
+    } catch (error) {
+        console.error("Erro ao excluir usuário:", error);
+        req.flash('error_msg', 'Erro ao excluir a conta. Verifique se há pedidos ou avaliações pendentes que impedem a exclusão.');
+        res.redirect('/user/profile');
+    }
+};

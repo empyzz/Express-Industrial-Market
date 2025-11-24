@@ -37,7 +37,7 @@ export const getDashboard = async (req: Request, res: Response, next: NextFuncti
             }),
             prisma.order.aggregate({
                 _sum: { totalAmount: true },
-                where: { supplierId: companyId, paymentStatus: 'APPROVED' }
+                where: { supplierId: companyId }
             })
         ]);
 
@@ -182,5 +182,36 @@ export const getReviewsPage = async (req: Request, res: Response, next: NextFunc
     } catch (error) {
         console.error("Erro ao carregar página de avaliações:", error);
         next(error);
+    }
+};
+
+
+export const deleteCompanyController = async (req: Request, res: Response, next: NextFunction) => {
+    const companyId = res.locals.user?.company?.id;
+    const userId =  res.locals.user?.id
+
+    if (!companyId || userId == null) {
+        req.flash('error_msg', 'Você não tem uma loja associada para excluir.');
+        return res.redirect('/supplier/register');
+    }
+
+    try {
+        await prisma.company.delete({
+            where: { id: companyId }
+        });
+
+        await prisma.user.update({
+            where: { id: userId },
+            data: { company: { disconnect: true } }
+        });
+
+
+        req.flash('success_msg', 'Sua loja foi excluída com sucesso.');
+        res.redirect('/supplier/register');
+
+    } catch (error) {
+        console.error("Erro ao excluir companhia:", error);
+        req.flash('error_msg', 'Erro ao excluir a loja. Verifique se há dados relacionados (como pedidos em aberto) que impedem a exclusão.');
+        res.redirect('/supplier/profile/edit');
     }
 };
